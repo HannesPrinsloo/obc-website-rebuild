@@ -1,0 +1,432 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Carousel from "../components/react/Carousel";
+import SpecialsBanner from "../components/sections/SpecialsBanner.astro";
+import { getImage, Image } from "astro:assets";
+import { generateLqip } from "../utils/lqip";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+// ── Section images ────────────────────────────────────────────────────────────
+import bTopLeft from "../assets/images/butchery-images/top_left_large.webp";
+import bMidRight from "../assets/images/butchery-images/mid_right_large.webp";
+import bMidSmall from "../assets/images/butchery-images/mid_right_small.webp";
+import bSteak from "../assets/images/butchery-images/mid_left_small.webp";
+import bBottomLeft from "../assets/images/butchery-images/bottom_left_large.webp";
+import pattern from "../assets/textures_and_borders/pattern.webp";
+
+// ── Carousel – static imports ─────────────────────────────────────────────────
+import b1 from "../assets/images/butchery-carousel/desktop/butchery1.webp";
+import b2 from "../assets/images/butchery-carousel/desktop/butchery2.webp";
+import b3 from "../assets/images/butchery-carousel/desktop/butchery3.webp";
+import b4 from "../assets/images/butchery-carousel/desktop/butchery4.webp";
+import b5 from "../assets/images/butchery-carousel/desktop/butchery5.webp";
+
+import b1m from "../assets/images/butchery-carousel/mobile/butchery1-mobile.webp";
+import b2m from "../assets/images/butchery-carousel/mobile/butchery2-mobile.webp";
+import b3m from "../assets/images/butchery-carousel/mobile/butchery3-mobile.webp";
+import b4m from "../assets/images/butchery-carousel/mobile/butchery4-mobile.webp";
+import b5m from "../assets/images/butchery-carousel/mobile/butchery5-mobile.webp";
+
+// ── Carousel – Astro image pipeline ──────────────────────────────────────────
+const [img1, img2, img3, img4, img5, mob1, mob2, mob3, mob4, mob5] =
+  await Promise.all([
+    getImage({ src: b1, format: "webp" }),
+    getImage({ src: b2, format: "webp" }),
+    getImage({ src: b3, format: "webp" }),
+    getImage({ src: b4, format: "webp" }),
+    getImage({ src: b5, format: "webp" }),
+    getImage({ src: b1m, format: "webp" }),
+    getImage({ src: b2m, format: "webp" }),
+    getImage({ src: b3m, format: "webp" }),
+    getImage({ src: b4m, format: "webp" }),
+    getImage({ src: b5m, format: "webp" }),
+  ]);
+
+// ── LQIP placeholders ─────────────────────────────────────────────────────────
+const [lqipDesktop, lqipMobile] = await Promise.all([
+  generateLqip(
+    await readFile(
+      join(
+        process.cwd(),
+        "src/assets/images/butchery-carousel/desktop/butchery1.webp",
+      ),
+    ),
+  ),
+  generateLqip(
+    await readFile(
+      join(
+        process.cwd(),
+        "src/assets/images/butchery-carousel/mobile/butchery1-mobile.webp",
+      ),
+    ),
+  ),
+]);
+
+const butcheryCarouselImages = [
+  {
+    src: img1.src,
+    lqip: lqipDesktop,
+    mobileSrc: mob1.src,
+    mobileLqip: lqipMobile,
+    alt: "OBC Butchery",
+  },
+  {
+    src: img2.src,
+    lqip: lqipDesktop,
+    mobileSrc: mob2.src,
+    alt: "OBC Butchery",
+  },
+  {
+    src: img3.src,
+    lqip: lqipDesktop,
+    mobileSrc: mob3.src,
+    alt: "OBC Butchery",
+  },
+  {
+    src: img4.src,
+    lqip: lqipDesktop,
+    mobileSrc: mob4.src,
+    alt: "OBC Butchery",
+  },
+  {
+    src: img5.src,
+    lqip: lqipDesktop,
+    mobileSrc: mob5.src,
+    alt: "OBC Butchery",
+  },
+];
+---
+
+<BaseLayout
+  title="Butchery"
+  description="OBC Better Butchery — quality meats at unbeatable value. Fresh cuts, affordable prices, 95+ stores nationwide."
+>
+  <!-- ── Sticky Carousel ──────────────────────────────────────────────────── -->
+  <div class="sticky top-0 w-full z-0">
+    <Carousel client:load images={butcheryCarouselImages} />
+  </div>
+
+  <!-- ── Content layer (scrolls over the pinned carousel) ────────────────── -->
+  <div class="relative z-20 bg-brand-bg">
+    <!-- Divider: tribal pattern + orange paint stroke -->
+    <div class="w-full overflow-hidden leading-none">
+      <Image
+        src={pattern}
+        alt=""
+        aria-hidden="true"
+        class="w-full h-auto block"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Specials Banner -->
+    <SpecialsBanner />
+
+    <!-- ── Main Content ──────────────────────────────────────────────────── -->
+    <section id="butchery-content" class="w-full bg-brand-bg">
+      <div class="max-w-7xl mx-auto py-16 px-6 md:px-12 lg:px-16">
+        <!-- Section heading — left-aligned, matching original -->
+        <div class="mb-14 md:mb-20">
+          <p
+            class="text-brand-dark uppercase tracking-[0.2em] text-sm font-sans heading-small font-semibold mb-3"
+          >
+            Butchery
+          </p>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-brand-dark leading-tight"
+          >
+            Quality, Fresh<br />&amp; your better choice
+          </h1>
+        </div>
+
+        <!-- ── Row 1: Image Left (circle + tilted steak), Text Right ────── -->
+        <div
+          class="flex flex-col md:flex-row items-center gap-10 md:gap-16 mb-24 md:mb-32"
+        >
+          <!-- Left: large circle with overlapping tilted steak cutout -->
+          <div
+            class="w-full md:w-1/2 relative flex justify-center md:justify-start"
+          >
+            <!-- Large circle -->
+            <div class="relative w-full max-w-[460px]">
+              <div
+                class="aspect-square rounded-full overflow-hidden zoom-circle"
+              >
+                <Image
+                  src={bTopLeft}
+                  alt="OBC Better Butchery interior — Your Champion Butcher signage"
+                  class="zoom-circle-img w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Tilted steak image — overlaps bottom-right of the circle -->
+              <div
+                class="absolute -bottom-8 -right-6 md:-right-12 w-48 md:w-64 lg:w-72 drop-shadow-2xl overflow:hidden pointer-events-none"
+                id="parallax-steak"
+              >
+                <Image
+                  src={bSteak}
+                  alt="Fresh steak cut on wooden board"
+                  class="w-full h-auto"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: text -->
+          <div
+            class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pl-8 lg:pl-12"
+          >
+            <p>
+              Welcome to OBC Better Butchery, where quality meats meet
+              unbeatable value! We are grateful as a group that we will finish
+              2025 with 95 stores, and counting, nationwide. Our stores are
+              strategically located in convenient locations across South Africa,
+              and we're committed to bringing affordable, high-quality meats
+              closer to you. Catering to the lower market, we understand the
+              importance of accessibility and affordability without sacrificing
+              quality.
+            </p>
+            <p>
+              Our expert butchers take pride in selecting and preparing the
+              finest cuts of meat, poultry, and fish, ensuring that every bite
+              is a culinary delight. Whether you're planning a family feast or a
+              quick weeknight dinner, you can trust us to provide the freshest
+              ingredients at prices that won't stretch your budget.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Row 2: Text Left, Two Overlapping Circles Right ──────────── -->
+        <div
+          class="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 mb-24 md:mb-32"
+        >
+          <!-- Left: text -->
+          <div
+            class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pr-8 lg:pr-12"
+          >
+            <p>
+              But we're not just a butchery — many of our stores, including our
+              larger superstores spanning over 1000 m², offer a wide range of
+              products beyond meat, including fresh fruits &amp; vegetables,
+              household essentials, bakery treats, and more. From everyday
+              groceries to specialty items, we've got everything you need under
+              one roof, making shopping convenient and hassle-free.
+            </p>
+            <p>
+              In addition to our everyday low prices, we're proud to offer
+              monthly specials across all our stores, as well as promotions
+              throughout the month, helping you save even more on your favorite
+              products. Plus, we're constantly working on improving your
+              shopping experience, whether it's through enhanced customer
+              service, expanded product offerings, or innovative store designs.
+            </p>
+          </div>
+
+          <!-- Right: two overlapping circles -->
+          <div
+            class="w-full md:w-1/2 relative flex justify-center md:justify-end"
+          >
+            <div class="relative w-full max-w-[460px]">
+              <!-- Large circle — red meat counter -->
+              <div
+                class="aspect-square rounded-full overflow-hidden zoom-circle"
+              >
+                <Image
+                  src={bMidRight}
+                  alt="OBC red meat counter display"
+                  class="zoom-circle-img w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Overlapping smaller circle — chicken pieces -->
+              <div
+                class="absolute -bottom-10 -left-6 md:-left-10 w-44 md:w-56 aspect-square rounded-full overflow-hidden"
+                id="parallax-chicken"
+              >
+                <Image
+                  src={bMidSmall}
+                  alt="Seasoned chicken pieces with lemon and rosemary"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Row 3: Image Left, Text Right ────────────────────────────── -->
+        <div
+          class="flex flex-col md:flex-row items-center gap-10 md:gap-16 pb-20"
+        >
+          <!-- Left: large circle — grocery/produce aisle -->
+          <div
+            class="w-full md:w-1/2 relative flex justify-center md:justify-start"
+          >
+            <div
+              class="zoom-circle w-full max-w-[460px] aspect-square rounded-full overflow-hidden"
+            >
+              <Image
+                src={bBottomLeft}
+                alt="OBC superstore fresh produce and grocery aisle"
+                class="zoom-circle-img w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Right: text -->
+          <div
+            class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pl-8 lg:pl-12"
+          >
+            <p>
+              As we continue to expand and open new locations across the
+              country, our commitment to serving our community remains
+              unwavering. We're dedicated to providing accessible, affordable
+              options to our customers, ensuring that everyone can enjoy
+              delicious, quality meals without breaking the bank.
+            </p>
+            <p class="font-bold">
+              Experience the difference with OBC — where convenience,
+              affordability, and quality come together to create a great
+              shopping experience.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Scrolling Marquee ──────────────────────────────────────────── -->
+      <div class="w-full overflow-hidden py-4 bg-brand-bg">
+        <div class="marquee-track flex gap-12 whitespace-nowrap">
+          {
+            Array.from({ length: 8 }).map(() => (
+              <span class="marquee-item inline-flex gap-12 shrink-0 text-brand-primary font-sans font-black uppercase text-3xl md:text-4xl tracking-widest">
+                <span>QUALITY</span>
+                <span>CONVENIENCE</span>
+                <span>AFFORDABILITY</span>
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- ── CTA Buttons ────────────────────────────────────────────────── -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 py-14 px-6 bg-brand-bg"
+      >
+        <a
+          id="btn-store-finder"
+          href="/store-finder"
+          class="btn-outline bg-brand-primary text-brand-light font-bold text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest"
+        >
+          Store Finder
+        </a>
+        <a
+          id="btn-join-our-team"
+          href="https://obc.co.za/wp-content/uploads/2024/06/OBC-Introduction-2024-June-LR.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-outline bg-brand-primary text-brand-light font-bold text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest"
+        >
+          Join Our Team
+        </a>
+      </div>
+
+      <!-- Bottom divider strip (mirrors the top) -->
+      <div class="w-full overflow-hidden leading-none rotate-180">
+        <Image
+          src={pattern}
+          alt=""
+          aria-hidden="true"
+          class="w-full h-auto block"
+          loading="lazy"
+        />
+      </div>
+    </section>
+  </div>
+
+  <script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function init() {
+      if (!document.querySelector("#parallax-steak")) return;
+
+      gsap.to("#parallax-steak", {
+        y: -120,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#parallax-steak",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.to("#parallax-chicken", {
+        y: -120,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#parallax-chicken",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      document.querySelectorAll(".zoom-circle").forEach((circle) => {
+        const img = circle.querySelector(".zoom-circle-img");
+        if (!img) return;
+
+        gsap.fromTo(
+          img,
+          { scale: 1.2 },
+          {
+            scale: 1.0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: circle,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
+      });
+
+      ScrollTrigger.refresh();
+    }
+
+    // ASTRO bug prevention
+    document.addEventListener("astro:before-swap", () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    });
+
+    document.addEventListener("astro:page-load", init);
+  </script>
+</BaseLayout>
+
+<style>
+  .marquee-track {
+    animation: marquee-scroll 28s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .zoom-circle-img {
+    transform: scale(1.2);
+    transform-origin: center center;
+  }
+</style>

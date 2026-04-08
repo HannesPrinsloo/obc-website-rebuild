@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlockmansDenHome from "../components/sections/BlockmansDenHome.astro";
+---
+
+<BaseLayout
+    title="Blockman's Den"
+    description="Find your better cut"
+    hideFooter={true}
+    transitionSwipe={true}
+>
+    <BlockmansDenHome />
+
+    <div class="fixed bottom-4 right-4 z-50 group pointer-events-auto">
+        <button
+            class="w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center border border-white/20 hover:bg-black/80 transition-colors tooltip-trigger"
+            aria-label="Legal and T&C"
+        >
+            i
+        </button>
+        <div
+            class="absolute bottom-full right-0 mb-2 w-max px-3 py-2 bg-white text-black text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"
+        >
+            <a
+                href="/legal"
+                class="pointer-events-auto hover:underline font-bold text-brand-primary"
+                >Legal and T's & C's</a
+            >
+        </div>
+    </div>
+</BaseLayout>

@@ -1,0 +1,432 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Carousel from "../components/react/Carousel";
+import SpecialsBanner from "../components/sections/SpecialsBanner.astro";
+import { getImage, Image } from "astro:assets";
+import { generateLqip } from "../utils/lqip";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+import liquorLeft1 from "../assets/images/liquor-images/liquor-left-1.webp";
+import liquorLeft2 from "../assets/images/liquor-images/liquor-left-2.webp";
+import liquorRight1 from "../assets/images/liquor-images/liquor-right-1.webp";
+import liquorRight2 from "../assets/images/liquor-images/liquor-right-2.webp";
+import liquorLeft3 from "../assets/images/liquor-images/liquor-left-3.webp";
+import pattern from "../assets/textures_and_borders/pattern.webp";
+
+//no mobile images for liq yet
+import l1 from "../assets/images/liquor-carousel/desktop/liquor-1.webp";
+import l2 from "../assets/images/liquor-carousel/desktop/liquor-2.webp";
+import l3 from "../assets/images/liquor-carousel/desktop/liquor-3.webp";
+import l4 from "../assets/images/liquor-carousel/desktop/liquor-4.webp";
+import l5 from "../assets/images/liquor-carousel/desktop/liquor-5.webp";
+import l6 from "../assets/images/liquor-carousel/desktop/liquor-6.webp";
+
+const [img1, img2, img3, img4, img5, img6, mob1, mob2, mob3, mob4, mob5, mob6] =
+    await Promise.all([
+        getImage({ src: l1, format: "webp" }),
+        getImage({ src: l2, format: "webp" }),
+        getImage({ src: l3, format: "webp" }),
+        getImage({ src: l4, format: "webp" }),
+        getImage({ src: l5, format: "webp" }),
+        getImage({ src: l6, format: "webp" }),
+        getImage({ src: l1, format: "webp", width: 480, height: 640 }),
+        getImage({ src: l2, format: "webp", width: 480, height: 640 }),
+        getImage({ src: l3, format: "webp", width: 480, height: 640 }),
+        getImage({ src: l4, format: "webp", width: 480, height: 640 }),
+        getImage({ src: l5, format: "webp", width: 480, height: 640 }),
+        getImage({ src: l6, format: "webp", width: 480, height: 640 }),
+    ]);
+
+const [lqipDesktop] = await Promise.all([
+    //removed lqipMobile for now
+    generateLqip(
+        await readFile(
+            join(
+                process.cwd(),
+                "src/assets/images/liquor-carousel/desktop/liquor-1.webp",
+            ),
+        ),
+    ),
+    // No mobile images for liquor yet
+    // generateLqip(
+    //     await readFile(
+    //         join(
+    //             process.cwd(),
+    //             "src/assets/images/butchery-carousel/mobile/butchery1-mobile.webp",
+    //         ),
+    //     ),
+    // ),
+]);
+
+const liquorCarouselImages = [
+    {
+        src: img1.src,
+        lqip: lqipDesktop,
+        mobileSrc: mob1.src,
+        mobileLqip: "",
+        alt: "OBC Liquor",
+    },
+    {
+        src: img2.src,
+        lqip: lqipDesktop,
+        mobileSrc: mob2.src,
+        alt: "OBC Liquor",
+    },
+    {
+        src: img3.src,
+        lqip: lqipDesktop,
+        mobileSrc: mob3.src,
+        alt: "OBC Liquor",
+    },
+    {
+        src: img4.src,
+        lqip: lqipDesktop,
+        mobileSrc: mob4.src,
+        alt: "OBC Liquor",
+    },
+    {
+        src: img5.src,
+        lqip: lqipDesktop,
+        mobileSrc: mob5.src,
+        alt: "OBC Liquor",
+    },
+    {
+        src: img6.src,
+        lqip: lqipDesktop,
+        mobileSrc: mob6.src,
+        alt: "OBC Liquor",
+    },
+];
+---
+
+<BaseLayout
+    title="Liquor"
+    description="OBC Liquor - at select OBC Better Butchery stores you can get your favourite beers, wines and spirits at unbeatable value."
+>
+    <div class="sticky top-0 w-full z-0">
+        <Carousel client:load images={liquorCarouselImages} />
+    </div>
+
+    <div class="relative z-20 bg-brand-bg">
+        <div class="w-full overflow-hidden leading-none">
+            <Image
+                src={pattern}
+                alt=""
+                aria-hidden="true"
+                class="w-full h-auto block"
+                loading="eager"
+            />
+        </div>
+
+        <!-- Specials Banner -->
+        <SpecialsBanner />
+
+        <!--Main Content -->
+        <section id="liquor-content" class="w-full bg-brand-bg">
+            <div class="max-w-7xl mx-auto py-16 px-6 md:px-12 lg:px-16">
+                <!-- Section heading — left-aligned, matching original -->
+                <div class="mb-14 md:mb-20">
+                    <p
+                        class="text-brand-dark uppercase tracking-[0.2em] text-sm font-sans heading-small font-semibold mb-3"
+                    >
+                        liquor
+                    </p>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-brand-dark leading-tight"
+                    >
+                        Sip, savour<br />&amp; celebrate
+                    </h1>
+                </div>
+
+                <!-- Row 1: Image Left (circle + cropped whiskey bottle), Text Right -->
+                <div
+                    class="flex flex-col md:flex-row items-center gap-10 md:gap-16 mb-24 md:mb-32"
+                >
+                    <!-- Left: Wine shelf -->
+                    <div
+                        class="w-full md:w-1/2 relative flex justify-center md:justify-start"
+                    >
+                        <!-- Large circle -->
+                        <div class="relative w-full max-w-[460px]">
+                            <div
+                                class="aspect-square rounded-full overflow-hidden zoom-circle"
+                            >
+                                <Image
+                                    src={liquorLeft2}
+                                    alt="OBC Liquor Wine Shelf"
+                                    class="zoom-circle-img w-full h-full object-cover"
+                                    width={920}
+                                    height={920}
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tilted whiskey image — top left -->
+                    <div
+                        class="absolute top-100 left-0 md:-right-12 w-48 md:w-64 lg:w-72 drop-shadow-2xl overflow:hidden pointer-events-none"
+                        id="parallax-whiskey"
+                    >
+                        <Image
+                            src={liquorLeft1}
+                            alt="Whiskey bottle with glasses"
+                            class="w-full h-auto"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <!-- Right: text -->
+                    <div
+                        class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pl-8 lg:pl-12"
+                    >
+                        <p>
+                            Welcome to OBC Liquor, where our commitment to
+                            quality and value extends beyond just meats – we’re
+                            also proud to offer a selection of fine spirits
+                            through our OBC Liquor stores. With 6 conveniently
+                            located liquor stores across the nation, we’re here
+                            to cater to all your beverage needs.
+                        </p>
+                        <p>
+                            As a relatively new venture for OBC, our liquor
+                            stores have been a part of our offering for 6 years,
+                            yet they’ve quickly become a favourite among our
+                            customers. And with plans for expansion on the
+                            horizon, you can expect to see even more OBC Liquor
+                            stores popping up nationwide, bringing convenience
+                            and savings to more communities than ever before.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Row 2: Text Left, Two Overlapping Circles Right -->
+                <div
+                    class="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 mb-24 md:mb-32"
+                >
+                    <!-- Left: text -->
+                    <div
+                        class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pr-8 lg:pr-12"
+                    >
+                        <p>
+                            By utliising the buying power of the OBC group, in
+                            partnership with local suppliers, we offer
+                            unbeatable value on a wide range of beers, wines,
+                            and spirits. From popular brands to hidden gems,
+                            you'll find something to suit every taste and
+                            occasion.
+                        </p>
+                    </div>
+
+                    <!-- Right: two overlapping circles -->
+                    <div
+                        class="w-full md:w-1/2 relative flex justify-center md:justify-end"
+                    >
+                        <div class="relative w-full max-w-[460px]">
+                            <!-- Large circle — red meat counter -->
+                            <div
+                                class="aspect-square rounded-full overflow-hidden zoom-circle"
+                            >
+                                <Image
+                                    src={liquorRight1}
+                                    alt="OBC Liquor store display"
+                                    class="zoom-circle-img w-full h-full object-cover"
+                                    width={920}
+                                    height={920}
+                                    loading="lazy"
+                                />
+                            </div>
+                            <!-- Overlapping smaller circle — chicken pieces -->
+                            <div
+                                class="absolute -bottom-10 -left-6 md:-left-10 w-44 md:w-56 aspect-square rounded-full overflow-hidden"
+                                id="parallax-corkscrew"
+                            >
+                                <Image
+                                    src={liquorRight2}
+                                    alt="Decorative corkscrew"
+                                    class="w-full h-full object-cover"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Row 3: Image Left, Text Right ────────────────────────────── -->
+                <div
+                    class="flex flex-col md:flex-row items-center gap-10 md:gap-16 pb-20"
+                >
+                    <!-- Left: large circle — grocery/produce aisle -->
+                    <div
+                        class="w-full md:w-1/2 relative flex justify-center md:justify-start"
+                    >
+                        <div
+                            class="zoom-circle w-full max-w-[460px] aspect-square rounded-full overflow-hidden"
+                        >
+                            <Image
+                                src={liquorLeft3}
+                                alt="OBC Liquor store interior"
+                                class="zoom-circle-img w-full h-full object-cover"
+                                width={920}
+                                height={920}
+                                loading="lazy"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Right: text -->
+                    <div
+                        class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pl-8 lg:pl-12"
+                    >
+                        <p>
+                            But it’s not just about the products – at OBC
+                            Liquor, we’re dedicated to providing our customers
+                            with the best deals possible. Our team works
+                            tirelessly to source high-quality spirits at
+                            competitive prices, ensuring that you always get the
+                            most value for your money.
+                        </p>
+                        <p class="font-bold">
+                            Whether you’re prepping for a backyard braai with
+                            friends or planning a special event, OBC Liquor
+                            invites you to discover our diverse range of
+                            beverages. From classic favourites to unique finds.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Scrolling Marquee ──────────────────────────────────────────── -->
+            <div class="w-full overflow-hidden py-4 bg-brand-bg">
+                <div class="marquee-track flex gap-12 whitespace-nowrap">
+                    {
+                        Array.from({ length: 8 }).map(() => (
+                            <span class="marquee-item inline-flex gap-12 shrink-0 text-brand-primary font-sans font-black uppercase text-3xl md:text-4xl tracking-widest">
+                                <span>QUALITY</span>
+                                <span>CONVENIENCE</span>
+                                <span>AFFORDABILITY</span>
+                            </span>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <!-- ── CTA Buttons ────────────────────────────────────────────────── -->
+            <div
+                class="flex flex-col sm:flex-row items-center justify-center gap-4 py-14 px-6 bg-brand-bg"
+            >
+                <a
+                    id="btn-store-finder"
+                    href="/store-finder"
+                    class="btn-outline bg-brand-primary text-brand-light font-bold text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest"
+                >
+                    Store Finder
+                </a>
+                <a
+                    id="btn-join-our-team"
+                    href="https://obc.co.za/wp-content/uploads/2024/06/OBC-Introduction-2024-June-LR.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-outline bg-brand-primary text-brand-light font-bold text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest"
+                >
+                    Join Our Team
+                </a>
+            </div>
+
+            <!-- Bottom divider strip (mirrors the top) -->
+            <div class="w-full overflow-hidden leading-none rotate-180">
+                <Image
+                    src={pattern}
+                    alt=""
+                    aria-hidden="true"
+                    class="w-full h-auto block"
+                    loading="lazy"
+                />
+            </div>
+        </section>
+    </div>
+
+    <script>
+        import gsap from "gsap";
+        import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        function init() {
+            if (!document.querySelector("#parallax-whiskey")) return;
+            if (!document.querySelector("#parallax-whiskey")) return;
+
+            gsap.to("#parallax-whiskey", {
+                y: -120,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#parallax-whiskey",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
+
+            gsap.to("#parallax-corkscrew", {
+                y: -120,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#parallax-corkscrew",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
+
+            document.querySelectorAll(".zoom-circle").forEach((circle) => {
+                const img = circle.querySelector(".zoom-circle-img");
+
+                if (!img) return;
+
+                gsap.fromTo(
+                    img,
+                    { scale: 1.2 },
+                    {
+                        scale: 1.0,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: circle,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    },
+                );
+            });
+
+            ScrollTrigger.refresh();
+        }
+
+        document.addEventListener("astro:before-swap", () => {
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        });
+
+        document.addEventListener("astro:page-load", init);
+    </script>
+</BaseLayout>
+
+<style>
+    .marquee-track {
+        animation: marquee-scroll 28s linear infinite;
+        will-change: transform;
+    }
+
+    @keyframes marquee-scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .zoom-circle-img {
+        transform: scale(1.2);
+        transform-origin: center center;
+    }
+</style>

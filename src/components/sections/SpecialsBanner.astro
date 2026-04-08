@@ -1,0 +1,33 @@
+---
+let pdfUrl;
+if (Astro.url.pathname === "/butchery") {
+  pdfUrl = "/pdfs/butchery-specials.pdf";
+} else if (Astro.url.pathname === "/liquor") {
+  pdfUrl = "/pdfs/liquor-specials.pdf";
+}
+---
+
+<div class="relative w-full flex justify-center py-10 z-20 px-4">
+  <!-- Box layout -->
+  <div
+    class="bg-brand-bg border-[3px] border-brand-dark w-full max-w-4xl py-6 px-8 flex flex-col md:flex-row items-center justify-center md:gap-8 shadow-sm"
+  >
+    <h2
+      class="text-l md:text-2xl font-sans font-bold text-brand-dark tracking-[0.2em] mb-4 md:mb-0"
+    >
+      VIEW THIS MONTH'S SPECIALS
+    </h2>
+
+    <div class="flex items-center gap-4">
+      <!-- Button -->
+      <a
+        href={pdfUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-brand-primary btn-outline text-brand-light font-sans font-bold tracking-widest text-sm px-8 py-3 rounded-full border-brand-primary uppercase"
+      >
+        VIEW
+      </a>
+    </div>
+  </div>
+</div>

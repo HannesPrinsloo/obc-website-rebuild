@@ -1,0 +1,115 @@
+---
+import { getLatestFacebookPosts } from "../../utils/facebook";
+
+const posts = await getLatestFacebookPosts();
+---
+
+<section class="w-full bg-brand-bg py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 md:px-12">
+    <div
+      class="flex flex-col items-center justify-center text-center max-w-[800px] mx-auto mb-10 md:mb-14"
+    >
+      <div class="flex items-center gap-3 mb-4">
+        <svg
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-10 h-10 text-[#4267B2]"
+          aria-label="Facebook Logo"
+        >
+          <title>Facebook</title>
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+            fill="currentColor"></path>
+        </svg>
+        <h2
+          class="text-[26px] md:text-3xl font-sans font-semibold tracking-wider text-[#2d2926]"
+        >
+          @obcgroup on Facebook
+        </h2>
+      </div>
+      <p
+        class="text-brand-dark text-[15px] font-normal md:text-2xl leading-snug md:tracking-loose md:leading-snug"
+      >
+        Keep an eye on our Facebook page to view unique specials, competitions
+        and events hosted by an OBC near you. Many of our stores have weekly and
+        mid-month specials and competitions.
+      </p>
+    </div>
+
+    <div class="fb-cards-grid">
+      {
+        posts.map((post) => (
+          <a
+            href={post.permalink_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="fb-card block group"
+            aria-label="View post on Facebook"
+          >
+            {/* The wrapper handles the heavy border radiusing requested in the mock */}
+            <div class="w-full aspect-3/4 rounded-[28px] md:rounded-[36px] overflow-hidden shadow-lg border outline outline-black/5 bg-white relative">
+              {post.full_picture ? (
+                <img
+                  src={post.full_picture}
+                  alt={post.message || "Facebook Post"}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                  <span>No image</span>
+                </div>
+              )}
+
+              {/* Optional: Add a subtle overlay so hover effects are more apparent */}
+              <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .fb-cards-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.25rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    padding-bottom: 2rem;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+
+  .fb-cards-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fb-card {
+    flex: 0 0 80vw;
+    scroll-snap-align: center;
+  }
+
+  @media (width >= 768px) {
+    .fb-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      overflow-x: visible;
+
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+
+    .fb-card {
+      flex: none;
+      width: auto;
+    }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const recipes = [
+  { title: "Classic Beef Stew", time: "2 Hours", difficulty: "Easy" },
+  { title: "Spicy Chicken Wings", time: "45 Mins", difficulty: "Medium" },
+  { title: "Perfect Braai Chops", time: "30 Mins", difficulty: "Easy" },
+];
+---
+
+<BaseLayout title="Recipes">
+  <div class="max-w-7xl mx-auto py-16 px-4">
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-display text-brand-primary mb-4">OBC Recipes</h1>
+      <p class="text-lg text-gray-700 max-w-2xl mx-auto">Discover delicious ways to prepare our premium quality meats, straight from our Blockman\'s Den to your kitchen.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {recipes.map((recipe) => (
+        <a href="#" class="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow border border-gray-100 block">
+          <div class="h-48 bg-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-gray-300 transition-colors">
+            Image Placeholder
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-primary transition-colors">{recipe.title}</h3>
+            <div class="flex justify-between text-sm text-gray-500 font-medium">
+              <span>⏱ {recipe.time}</span>
+              <span>🔥 {recipe.difficulty}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

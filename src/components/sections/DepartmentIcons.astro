@@ -1,0 +1,124 @@
+---
+import { Image } from "astro:assets";
+import img1 from "../../assets/images/home-page/1-fresh-meat.svg";
+import img2 from "../../assets/images/home-page/2-frozen-meat.svg";
+import img3 from "../../assets/images/home-page/3-groceries.svg";
+import img4 from "../../assets/images/home-page/4-farm-fresh.svg";
+import img5 from "../../assets/images/home-page/5-hot-foods.svg";
+import img6 from "../../assets/images/home-page/6-from-the-ocean.svg";
+
+const items = [
+  {
+    img: img1,
+    title: "FRESH MEAT",
+    text: "We pride ourselves in our wide selection of meat cuts. Fresh from our deli.",
+  },
+  {
+    img: img2,
+    title: "FROZEN MEAT",
+    text: "We have a wide variety of frozen meat and veggies options. Buy bulk or only buy for tonight.",
+  },
+  {
+    img: img3,
+    title: "GROCERIES",
+    text: "Maize meal to Sunlight. Buy the necessities at OBC for your convenience.",
+  },
+  {
+    img: img4,
+    title: "FARM FRESH",
+    text: "A lot of our stores boast with their fruit & veg section for your convenience. *Only at selected stores",
+  },
+  {
+    img: img5,
+    title: "BAKERY & HOT FOODS",
+    text: "Dinner sorted with our already made meals. We also have a bakery in a few of our stores. *Only at selected stores",
+  },
+  {
+    img: img6,
+    title: "FROM THE OCEAN",
+    text: "We have a wide selection of fish options. Frozen or fresh. *Fresh fish only at selected stores",
+  },
+];
+---
+
+<section class="max-w-[1600px] w-full mx-auto py-24 px-4 md:px-12 bg-brand-bg">
+  <div class="relative w-full max-w-7xl mx-auto" id="dept-icons-wrapper">
+    <!-- The horizontal line (hidden on mobile, visible on desktop) -->
+    <div
+      class="absolute top-[218px] left-0 right-0 h-[2px] bg-brand-dark hidden md:block z-0"
+      id="dept-icons-line"
+    >
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-x-4 gap-y-12 relative z-10">
+      {
+        items.map((item) => (
+          <div class="dept-icon-item flex flex-col items-center text-center opacity-0 translate-y-12">
+            <Image
+              src={item.img}
+              alt={item.title}
+              class="w-32 h-32 md:w-[150px] md:h-[150px] object-contain mb-6 hover:scale-110 transition-transform duration-300"
+            />
+            <h4 class="text-[12px] md:text-[13px] font-extrabold tracking-widest uppercase text-brand-dark mb-4 md:mb-[52px]">
+              {item.title}
+            </h4>
+
+            {/* Mobile line divider (shows only on mobile instead of the absolute line) */}
+            <div class="w-full h-[2px] bg-brand-dark md:hidden mb-4 rounded-full" />
+
+            <p class="font-display text-[22px] md:text-[24px] leading-tight text-brand-dark px-2">
+              {item.text}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function init() {
+    // bail if this component isn't on the current page
+    if (!document.querySelector("#dept-icons-wrapper")) return;
+
+    // Animate the horizontal line spanning across the section
+    gsap.fromTo(
+      "#dept-icons-line",
+      { scaleX: 0, transformOrigin: "left center" },
+      {
+        scaleX: 1,
+        duration: 1.2,
+        ease: "power3.inOut",
+        scrollTrigger: {
+          trigger: "#dept-icons-wrapper",
+          start: "top 80%",
+        },
+      },
+    );
+
+    // Stagger fade-in-up for each icon item, left to right
+    gsap.to(".dept-icon-item", {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "back.out(1.2)",
+      scrollTrigger: {
+        trigger: "#dept-icons-wrapper",
+        start: "top 80%",
+      },
+    });
+  }
+
+  // ASTRO bug prevention
+  document.addEventListener("astro:before-swap", () => {
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  });
+
+  document.addEventListener("astro:page-load", init);
+</script>

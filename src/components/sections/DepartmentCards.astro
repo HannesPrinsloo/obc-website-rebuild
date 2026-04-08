@@ -1,0 +1,247 @@
+---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+export interface CardItem {
+  image: ImageMetadata; // Pass a static import — processed by Astro's image pipeline
+  alt: string;
+  title: string;
+  buttonLabel: string;
+  buttonHref: string;
+  openInNewTab?: boolean; // true for PDF links, false/omitted for internal routes
+}
+
+interface Props {
+  cards: CardItem[];
+  class?: string; // Allow layout overrides (padding, margin) from the parent
+}
+
+const { cards, class: className } = Astro.props;
+
+const processedCards = await Promise.all(
+  cards.map(async (card) => ({
+    ...card,
+    optimisedImage: await getImage({ src: card.image, format: "webp" }),
+  })),
+);
+---
+
+<section class:list={["dept-cards-section", className]}>
+  <div id="promotions" class="dept-cards-grid">
+    {
+      processedCards.map((card) => (
+        <a
+          href={card.buttonHref}
+          target={card.openInNewTab ? "_blank" : "_self"}
+          rel={card.openInNewTab ? "noopener noreferrer" : undefined}
+          class="dept-card"
+          aria-label={card.title}
+        >
+          <div class="card-image-wrapper">
+            <img
+              src={card.optimisedImage.src}
+              alt={card.alt}
+              class="card-image"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div class="card-overlay">
+            <p class="card-heading card-title">{card.title}</p>
+            <span class="btn-outline card-btn text-nowrap">
+              {card.buttonLabel}
+            </span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .dept-cards-section {
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+
+  .dept-cards-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    max-width: 80rem; /* matches max-w-7xl */
+    margin-inline: auto;
+
+    /* Hide scrollbars for native carousel look */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .dept-cards-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (width >= 768px) {
+    .dept-cards-grid {
+      display: grid;
+      overflow-x: visible;
+      /* Flexible equal columns: works for 1–4 cards automatically */
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  /* ── Card shell ──────────────────────────────────────────────────────────── */
+  .dept-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* Mobile carousel sizing & snapping */
+    flex: 0 0 85vw;
+    scroll-snap-align: start;
+
+    border-radius: 0.25rem;
+    overflow: hidden; /* clips the zooming image to card bounds */
+    text-decoration: none;
+    cursor: pointer;
+    /* Aspect ratio: roughly 3:4 portrait — closest match to Figma */
+    aspect-ratio: 3 / 4;
+  }
+
+  @media (width >= 768px) {
+    .dept-card {
+      /* Reset carousel overrides for desktop grid */
+      flex: none;
+      width: auto;
+    }
+  }
+
+  /* ── Image wrapper + parallax image ─────────────────────────────────────── */
+  .card-image-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden; /* second clip guard — belt & braces */
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Start at scale(1.15) so the zoom-out effect stays inside card bounds.
+     * GSAP ScrollTrigger animates this between 1.15 and 1.0 on scroll.
+     * The image always fills the card — it never shows gaps at the edges. */
+    transform: scale(1.2);
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  /* ── Overlay: default = dark gradient, hover = orange sweep L→R ─────────── */
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* Dark gradient for text legibility — no orange in default state */
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      transparent 100%
+    );
+    padding: 1.5rem 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    isolation: isolate;
+    /* Extend the overlay taller so it covers bottom ~100% of the card */
+    min-height: 100%;
+    justify-content: flex-end;
+    align-items: center; /* Centers both the text and the button horizontally */
+    text-align: center; /* Centers any wrapping text */
+  }
+
+  /* Orange fades in on hover — sits above gradient, below text */
+  .card-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-brand-primary);
+    opacity: 0; /* fully transparent by default */
+    transition: opacity 0.3s ease; /* quick fade in */
+    z-index: 0;
+  }
+
+  .dept-card:hover .card-overlay::before {
+    opacity: 1; /* fades fully in on hover */
+  }
+
+  /* Content sits above the gradient and the orange sweep */
+  .card-title,
+  .card-btn {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-btn {
+    /* Allow buttons to naturally fit their text with padding on mobile */
+    width: max-content;
+    max-width: 100%;
+  }
+
+  @media (width >= 768px) {
+    .card-btn {
+      width: 36%; /* Explicit forced width for desktop */
+    }
+  }
+
+  .card-title {
+    text-transform: uppercase;
+    /* letter-spacing matches the other URW Geometric usage; remove if you want exactly strict Figma tracking */
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function init() {
+    if (!document.querySelector(".dept-card")) return;
+
+    const cards = document.querySelectorAll<HTMLElement>(".dept-card");
+
+    cards.forEach((card) => {
+      const img = card.querySelector<HTMLElement>(".card-image");
+      if (!img) return;
+
+      gsap.fromTo(
+        img,
+        { scale: 1.5 },
+        {
+          scale: 1.0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+    });
+
+    ScrollTrigger.refresh();
+  }
+
+  // ASTRO bug prevention -
+  document.addEventListener("astro:before-swap", () => {
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  });
+
+  document.addEventListener("astro:page-load", init);
+</script>

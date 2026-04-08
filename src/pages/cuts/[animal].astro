@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HorizontalScrollCarousel from "../../components/sections/horizontal-scroll-carousel.astro";
+
+export function getStaticPaths() {
+  return [
+    { params: { animal: 'Beef' } },
+    { params: { animal: 'Poultry' } },
+    { params: { animal: 'Pork' } },
+    { params: { animal: 'Mutton' } }
+  ];
+}
+
+const { animal } = Astro.params;
+---
+
+<BaseLayout title={`${animal} Cuts`} transitionSwipe={true} hideFooter={true}>
+    <HorizontalScrollCarousel animalId={animal as "Beef" | "Poultry" | "Pork" | "Mutton"} />
+</BaseLayout>

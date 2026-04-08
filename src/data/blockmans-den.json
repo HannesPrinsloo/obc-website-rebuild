@@ -1,0 +1,230 @@
+{
+    "Beef": [
+        {
+            "Title": "T-Bone",
+            "Description": "The T-bone steak is cut from the sirloin and is comprised of sirloin and fillet separated by the “T” shaped bone. The pairing of the fillet and sirloin means that the T-bone steak has a lot of flavour.",
+            "Image": "../assets/images/blockmans-den/beef/t-bone.webp",
+            "ImageAlt": "T-Bone Steak",
+            "highlightImage": "../assets/images/blockmans-den/beef/t-bone-hl.svg",
+            "highlightImageAlt": "T-Bone illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        },
+        {
+            "Title": "Chuck",
+            "Description": "As South Africans we love our braais and a chuck steak when cut on the bone is best recognised as the unmistakable forequarter cut with lots of different muscles in one slice. It is the most sought after braai cuts by those in the know. Beef Chuck - on the bone as a steak or deboned as a whole muscle.",
+            "Image": "../assets/images/blockmans-den/beef/chuck.webp",
+            "ImageAlt": "Chuck Steak",
+            "highlightImage": "../assets/images/blockmans-den/beef/chuck-hl.svg",
+            "highlightImageAlt": "Chuck illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        },
+        {
+            "Title": "Rump",
+            "Description": "Cut from the back end of the cow, the muscle is frequently used which means the rump steak is not as tender as some of the other cuts and is very lean. Rump steaks are generally marinated before cooking and are best suited for braaiing.",
+            "Image": "../assets/images/blockmans-den/beef/rump.webp",
+            "ImageAlt": "Rump Steak",
+            "highlightImage": "../assets/images/blockmans-den/beef/rump-hl.svg",
+            "highlightImageAlt": "Rump illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        },
+        {
+            "Title": "Short Rib",
+            "Description": "Beef Short Ribs are a rich, marbled cut from the lower rib cage of the cow. Due to their tough connective tissue, they are best braised low and slow in liquid until the meat is fall-apart tender. This slow cooking melts the collagen into a buttery, savoury sauce. It is the ultimate cut for deep flavour and a succulent, 'fork-tender' texture.",
+            "Image": "../assets/images/blockmans-den/beef/short-rib.webp",
+            "ImageAlt": "Short Rib Steak",
+            "highlightImage": "../assets/images/blockmans-den/beef/short-rib-hl.svg",
+            "highlightImageAlt": "Short Rib illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        },
+        {
+            "Title": "Brisket",
+            "Description": "Brisket is a cut of beef that comes from the lower breast or pectoral muscles of a cow. Because this area is so well-exercised, it makes for quite a tough piece of meat that’s full of connective tissue. This is why it’s best suited towards a low and slow cooking process.",
+            "Image": "../assets/images/blockmans-den/beef/brisket.webp",
+            "ImageAlt": "Brisket beef cut",
+            "highlightImage": "../assets/images/blockmans-den/beef/brisket-hl.svg",
+            "highlightImageAlt": "Brisket illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        },
+        {
+            "Title": "Sirloin",
+            "Description": "Cut from the mid-back between the ribs and rump, the sirloin steak is characterised by its beefy flavour and good amount of marbling. The sirloin steak is also known for its tenderness however it needs to be cooked carefully to ensure it doesn’t loose it. We would recommend frying the sirloin on a high heat and leaving it to rest for around 5 minutes to make sure it retains its tenderness.",
+            "Image": "../assets/images/blockmans-den/beef/sirloin.webp",
+            "ImageAlt": "Sirloin Steak",
+            "highlightImage": "../assets/images/blockmans-den/beef/sirloin-hl.svg",
+            "highlightImageAlt": "Sirloin illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        },
+        {
+            "Title": "Fillet",
+            "Description": "The beef fillet is a lean, prized cut taken from the tenderloin, located along the spine of the cow. Because this muscle does very little work, it is the most tender cut available with almost no fat or connective tissue. The best way to cook it is at high heat for a few minutes per side to create a crust, followed by a brief rest to keep it succulent. It is best served rare or medium-rare to preserve its delicate, buttery texture.",
+            "Image": "../assets/images/blockmans-den/beef/fillet.webp",
+            "ImageAlt": "Fillet Steak",
+            "highlightImage": "../assets/images/blockmans-den/beef/fillet-hl.svg",
+            "highlightImageAlt": "Fillet illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/beef/cooking-guide-beef.svg",
+            "cookingGuideAlt": "Cooking Guide for beef"
+        }
+    ],
+    "Poultry": [
+        {
+            "Title": "Drumsticks",
+            "Description": "Chicken drumsticks are the bottom part of the chicken leg (the top part is the thigh). They’re often cooked in the same way as thighs (bone-in and skin-on) and they deliver the same meaty, juicy flavour.",
+            "Image": "../assets/images/blockmans-den/poultry/drumsticks.webp",
+            "ImageAlt": "Chicken Drumsticks",
+            "highlightImage": "../assets/images/blockmans-den/poultry/drumsticks-hl.svg",
+            "highlightImageAlt": "Chicken Drumsticks illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/poultry/cooking-guide-poultry.svg",
+            "cookingGuideAlt": "Cooking Guide for poultry"
+        },
+        {
+            "Title": "Breasts",
+            "Description": "The breast is a lean cut of white meat found on the underside of a chicken. A whole breast includes two halves, which are usually separated and sold individually. The breast is loosely attached to a thin muscle called the tenderloin.",
+            "Image": "../assets/images/blockmans-den/poultry/breasts.webp",
+            "ImageAlt": "Chicken Breast",
+            "highlightImage": "../assets/images/blockmans-den/poultry/breasts-hl.svg",
+            "highlightImageAlt": "Chicken Breast illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/poultry/cooking-guide-poultry.svg",
+            "cookingGuideAlt": "Cooking Guide for poultry"
+        },
+        {
+            "Title": "Leg Quarters",
+            "Description": "Each leg consists of two dark meat cuts: thighs (the top portions) and drumsticks (the bottom portions). You can buy leg quarters - which includes a thigh, a drumstick, and a portions of the back - or you can buy drumsticks and thighs separately. Leg meat is generally less expensive than breast meat. Legs are fattier than breasts, so they’re quite juicy and flavourful when cooked correctly.",
+            "Image": "../assets/images/blockmans-den/poultry/leg-quarters.webp",
+            "ImageAlt": "Chicken Leg Quarters",
+            "highlightImage": "../assets/images/blockmans-den/poultry/leg-quarters-hl.svg",
+            "highlightImageAlt": "Chicken Leg Quarters illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/poultry/cooking-guide-poultry.svg",
+            "cookingGuideAlt": "Cooking Guide for poultry"
+        },
+        {
+            "Title": "Feet",
+            "Description": "Chicken feet consists of skin, cartilage, tendons, and bones. Even without providing much meat, they’re high in collagen - the most abundant protein in your body. This collagen content may help relieve joint pain, aid skin healthy, and prevent bone loss.",
+            "Image": "../assets/images/blockmans-den/poultry/feet.webp",
+            "ImageAlt": "Chicken Feet",
+            "highlightImage": "../assets/images/blockmans-den/poultry/feet-hl.svg",
+            "highlightImageAlt": "Chicken Feet illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/poultry/cooking-guide-poultry.svg",
+            "cookingGuideAlt": "Cooking Guide for poultry"
+        },
+        {
+            "Title": "Wings",
+            "Description": "Each wing can be divided into three parts: the wing tip (the outermost section that is typically thrown away), the drumette (this looks like a small drumstick), and the wingette (some people call this parth the “flat”). Chicken wings, which are considered white meat, are budget friendly and easy-to-prepare.",
+            "Image": "../assets/images/blockmans-den/poultry/wings.webp",
+            "ImageAlt": "Chicken Wings",
+            "highlightImage": "../assets/images/blockmans-den/poultry/wings-hl.svg",
+            "highlightImageAlt": "Chicken Wings illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/poultry/cooking-guide-poultry.svg",
+            "cookingGuideAlt": "Cooking Guide for poultry"
+        },
+        {
+            "Title": "Necks",
+            "Description": "Chicken necks is a delicious but cheaper cut of meat, providing protein and lots of flavour at a fraction of the cost. Combined with cooked veggies and tomato sauce this dish is a winner.",
+            "Image": "../assets/images/blockmans-den/poultry/necks.webp",
+            "ImageAlt": "Chicken Necks",
+            "highlightImage": "../assets/images/blockmans-den/poultry/necks-hl.svg",
+            "highlightImageAlt": "Chicken Necks illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/poultry/cooking-guide-poultry.svg",
+            "cookingGuideAlt": "Cooking Guide for poultry"
+        }
+    ],
+    "Pork": [
+        {
+            "Title": "Loin Cuts",
+            "Description": "Pork loin is a tender cut of meat that can be enjoyed with or without bones. Loin steaks are well known for their delicious fat layer on the outside and tender, lean piece of meat on the inside. Pan-fried loin chops make the perfect quick family dinner and almost any sauce will complement them.",
+            "Image": "../assets/images/blockmans-den/pork/loin-cuts.webp",
+            "ImageAlt": "Pork Loin Cuts",
+            "highlightImage": "../assets/images/blockmans-den/pork/loin-cuts-hl.svg",
+            "highlightImageAlt": "Pork Loin Cuts illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/pork/cooking-guide-pork.svg",
+            "cookingGuideAlt": "Cooking Guide for pork"
+        },
+        {
+            "Title": "Shoulder Chops",
+            "Description": "The shoulder is a tender, succulent cut of pork known for its excellent flavour and juiciness. This cut contains collagen and a small amount of marbling. Many expert cooks swear by pork shoulder to make the perfect pulled pork.",
+            "Image": "../assets/images/blockmans-den/pork/shoulder-chops.webp",
+            "ImageAlt": "Pork Shoulder Chops",
+            "highlightImage": "../assets/images/blockmans-den/pork/shoulder-chops-hl.svg",
+            "highlightImageAlt": "Pork Shoulder Chops illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/pork/cooking-guide-pork.svg",
+            "cookingGuideAlt": "Cooking Guide for pork"
+        },
+        {
+            "Title": "Rashers",
+            "Description": "Cut from the loin - Pork rashers offer not only great taste, but serious value for money too. Their marbled structure means that the layers of fat in-between the tender meat will melt the pork rashers while they cook on the braai or under the grill. For crispy outer skin make incisions with a sharp knife before grilling or braaiing.",
+            "Image": "../assets/images/blockmans-den/pork/rashers.webp",
+            "ImageAlt": "Pork Rashers",
+            "highlightImage": "../assets/images/blockmans-den/pork/rashers-hl.svg",
+            "highlightImageAlt": "Pork Rashers illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/pork/cooking-guide-pork.svg",
+            "cookingGuideAlt": "Cooking Guide for pork"
+        },
+        {
+            "Title": "Ribs",
+            "Description": "The three main types of pork are spare ribs, baby back ribs, and St. Louis Ribs. There are a few key differences ti keep in mind; spare ribs have larger, meatier (with more fat and bone) spares, baby back ribs come from the rear loin region, and St. Louis ribs are trimmed spare ribs.",
+            "Image": "../assets/images/blockmans-den/pork/ribs.webp",
+            "ImageAlt": "Pork Ribs",
+            "highlightImage": "../assets/images/blockmans-den/pork/ribs-hl.svg",
+            "highlightImageAlt": "Pork Ribs illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/pork/cooking-guide-pork.svg",
+            "cookingGuideAlt": "Cooking Guide for pork"
+        },
+        {
+            "Title": "Gammon",
+            "Description": "Gammon is the cured hind leg of a pig, differentiating it from fresh pork by its signature salty or smoky profile. To cook it perfectly, simmer the joint in liquid to tenderise the meat, then finish it in a hot oven with a honey or mustard glaze. This two-step process ensures a succulent interior and a crisp, caramelised exterior. It is an iconic cut that delivers a savoury, ham-like flavour ideal for roasting.",
+            "Image": "../assets/images/blockmans-den/pork/gammon.webp",
+            "ImageAlt": "Pork Gammon",
+            "highlightImage": "../assets/images/blockmans-den/pork/gammon-hl.svg",
+            "highlightImageAlt": "Pork Gammon illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/pork/cooking-guide-pork.svg",
+            "cookingGuideAlt": "Cooking Guide for pork"
+        }
+    ],
+    "Mutton": [
+        {
+            "Title": "Shank",
+            "Description": "Lamb shank is a tough cut from the lamb leg that becomes tender and juicy with slow and low cooking. The fore-shank comes from the front legs and is smaller than the hind-shank, which comes from the back legs and are much smaller.",
+            "Image": "../assets/images/blockmans-den/mutton/shank.webp",
+            "ImageAlt": "Mutton Shank",
+            "highlightImage": "../assets/images/blockmans-den/mutton/shank-hl.svg",
+            "highlightImageAlt": "Mutton Shank illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/mutton/cooking-guide-mutton.svg",
+            "cookingGuideAlt": "Cooking Guide for mutton"
+        },
+        {
+            "Title": "Chops",
+            "Description": "Lamb chops or cutlets are the most expensive cuts of lamb, but are incredibly delicious and tender. They are taken from the ribs of the lamb and slow cooked individually, normally over a grill or a braai.",
+            "Image": "../assets/images/blockmans-den/mutton/chops.webp",
+            "ImageAlt": "Mutton Chops",
+            "highlightImage": "../assets/images/blockmans-den/mutton/chops-hl.svg",
+            "highlightImageAlt": "Mutton Chops illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/mutton/cooking-guide-mutton.svg",
+            "cookingGuideAlt": "Cooking Guide for mutton"
+        },
+        {
+            "Title": "Forequarter",
+            "Description": "The forequarter chops is prepared from the side of the lamb. It’s made up of many cuts including the neck, shank and shoulder rack. This economical cut is best slow cooked using either a moist method, such as braising or stewing, or by slow roasting. Forequarter chops are the largest lamb chops available.",
+            "Image": "../assets/images/blockmans-den/mutton/forequarter.webp",
+            "ImageAlt": "Mutton Forequarter",
+            "highlightImage": "../assets/images/blockmans-den/mutton/forequarter-hl.svg",
+            "highlightImageAlt": "Mutton Forequarter illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/mutton/cooking-guide-mutton.svg",
+            "cookingGuideAlt": "Cooking Guide for mutton"
+        },
+        {
+            "Title": "Ribs",
+            "Description": "There are two main types of lamb ribs commonly found. Rack of Lamb Ribs: These ribs come from the upper part of the lamb’s ribcage and are known for their tender and juicy meat. Lamb Spare Ribs: These ribs are obtained from the lower part of the lamb’s ribcage and have a rich meaty flavour",
+            "Image": "../assets/images/blockmans-den/mutton/ribs.webp",
+            "ImageAlt": "Mutton Ribs",
+            "highlightImage": "../assets/images/blockmans-den/mutton/ribs-hl.svg",
+            "highlightImageAlt": "Mutton Ribs illustration hightlight",
+            "cookingGuide": "../assets/images/blockmans-den/mutton/cooking-guide-mutton.svg",
+            "cookingGuideAlt": "Cooking Guide for mutton"
+        }
+    ]
+}

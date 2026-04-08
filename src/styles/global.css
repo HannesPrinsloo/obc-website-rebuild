@@ -1,0 +1,173 @@
+/* TODO: formalise sizes for common typogrophy */
+
+@import "tailwindcss";
+
+/*Department icons Font*/
+@font-face {
+  font-family: 'Love Story Rough';
+  src: url('/fonts/Love-Story-Rough.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'URW Geometric';
+  src: url('/fonts/URWGeometric-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'URW Geometric';
+  src: url('/fonts/URWGeometric-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'URW Geometric';
+  src: url('/fonts/URWGeometric-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme {
+  --color-brand-dark: #252323;
+  --color-brand-light: #EFEFEF;
+  --color-brand-primary: #F18020;
+  --color-brand-hover: #ff9030;
+  --color-brand-bg: #EFEFEF;
+
+  --font-sans: "URW Geometric", "Poppins", sans-serif;
+  --font-display: "Love Story Rough", "URW Geometric", sans-serif;
+
+  --breakpoint-custom: 1150px;
+
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  /* Lenis recommended styling */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+
+  body {
+    @apply bg-brand-bg text-brand-dark font-sans;
+  }
+}
+
+@utility small-heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  /* mobile */
+  line-height: 18px;
+  letter-spacing: 0.07em;
+  color: var(--color-brand-dark);
+
+  @media (width >=768px) {
+    font-size: 24px;
+    /* desktop (Figma spec) */
+    line-height: 28px;
+  }
+}
+
+@utility body-text-large {
+  /* "We have over 90 stores..." on home page */
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  text-align: center;
+  color: var(--color-brand-dark);
+
+  @media (width >=768px) {
+    font-size: 48px;
+    line-height: 55px;
+  }
+}
+
+@utility card-heading {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  /* responsive mobile */
+  line-height: 1.15;
+  color: #EFEEEE;
+
+  @media (width >=768px) {
+    font-size: 24px;
+    /* exact Figma match */
+    line-height: 37px;
+  }
+}
+
+@layer components {
+
+  /* CAN overwrite with inline utils if necessary */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #EFEFEF;
+    color: #EFEFEF;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    /* Adjust sizing away from hero - match Figma*/
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.8em 1.5em;
+    border-radius: 29px;
+    transition:
+      border-color 0.35s ease,
+      letter-spacing 0.35s ease,
+      color 0.35s ease;
+    z-index: 1;
+  }
+
+  .btn-outline::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-brand-light);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-brand-primary) !important;
+    color: var(--color-brand-primary) !important;
+    letter-spacing: 0.14em;
+    text-wrap: nowrap;
+  }
+
+  .btn-outline:hover::before {
+    clip-path: inset(0 0% 0 0);
+  }
+}

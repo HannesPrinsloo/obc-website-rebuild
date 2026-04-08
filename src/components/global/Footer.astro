@@ -1,0 +1,207 @@
+---
+import { Image } from "astro:assets";
+import facebookIcon from "../../assets/images/facebook-icon.svg";
+import instagramIcon from "../../assets/images/instagram-icon.svg";
+import linkedinIcon from "../../assets/images/linkedin-icon.svg";
+import tiktokIcon from "../../assets/images/tik-tok-icon.svg";
+import logo from "../../assets/images/logo/obc-logo.png";
+import cgsoMember from "../../assets/images/cgso-member.webp";
+import saPortuguese from "../../assets/images/sa-portuguese.webp";
+import fasa from "../../assets/images/fasa.png";
+
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  {
+    href: "https://www.facebook.com/OBCBetterButchery?mibextid=ZbWKwL",
+    label: "Facebook",
+    icon: facebookIcon,
+  },
+  {
+    href: "https://www.instagram.com/obcgroup?igsh=MWpsZnVzczU4b2FhZg==",
+    label: "Instagram",
+    icon: instagramIcon,
+  },
+  {
+    href: "https://www.linkedin.com/company/obcbetterbutchery/?originalSubdomain=za",
+    label: "LinkedIn",
+    icon: linkedinIcon,
+  },
+  {
+    href: "https://www.tiktok.com/discover/obc-group",
+    label: "TikTok",
+    icon: tiktokIcon,
+  },
+];
+---
+
+<footer
+  class="relative z-50 bg-brand-dark text-brand-light py-12 mt-auto font-sans"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="col-span-1 md:col-span-1">
+        <h3
+          class="text-brand-primary font-sans uppercase font-normal text-lg mb-4 tracking-tight"
+        >
+          Head Office
+        </h3>
+        <p class="text-sm leading-relaxed text-gray-300">
+          OBC Group (pty) Ltd<br />
+          1158 Louwlardia Drive<br />
+          Louwlardia<br />
+          Centurion<br />
+          1683
+        </p>
+      </div>
+
+      <div class="col-span-1 md:col-span-1">
+        <h3
+          class="text-brand-primary font-sans uppercase font-normal text-lg mb-4 tracking-tight"
+        >
+          Customer Care
+        </h3>
+        <p class="text-sm leading-relaxed text-gray-300">
+          Phone: <a
+            href="tel:0861 622 622"
+            class="hover:text-white transition-colors">0861 622 622</a
+          ><br />
+          Email: <a
+            href="mailto:complaints@obc.co.za"
+            class="hover:text-white transition-colors">complaints@obc.co.za</a
+          >
+        </p>
+      </div>
+
+      <!-- Legal Links -->
+      <!-- TODO: add all links here. On old site footer -->
+      <div class="col-span-1 md:col-span-1">
+        <h3
+          class="text-brand-primary font-sans uppercase font-normal text-lg mb-4 tracking-tight"
+        >
+          Find out more
+        </h3>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <!-- 1 -->
+          <li>
+            <a
+              href="/pdfs/code-of-the-consumer-goods-and-services-ombud-28-feb-2013-153.pdf"
+              class="hover:text-white transition-colors"
+              >Code of the Consumer Goods & Service Industry</a
+            >
+          </li>
+          <!-- 2 -->
+          <li>
+            <a
+              href="/pdfs/obc-franchisee-info.pdf"
+              class="hover:text-white transition-colors">Own OBC Franchise</a
+            >
+          </li>
+          <!-- 3 -->
+          <li>
+            <a
+              href="/pdfs/obc-complaints-handling.pdf"
+              class="hover:text-white transition-colors"
+              >OBC Internal Complaints Handling Process</a
+            >
+          </li>
+          <!-- 4 -->
+          <li>
+            <a
+              href="/pdfs/Email-Disclaimer-.pdf"
+              class="hover:text-white transition-colors">Email Disclaimer</a
+            >
+          </li>
+          <!-- 5 -->
+          <li>
+            <a
+              href="/pdfs/STANDARD-PURCHASE-TERMS-AND-CONDITIONS.pdf"
+              class="hover:text-white transition-colors"
+              >Standard Purchase T’s & C’s</a
+            >
+          </li>
+          <!-- 6 -->
+          <li>
+            <a
+              href="/pdfs/Competition-Terms-and-Conditions-Social-Media.pdf"
+              class="hover:text-white transition-colors"
+              >Social Media Competition T’s & C’s</a
+            >
+          </li>
+          <!-- 7 -->
+          <li>
+            <a
+              href="/pdfs/UPDATED_THOLA-ZONKE-REWARDS-SYSTEM-TERMS.pdf"
+              class="hover:text-white transition-colors"
+              >Thola Zonke Members T’s & C’s</a
+            >
+          </li>
+          <!-- 8 -->
+          <li>
+            <a
+              href="/pdfs/Boss_It_Up_Terms-and_Conditions_OBC_Group_v4-1.pdf"
+              class="hover:text-white transition-colors">Boss It Up T’s & C’s</a
+            >
+          </li>
+          <!-- 9 -->
+          <li>
+            <a
+              href="/pdfs/OBC-Group-Pty-Ltd-PAIA-manual.pdf"
+              class="hover:text-white transition-colors">PAIA Manual</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="col-span-1 md:col-span-1">
+        <h3
+          class="text-brand-primary uppercase font-normal font-sans text-lg mb-4 tracking-tight"
+        >
+          Follow Us
+        </h3>
+        <div class="flex gap-3">
+          {
+            socialLinks.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                class="social-icon-link"
+              >
+                <Image
+                  src={social.icon}
+                  alt={social.label}
+                  width={44}
+                  height={44}
+                />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <div class="flex pt-20 justify-center md:justify-start flex-wrap gap-10">
+      <Image width={120} src={cgsoMember} alt="CGSO Member" />
+      <Image width={120} src={saPortuguese} alt="SA Portuguese" />
+      <Image width={120} src={fasa} alt="Fasa" />
+    </div>
+    <div class="mt-12 pt-8 text-center text-sm text-gray-400">
+      <p>&copy; {currentYear} OBC Group. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .social-icon-link {
+    display: block;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .social-icon-link:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
+  }
+</style>

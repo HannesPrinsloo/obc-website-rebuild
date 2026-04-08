@@ -1,0 +1,338 @@
+---
+import { Image } from "astro:assets";
+
+import beefImg from "../../assets/images/blockmans-den/beef/beef-illustration.webp";
+import poultryImg from "../../assets/images/blockmans-den/poultry/poultry-illustration.webp";
+import porkImg from "../../assets/images/blockmans-den/pork/pork-illustration.webp";
+import muttonImg from "../../assets/images/blockmans-den/mutton/mutton-illustration.webp";
+
+const animals = [
+  {
+    id: 1,
+    name: "Beef",
+    Image: beefImg,
+  },
+  {
+    id: 2,
+    name: "Poultry",
+    Image: poultryImg,
+  },
+  {
+    id: 3,
+    name: "Pork",
+    Image: porkImg,
+  },
+  {
+    id: 4,
+    name: "Mutton",
+    Image: muttonImg,
+  },
+];
+---
+
+<div class="preview-text-block">
+  <h3 class="small-heading">BLOCKMAN'S DEN</h3>
+  <h2 class="preview-heading">Know your better meat cut</h2>
+  <p class="preview-body">
+    Welcome to Blockman's Den, your go-to spot for mastering meat cuts. Our page
+    breaks it down simply, from juicy steaks to tender roasts. From beef to
+    pork, lamb, and more, let's learn with our Master Blockman about the
+    different cuts of meat.
+  </p>
+</div>
+
+<div class="animal-grid">
+  {
+    animals.map((animal, index) => (
+      <div
+        id={animal.name}
+        class={`animal-card ${index % 2 === 0 ? "bg-brand-light" : "bg-white"}`}
+      >
+        <Image src={animal.Image} alt={animal.name} class="animal-img" />
+        <div class="card-frame" />
+        <div class="card-byline">
+          <h3 class="card-title">
+            {animal.name} CUTS
+            <span class="card-underline" />
+          </h3>
+          <p class="card-sub">
+            Get to know your <strong>better</strong> meat cuts
+          </p>
+        </div>
+        <a
+          href="/blockmans-den"
+          class="card-link"
+          aria-label={`View ${animal.name} cuts`}
+        />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  // View Transitions can leave inline styles from the previous page's GSAP/hover state
+  // on elements. This resets cards and images to their CSS-defined resting state.
+  function resetAnimalGrid() {
+    const grid = document.querySelector(".animal-grid");
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll<HTMLElement>(".animal-card");
+    const imgs = grid.querySelectorAll<HTMLElement>(".animal-img");
+
+    // 1. Kill transitions and snap everything to resting state
+    cards.forEach((card) => {
+      card.style.transition = "none";
+      card.style.flex = "";
+    });
+    imgs.forEach((img) => {
+      img.style.transition = "none";
+      img.style.left = "";
+    });
+
+    // 2. Force a reflow so the browser commits the values above
+    grid.getBoundingClientRect();
+
+    // 3. Re-enable transitions on the next paint
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        cards.forEach((card) => (card.style.transition = ""));
+        imgs.forEach((img) => (img.style.transition = ""));
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", resetAnimalGrid);
+</script>
+
+<style>
+  /* ── Text block ── */
+  .preview-text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    /* border-bottom: 1px solid #181818; */
+  }
+
+  .preview-heading {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0.25rem 0 1rem;
+    color: var(--color-brand-dark, #1a1a1a);
+  }
+
+  .preview-body {
+    max-width: 52rem;
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    line-height: 1.7;
+    color: var(--color-brand-dark, #1a1a1a);
+    padding: 0 1rem;
+  }
+
+  /* ── Image grid ── */
+  .animal-grid {
+    display: flex;
+    flex-direction: row;
+    height: 70vh;
+    /* border-top: 1px solid #181818; */
+  }
+
+  .animal-card {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    transition: flex 0.4s ease;
+    cursor: pointer;
+  }
+
+  .card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+  }
+
+  /* Growing gray divider on the right of each card */
+  /* .animal-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #181818;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.5s ease;
+    z-index: 20;
+    pointer-events: none;
+  } */
+
+  /* .animal-card:last-child::after {
+    display: none;
+  }
+
+  Staggered grow when any card is hovered
+  .animal-grid:has(.animal-card:hover) .animal-card:nth-child(1)::after {
+    transform: scaleY(1);
+    transition-delay: 0s;
+  }
+  .animal-grid:has(.animal-card:hover) .animal-card:nth-child(2)::after {
+    transform: scaleY(1);
+    transition-delay: 0.05s;
+  }
+  .animal-grid:has(.animal-card:hover) .animal-card:nth-child(3)::after {
+    transform: scaleY(1);
+    transition-delay: 0.1s;
+  } */
+
+  /* Orange top-accent line sweeps L→R on the hovered card
+  .animal-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-brand-dark, #181818);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease 0.15s;
+    z-index: 25;
+    pointer-events: none;
+  }
+
+  .animal-card:hover::before {
+    transform: scaleX(1);
+  } */
+
+  /* Left + right orange borders grow from top on hovered card */
+  .card-frame {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 24;
+  }
+
+  /* .card-frame::before,
+  .card-frame::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--color-brand-dark, #181818);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease 0.1s;
+  } */
+
+  /* .card-frame::before {
+    left: 0;
+  }
+  .card-frame::after {
+    right: 0;
+  }
+
+  .animal-card:hover .card-frame::before,
+  .animal-card:hover .card-frame::after {
+    transform: scaleY(1);
+  } */
+
+  .animal-grid:has(.animal-card:hover) .animal-card:not(:hover) {
+    flex: 1;
+  }
+
+  .animal-card:hover {
+    flex: 3;
+  }
+
+  /* Images: right-offset by default, slide to center on hover */
+  .animal-img {
+    position: absolute;
+    bottom: 15%;
+    left: 70%;
+    transform: translateX(-50%);
+    height: 70%;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+    object-position: bottom center;
+    transition: left 0.4s ease;
+  }
+
+  .animal-card:hover .animal-img {
+    left: 50%;
+  }
+
+  /* Pork: wide illustration — starts right of center, centers on hover */
+  #Pork .animal-img {
+    height: 60%;
+    width: auto;
+    left: 110%;
+  }
+
+  #Pork:hover .animal-img {
+    left: 50%;
+  }
+
+  /* Poultry: default offset */
+  #Poultry .animal-img {
+    left: 90%;
+  }
+
+  #Poultry:hover .animal-img {
+    left: 50%;
+  }
+
+  /* ── Per-card byline ── */
+  .card-byline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.25rem 1.25rem;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(0.5rem);
+    text-align: center;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  .animal-card:hover .card-byline {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .card-title {
+    display: inline-block;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-brand-dark, #1a1a1a);
+    margin: 0 0 0.35rem;
+    position: relative;
+  }
+
+  .card-underline {
+    display: block;
+    height: 3px;
+    background-color: var(--color-brand-primary, #e87722);
+    margin-top: 0.3rem;
+  }
+
+  .card-sub {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-brand-dark, #1a1a1a);
+    margin: 0.4rem 0 0;
+  }
+</style>

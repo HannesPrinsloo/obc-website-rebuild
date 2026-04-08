@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StoreFinderApp from "../components/store-finder/StoreFinderApp";
+
+const { PUBLIC_GOOGLE_MAPS_API_KEY } = import.meta.env;
+---
+
+<BaseLayout title="Store Finder">
+  {/* Standard specific spacing to clear the global nav */}
+  <div class="pt-16 pb-8 bg-[#EBEBEB] min-h-screen">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Heading Block matching Figma */}
+      <div class="text-center mb-8 md:mb-12">
+        <h2
+          class="font-bold text-lg small-heading tracking-[0.1em] text-gray-900 mt-20 uppercase mb-4"
+        >
+          Find Your Better Butchery Near You
+        </h2>
+        <h1
+          class="text-2xl md:text-[34px] font-sans font-bold text-black leading-tight max-w-4xl mx-auto"
+        >
+          Experience your local better butchery.<br class="hidden md:block" />
+          We also offer a wide variety of groceries,<br
+            class="hidden md:block"
+          />
+          baked goods, fruit & veg
+        </h1>
+      </div>
+
+      <StoreFinderApp apiKey={PUBLIC_GOOGLE_MAPS_API_KEY} client:only="react" />
+    </div>
+  </div>
+</BaseLayout>

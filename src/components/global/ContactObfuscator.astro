@@ -1,0 +1,81 @@
+---
+// Pulled most of this from https://dev.to/waelhabbal/mastering-css-unicode-bidi-property-1e2o
+// https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/unicode-bidi
+
+interface Props {
+  email?: string;
+  phone?: string;
+  label?: string; // Optional custom display text
+  class?: string;
+}
+
+const { email, phone, label, class: className = "" } = Astro.props;
+
+const encodedEmail = email ? btoa(email) : undefined;
+const encodedPhone = phone ? btoa(phone) : undefined;
+const encodedLabel = label ? btoa(label) : undefined;
+
+const fallback = email
+  ? email.split("").reverse().join("")
+  : phone
+    ? phone.split("").reverse().join("")
+    : "";
+---
+
+<obfuscated-contact
+  data-e={encodedEmail}
+  data-p={encodedPhone}
+  data-l={encodedLabel}
+  class={className}
+>
+  <!-- Non-JS Fallback / Bot Trap -->
+  <span style="direction: rtl; unicode-bidi: bidi-override;" class="opacity-80">
+    {fallback}
+  </span>
+</obfuscated-contact>
+
+<script>
+  class ObfuscatedContact extends HTMLElement {
+    connectedCallback() {
+      // Decode Base64 immediately on the client side once JS executes
+      const e = this.dataset.e;
+      const p = this.dataset.p;
+      const l = this.dataset.l;
+
+      let rawContent = "";
+      let hrefContent = "";
+
+      if (e) {
+        const decodedEmail = atob(e);
+        rawContent = l ? atob(l) : decodedEmail;
+        hrefContent = `mailto:${decodedEmail}`;
+      } else if (p) {
+        const decodedPhone = atob(p);
+        rawContent = l ? atob(l) : decodedPhone;
+        // Clean phone number for the tel: href link
+        hrefContent = `tel:${decodedPhone.replace(/\s+/g, "")}`;
+      }
+
+      if (rawContent && hrefContent) {
+        // Swap out the bidi-override span for a standard, clickable <a>
+        this.innerHTML = `<a href="${hrefContent}" class="hover-inherit transition-colors">${rawContent}</a>`;
+      }
+    }
+  }
+
+  // Register the custom Astro Web Component once
+  if (!customElements.get("obfuscated-contact")) {
+    customElements.define("obfuscated-contact", ObfuscatedContact);
+  }
+</script>
+
+<style>
+  /* Let the injected anchor tag safely inherit properties from the parent */
+  .hover-inherit {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  .hover-inherit:hover {
+    color: #ea5b0c; /* brand-primary */
+  }
+</style>

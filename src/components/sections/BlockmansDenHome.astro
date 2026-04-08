@@ -1,0 +1,315 @@
+---
+import { Image } from "astro:assets";
+import beefImg from "../../assets/images/blockmans-den/beef/beef-illustration.webp";
+import poultryImg from "../../assets/images/blockmans-den/poultry/poultry-illustration.webp";
+import porkImg from "../../assets/images/blockmans-den/pork/pork-illustration.webp";
+import muttonImg from "../../assets/images/blockmans-den/mutton/mutton-illustration.webp";
+
+const animals = [
+    {
+        id: 1,
+        name: "Beef",
+        Image: beefImg,
+    },
+    {
+        id: 2,
+        name: "Poultry",
+        Image: poultryImg,
+    },
+    {
+        id: 3,
+        name: "Pork",
+        Image: porkImg,
+    },
+    {
+        id: 4,
+        name: "Mutton",
+        Image: muttonImg,
+    },
+];
+---
+
+<div
+    class="accordion-container w-full box-border overflow-hidden flex flex-col h-[calc(100vh-5rem)] mt-20 md:flex-row md:h-screen md:mt-0"
+>
+    {
+        animals.map((animal, index) => (
+            <div
+                id={animal.name}
+                class={
+                    index % 2 === 0
+                        ? "animal-card flex-1 rounded-2xl cursor-pointer overflow-hidden relative bg-brand-light"
+                        : "animal-card flex-1 rounded-2xl cursor-pointer overflow-hidden relative bg-[#FFFFFF]"
+                }
+            >
+                <div class="card-content">
+                    <div class="details">
+                        <Image src={animal.Image} alt={animal.name} />
+                    </div>
+                    <div class="byLine flex flex-col items-center w-full">
+                        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-wider mb-2 relative inline-block">
+                            {animal.name} CUTS
+                            <div class="absolute -bottom-2 left-0 right-0 h-[2px] bg-brand-primary" />
+                        </h2>
+                        <p class="mt-4 text-xs md:text-sm font-bold uppercase tracking-widest text-brand-dark">
+                            Get to know your{" "}
+                            <span class="font-black">better</span> meat cuts
+                        </p>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+    <div
+        id="scroll-indicator"
+        class="hidden animate-bounce group z-100 absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-auto"
+    >
+        <!-- The Circular Border -->
+        <div
+            class="w-10 h-10 rounded-full border border-brand-primary flex items-center justify-center pointer-events-none"
+        >
+            <!-- The Down Arrow SVG -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5 text-brand-primary"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"></path>
+            </svg>
+        </div>
+
+        <!-- The Tooltip -->
+        <div
+            class="absolute top-12 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none"
+        >
+            Scroll down normally to continue
+        </div>
+    </div>
+</div>
+<div id="carousel-section" class="h-screen w-full bg-brand-light hidden"></div>
+<!-- </BaseLayout> -->
+
+<style is:global>
+    /* The class that triggers the layout shift */
+    .animal-card.active {
+        flex: 3;
+        cursor: default;
+    }
+
+    .animal-card.active img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* background-color: red !important; */
+    }
+
+    .details {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details img {
+        position: absolute;
+        /* max-width: 120vw prevents wide SVGs from overflowing their panel on mobile */
+        max-width: 120vw !important;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 30vh;
+        object-fit: contain;
+    }
+
+    #Pork .details img {
+        transform: translateX(-50%) scale(0.6);
+        transform-origin: top center;
+    }
+
+    @media (min-width: 768px) {
+        .details img {
+            left: 30%;
+            top: auto;
+            bottom: 20%;
+            transform: none;
+            height: 60vh;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #Pork .details img {
+            transform: none;
+            height: 50vh;
+        }
+        #Poultry .details img {
+            transform: none;
+            height: 60vh;
+            left: 50%;
+        }
+
+        #Pork.active .details img {
+            transform: translateX(-50%);
+        }
+        #Poultry.active .details img {
+            transform: translateX(-50%);
+        }
+    }
+
+    .byLine {
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    .animal-card.active .byLine {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .clicked {
+        flex-grow: 1;
+        z-index: 10;
+    }
+
+    .hidden {
+        flex: 0;
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        opacity: 0; /* Fades out during the squish */
+        pointer-events: none;
+    }
+</style>
+
+<script>
+    import gsap from "gsap";
+    import { Flip } from "gsap/Flip";
+    import { navigate } from "astro:transitions/client";
+    import { prefetch } from "astro:prefetch";
+
+    document.addEventListener("astro:page-load", () => {
+        gsap.registerPlugin(Flip);
+
+        const cards = document.querySelectorAll(".animal-card");
+
+        let hasHijackedBack = false;
+        const forceRefresh = () => window.location.reload();
+
+        cards.forEach((card) => {
+            card.addEventListener("click", () => {
+                if (card.classList.contains("clicked")) return;
+
+                prefetch(`/cuts/${card.id}`);
+
+                if (!hasHijackedBack) {
+                    history.pushState({ isHijacked: true }, "", window.location.href);
+                    hasHijackedBack = true;
+                    window.addEventListener("popstate", forceRefresh);
+                }
+
+                const state = Flip.getState(cards, {
+                    props: "opacity",
+                });
+
+                cards.forEach((c) => {
+                    c.classList.remove("clicked", "active", "hidden");
+                });
+
+                card.classList.add("clicked", "active");
+                (window as any).selectedAnimal = card.id;
+
+                cards.forEach((c) => {
+                    if (c !== card) {
+                        c.classList.add("hidden");
+                    }
+                });
+                document.getElementById("scroll-indicator")?.classList.remove("hidden");
+                document.getElementById("carousel-section")?.classList.remove("hidden");
+
+                Flip.from(state, {
+                    duration: 0.6,
+                    ease: "power2.out",
+                    absolute: true,
+                    nested: true,
+                    simple: true,
+                });
+            });
+        });
+
+        cards.forEach((card) => {
+            card.addEventListener("mouseenter", () => {
+                if (card.classList.contains("active")) return;
+
+                const state = Flip.getState(
+                    ".animal-card, .details img, .byLine",
+                    { props: "opacity" },
+                );
+
+                document.querySelector(".animal-card.active")?.classList.remove("active");
+                card.classList.add("active");
+
+                Flip.from(state, {
+                    duration: 1,
+                    ease: "power2.out",
+                    absolute: true,
+                    // nested:true prevents child coordinates breaking when the parent flexes
+                    nested: true,
+                });
+            });
+        });
+
+        const accordion: HTMLElement | null = document.querySelector(".accordion-container");
+
+        accordion?.addEventListener("mouseleave", () => {
+            const activeCard = document.querySelector(".animal-card.active");
+            if (activeCard?.classList.contains("clicked")) return;
+            if (!activeCard) return;
+
+            const state = Flip.getState(".animal-card, .details img, .byLine", {
+                props: "opacity",
+            });
+
+            activeCard.classList.remove("active");
+
+            Flip.from(state, {
+                duration: 0.6,
+                ease: "power3.inOut",
+                absolute: true,
+                nested: true,
+            });
+        });
+
+        const carouselSection = document.getElementById("carousel-section");
+        if (carouselSection) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    if (entries[0].isIntersecting) {
+                        observer.disconnect();
+                        const selected = (window as any).selectedAnimal ?? "Beef";
+                        navigate("/cuts/" + selected);
+                    }
+                },
+                { threshold: 0.001 },
+            );
+            observer.observe(carouselSection);
+        }
+
+        document.addEventListener(
+            "astro:before-preparation",
+            () => {
+                window.removeEventListener("popstate", forceRefresh); // Clears the massive window memory leak!
+            },
+            { once: true },
+        );
+    });
+</script>
