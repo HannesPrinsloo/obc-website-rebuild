@@ -96,7 +96,6 @@ const animals = [
 <!-- </BaseLayout> -->
 
 <style is:global>
-    /* The class that triggers the layout shift */
     .animal-card.active {
         flex: 3;
         cursor: default;
@@ -212,7 +211,11 @@ const animals = [
                 prefetch(`/cuts/${card.id}`);
 
                 if (!hasHijackedBack) {
-                    history.pushState({ isHijacked: true }, "", window.location.href);
+                    history.pushState(
+                        { isHijacked: true },
+                        "",
+                        window.location.href,
+                    );
                     hasHijackedBack = true;
                     window.addEventListener("popstate", forceRefresh);
                 }
@@ -233,8 +236,12 @@ const animals = [
                         c.classList.add("hidden");
                     }
                 });
-                document.getElementById("scroll-indicator")?.classList.remove("hidden");
-                document.getElementById("carousel-section")?.classList.remove("hidden");
+                document
+                    .getElementById("scroll-indicator")
+                    ?.classList.remove("hidden");
+                document
+                    .getElementById("carousel-section")
+                    ?.classList.remove("hidden");
 
                 Flip.from(state, {
                     duration: 0.6,
@@ -255,7 +262,9 @@ const animals = [
                     { props: "opacity" },
                 );
 
-                document.querySelector(".animal-card.active")?.classList.remove("active");
+                document
+                    .querySelector(".animal-card.active")
+                    ?.classList.remove("active");
                 card.classList.add("active");
 
                 Flip.from(state, {
@@ -268,7 +277,9 @@ const animals = [
             });
         });
 
-        const accordion: HTMLElement | null = document.querySelector(".accordion-container");
+        const accordion: HTMLElement | null = document.querySelector(
+            ".accordion-container",
+        );
 
         accordion?.addEventListener("mouseleave", () => {
             const activeCard = document.querySelector(".animal-card.active");
@@ -295,7 +306,8 @@ const animals = [
                 (entries) => {
                     if (entries[0].isIntersecting) {
                         observer.disconnect();
-                        const selected = (window as any).selectedAnimal ?? "Beef";
+                        const selected =
+                            (window as any).selectedAnimal ?? "Beef";
                         navigate("/cuts/" + selected);
                     }
                 },

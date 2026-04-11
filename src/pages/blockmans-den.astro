@@ -1,31 +1,278 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlockmansDenHome from "../components/sections/BlockmansDenHome.astro";
+import { getImage, Image } from "astro:assets";
+import blockmansData from "../data/blockmans-den.json";
+
+import swipeImage from "../assets/images/swipe-image.svg";
+
+import beefImg from "../assets/images/blockmans-den/beef/beef-illustration.webp";
+import poultryImg from "../assets/images/blockmans-den/poultry/poultry-illustration.webp";
+import porkImg from "../assets/images/blockmans-den/pork/pork-illustration.webp";
+import muttonImg from "../assets/images/blockmans-den/mutton/mutton-illustration.webp";
+
+const animals = [
+    { id: 1, name: "Beef", Image: beefImg },
+    { id: 2, name: "Poultry", Image: poultryImg },
+    { id: 3, name: "Pork", Image: porkImg },
+    { id: 4, name: "Mutton", Image: muttonImg },
+];
+
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+    "../assets/images/blockmans-den/**/*.{webp,svg,jpg,png}",
+    { eager: true },
+);
+
+async function getOpt(srcPath: string) {
+    if (!srcPath) return "";
+    const lookupKey = "../" + srcPath.replace("../", "");
+
+    const mod = imageModules[lookupKey];
+    if (mod && mod.default) {
+        if (srcPath.endsWith(".svg")) return mod.default.src;
+        const opt = await getImage({ src: mod.default, format: "webp" });
+        return opt.src;
+    }
+    console.error("Vite Glob could not find this image locally:", lookupKey);
+    return srcPath;
+}
+
+let masterData: any = {};
+for (const [animalKey, cutsArray] of Object.entries(blockmansData)) {
+    masterData[animalKey] = {
+        cuts: await Promise.all(
+            cutsArray.map(async (cut) => ({
+                Title: cut.Title,
+                Description: cut.Description,
+                ImageObj: await getOpt(cut.Image),
+                highlightImageObj: await getOpt(cut.highlightImage),
+                cookingGuideObj: await getOpt(cut.cookingGuide),
+            }))
+        )
+    };
+}
 ---
 
 <BaseLayout
     title="Blockman's Den"
     description="Find your better cut"
     hideFooter={true}
-    transitionSwipe={true}
 >
-    <BlockmansDenHome />
+    <script id="master-data-store" type="application/json" set:html={JSON.stringify(masterData)}></script>
+
+    <div
+        id="global-swipe"
+        class="fixed inset-0 bg-brand-dark z-[9999] pointer-events-none w-screen h-screen flex items-center justify-center hidden"
+        style="transform: translateX(-100%);"
+    >
+        <div class="bg-brand-dark pt-6 px-6 pb-10 sm:pt-10 sm:px-10 sm:pb-16 flex items-center justify-center">
+            <Image
+                src={swipeImage}
+                alt="OBC Group Logo"
+                class="h-16 sm:h-24 lg:h-32 w-auto object-contain block"
+                id="swipe-knives"
+            />
+        </div>
+    </div>
+
+    <div id="accordion-section" class="accordion-container w-full box-border overflow-hidden flex flex-col h-[calc(100vh-5rem)] mt-20 md:flex-row md:h-screen md:mt-0 relative z-10 transition-opacity duration-300">
+        {animals.map((animal, index) => (
+            <div
+                id={animal.name}
+                class={`animal-card flex-1 rounded-2xl cursor-pointer overflow-hidden relative ${index % 2 === 0 ? "bg-brand-light" : "bg-[#FFFFFF]"}`}
+            >
+                <div class="card-content">
+                    <div class="details">
+                        <Image src={animal.Image} alt={animal.name} />
+                    </div>
+                    <div class="byLine flex flex-col items-center w-full">
+                        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-wider mb-2 relative inline-block text-[#222]">
+                            {animal.name} CUTS
+                            <div class="absolute -bottom-2 left-0 right-0 h-[2px] bg-brand-primary" />
+                        </h2>
+                        <p class="mt-4 text-xs md:text-sm font-bold uppercase tracking-widest text-brand-dark">
+                            Get to know your <span class="font-black">better</span> meat cuts
+                        </p>
+                    </div>
+                </div>
+            </div>
+        ))}
+
+        <div id="scroll-indicator" class="hidden animate-bounce group z-[100] absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-auto">
+            <div class="w-10 h-10 rounded-full border border-brand-primary flex items-center justify-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-brand-primary">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"></path>
+                </svg>
+            </div>
+            <div class="absolute top-12 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none">
+                Scroll down normally to continue
+            </div>
+        </div>
+    </div>
+
+    <div id="carousel-section" class="hidden relative z-20">
+        <div class="explorer-container w-full h-screen overflow-hidden relative bg-[#efefef] font-sans">
+            <h2 id="panel-title" class="title absolute top-[12vh] lg:top-[15vh] left-1/2 -translate-x-1/2 w-[90vw] lg:w-auto text-center text-4xl lg:text-5xl tracking-[0.3em] font-black m-0 text-[#222] z-10 pointer-events-none"></h2>
+
+            <div class="carousel-viewport absolute lg:static top-[18vh] lg:top-0 h-[35vh] lg:h-screen w-full flex items-center z-[5]">
+                <div class="carousel-track flex h-full items-center pl-[15vw] pr-[15vw] lg:pl-[32.5vw] lg:pr-[32.5vw] gap-[5vw]" id="carousel-track">
+                </div>
+            </div>
+
+            <div class="info-grid absolute bottom-[2vh] lg:bottom-[5vh] left-0 w-full z-10 pointer-events-none px-[4vw]">
+                <div class="info-grid-inner flex flex-col lg:flex-row justify-between items-center lg:items-end w-full max-w-[1400px] gap-2 lg:gap-[30px] mx-auto pb-safe">
+                    <div class="cow-diagram order-2 lg:order-1 flex-1 max-w-[140px] lg:max-w-[250px] mb-1 lg:mb-5">
+                        <img id="panel-cow-img" class="w-full h-auto object-contain" src="" alt="Cow Diagram" />
+                    </div>
+                    <div class="description-container order-1 lg:order-2 flex-2 text-center text-sm lg:text-[1.15rem] font-medium leading-relaxed text-[#444] max-w-[450px] lg:max-w-[600px] mx-auto mb-4 lg:mb-10 px-4">
+                        <p id="panel-desc"></p>
+                    </div>
+
+                    <div class="cooking-guide hidden lg:block order-3 flex-1 max-w-[320px] mb-5">
+                        <img id="panel-guide-img" class="w-full h-auto object-contain" src="" alt="Cooking Guide" />
+                    </div>
+
+                    <div class="mobile-guide-btn order-3 lg:hidden pointer-events-auto mb-3">
+                        <button id="guide-modal-btn" class="border border-[#333] rounded-full px-6 py-2 text-[0.7rem] font-bold tracking-wide text-[#333] bg-transparent hover:bg-black hover:text-white transition-colors">COOKING GUIDE</button>
+                    </div>
+
+                    <div class="scroll-arrow order-4 lg:hidden pointer-events-auto mt-2">
+                        <div class="w-12 h-12 rounded-full border border-[#f58120] text-[#f58120] flex justify-center items-center animate-bounce">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cooking-guide-modal" class="fixed inset-0 z-[100] hidden items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-auto">
+            <div id="modal-backdrop" class="absolute inset-0 bg-[#efefef]/90 backdrop-blur-md"></div>
+            <div class="relative bg-white shadow-2xl z-10 w-[90%] max-w-[400px]">
+                <button id="close-modal-btn" class="absolute -top-4 -right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.1)] border border-gray-200">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div class="p-2 border border-gray-100">
+                    <img id="modal-guide-img" src="" alt="Cooking Guide" class="w-full h-auto" />
+                </div>
+            </div>
+        </div>
+
+        <button
+            id="escape-hatch-btn"
+            class="fixed top-[12vh] lg:top-30 right-[4vw] lg:right-8 z-[200] w-[45px] h-[45px] lg:w-[50px] lg:h-[50px] bg-white/60 backdrop-blur-md flex items-center justify-center rounded-full border border-black hover:bg-brand-primary hover:text-[#181818] transition-all duration-300 cursor-pointer group hover:scale-110 pointer-events-auto"
+            aria-label="Return to all meats"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 group-hover:rotate-90 transition-transform duration-500 ease-out">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
 
     <div class="fixed bottom-4 right-4 z-50 group pointer-events-auto">
-        <button
-            class="w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center border border-white/20 hover:bg-black/80 transition-colors tooltip-trigger"
-            aria-label="Legal and T&C"
-        >
-            i
-        </button>
-        <div
-            class="absolute bottom-full right-0 mb-2 w-max px-3 py-2 bg-white text-black text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"
-        >
-            <a
-                href="/legal"
-                class="pointer-events-auto hover:underline font-bold text-brand-primary"
-                >Legal and T's & C's</a
-            >
+        <button class="w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center border border-white/20 hover:bg-black/80 transition-colors tooltip-trigger" aria-label="Legal and T&C">i</button>
+        <div class="absolute bottom-full right-0 mb-2 w-max px-3 py-2 bg-white text-black text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity">
+            <a href="/legal" class="pointer-events-auto hover:underline font-bold text-brand-primary">Legal and T's & C's</a>
         </div>
     </div>
 </BaseLayout>
+
+<style is:global>
+    .animal-card.active {
+        flex: 3;
+        cursor: default;
+    }
+
+    .animal-card.active img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .details {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details img {
+        position: absolute;
+        max-width: 120vw !important;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 30vh;
+        object-fit: contain;
+    }
+
+    #Pork .details img {
+        transform: translateX(-50%) scale(0.6);
+        transform-origin: top center;
+    }
+
+    @media (min-width: 768px) {
+        .details img {
+            left: 30%;
+            top: auto;
+            bottom: 20%;
+            transform: none;
+            height: 60vh;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #Pork .details img {
+            transform: none;
+            height: 50vh;
+        }
+        #Poultry .details img {
+            transform: none;
+            height: 60vh;
+            left: 50%;
+        }
+
+        #Pork.active .details img {
+            transform: translateX(-50%);
+        }
+        #Poultry.active .details img {
+            transform: translateX(-50%);
+        }
+    }
+
+    .byLine {
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    .bg-fill {
+        background-color: #f18020;
+    }
+
+    .animal-card.active .byLine {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .clicked {
+        flex-grow: 1;
+        z-index: 10;
+    }
+
+    .hidden-card {
+        flex: 0;
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        pointer-events: none;
+    }
+</style>
+
+<script src="../scripts/blockmans-den.ts"></script>

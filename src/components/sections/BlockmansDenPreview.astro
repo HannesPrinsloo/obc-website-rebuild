@@ -80,13 +80,14 @@ const animals = [
     const imgs = grid.querySelectorAll<HTMLElement>(".animal-img");
 
     // 1. Kill transitions and snap everything to resting state
+    // We remove all inline styles because GSAP Flip might have added position, width, height, etc.
     cards.forEach((card) => {
+      card.removeAttribute("style");
       card.style.transition = "none";
-      card.style.flex = "";
     });
     imgs.forEach((img) => {
+      img.removeAttribute("style");
       img.style.transition = "none";
-      img.style.left = "";
     });
 
     // 2. Force a reflow so the browser commits the values above
@@ -134,9 +135,16 @@ const animals = [
   /* ── Image grid ── */
   .animal-grid {
     display: flex;
-    flex-direction: row;
-    height: 70vh;
+    flex-direction: column;
+    height: calc(100vh - 5rem);
     /* border-top: 1px solid #181818; */
+  }
+
+  @media (min-width: 768px) {
+    .animal-grid {
+      flex-direction: row;
+      height: 70vh;
+    }
   }
 
   .animal-card {
@@ -145,6 +153,13 @@ const animals = [
     overflow: hidden;
     transition: flex 0.4s ease;
     cursor: pointer;
+    border-radius: 1rem; /* rounded-2xl */
+  }
+
+  @media (min-width: 768px) {
+    .animal-card {
+      border-radius: 0;
+    }
   }
 
   .card-link {
@@ -251,39 +266,56 @@ const animals = [
   /* Images: right-offset by default, slide to center on hover */
   .animal-img {
     position: absolute;
-    bottom: 15%;
-    left: 70%;
+    top: 10%;
+    left: 50%;
     transform: translateX(-50%);
-    height: 70%;
+    height: 90%;
     width: auto;
-    max-width: none;
+    max-width: 120vw;
     object-fit: contain;
     object-position: bottom center;
-    transition: left 0.4s ease;
+    transition: left 0.4s ease, top 0.4s ease, height 0.4s ease, transform 0.4s ease;
   }
 
-  .animal-card:hover .animal-img {
-    left: 50%;
-  }
-
-  /* Pork: wide illustration — starts right of center, centers on hover */
   #Pork .animal-img {
-    height: 60%;
-    width: auto;
-    left: 110%;
+    transform: translateX(-50%) scale(0.6);
+    transform-origin: top center;
   }
 
-  #Pork:hover .animal-img {
-    left: 50%;
-  }
+  @media (min-width: 768px) {
+    .animal-img {
+      top: auto;
+      bottom: 15%;
+      left: 70%;
+      height: 70%;
+      max-width: none;
+      transform: translateX(-50%);
+    }
 
-  /* Poultry: default offset */
-  #Poultry .animal-img {
-    left: 90%;
-  }
+    .animal-card:hover .animal-img {
+      left: 50%;
+    }
 
-  #Poultry:hover .animal-img {
-    left: 50%;
+    /* Pork: wide illustration — starts right of center, centers on hover */
+    #Pork .animal-img {
+      transform: translateX(-50%);
+      height: 60%;
+      width: auto;
+      left: 110%;
+    }
+
+    #Pork:hover .animal-img {
+      left: 50%;
+    }
+
+    /* Poultry: default offset */
+    #Poultry .animal-img {
+      left: 90%;
+    }
+
+    #Poultry:hover .animal-img {
+      left: 50%;
+    }
   }
 
   /* ── Per-card byline ── */

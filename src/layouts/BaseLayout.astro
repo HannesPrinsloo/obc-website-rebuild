@@ -3,21 +3,17 @@ import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
-import { Image } from "astro:assets";
-import swipeImage from "../assets/images/swipe-image.svg";
 
 interface Props {
 	title: string;
 	description?: string;
 	hideFooter?: boolean;
-	transitionSwipe?: boolean;
 }
 
 const {
 	title,
 	description = "Welcome to OBC",
 	hideFooter = false,
-	transitionSwipe = false,
 } = Astro.props;
 ---
 
@@ -41,27 +37,6 @@ const {
 	<body class="flex flex-col min-h-screen">
 		<Header />
 
-		<!-- Global Swipe 'loading screen' for blockmans-den -->
-		{
-			transitionSwipe && (
-				<div
-					id="global-swipe"
-					class="fixed inset-0 bg-brand-dark z-9999 pointer-events-none w-screen h-screen flex items-center justify-center"
-					style="transform: translateX(-100%);"
-					transition:persist="global-swipe"
-				>
-					<div class="bg-brand-dark pt-6 px-6 pb-10 sm:pt-10 sm:px-10 sm:pb-16 flex items-center justify-center">
-						<Image
-							src={swipeImage}
-							alt="OBC Group Logo"
-							class="h-16 sm:h-24 lg:h-32 w-auto object-contain"
-							id="swipe-knives"
-						/>
-					</div>
-				</div>
-			)
-		}
-
 		<main class="grow">
 			<slot />
 		</main>
@@ -78,69 +53,8 @@ const {
 			import Lenis from "lenis";
 			import { gsap } from "gsap";
 			import { ScrollTrigger } from "gsap/ScrollTrigger";
-			import { Flip } from "gsap/Flip";
 
-			gsap.registerPlugin(ScrollTrigger, Flip);
-
-			document.addEventListener("astro:page-load", () => {
-				const swipe = document.getElementById("global-swipe");
-				const swipeKnives = document.getElementById("swipe-knives");
-				if (!swipe || !swipeKnives) return;
-				const state = Flip.getState(swipeKnives, {
-					props: "backgroundColor,color",
-				});
-				if (swipe) {
-					if (
-						// Not sure which of these is the correct one to check for, but it works
-						swipe.style.transform === "translate(0%, 0%)" ||
-						swipe.style.transform.includes("translateX(0%)") ||
-						gsap.getProperty(swipe, "xPercent") === 0 ||
-						gsap.getProperty(swipe, "x") === 0
-					) {
-						const closedTime = parseInt(
-							//set in horizontal-scroll-carousel.astro before navigating back to blockmans-den
-							sessionStorage.getItem("swipeClosureTime") || "0",
-						);
-						const elapsedMs = Date.now() - closedTime;
-						const minimumHoldTime = 1000;
-						let dynamicDelay = 0;
-
-						if (elapsedMs < minimumHoldTime && closedTime > 0) {
-							dynamicDelay = (minimumHoldTime - elapsedMs) / 1000;
-						}
-
-						if (swipeKnives) {
-							swipeKnives.classList.add("bg-fill");
-						} else {
-							console.log("No swipeKnives element found");
-						}
-
-						Flip.from(state, {
-							duration: 1,
-							ease: "power2.out",
-							absolute: true,
-							nested: true,
-							// simple: true,
-							onComplete: () => {
-								swipeKnives?.classList.remove("bg-fill");
-							},
-						});
-
-						gsap.to(swipe, {
-							xPercent: 100,
-							delay: dynamicDelay,
-							duration: 1,
-							ease: "power3.inOut",
-							onComplete: () => {
-								gsap.set(swipe, { xPercent: -100, x: 0 });
-								sessionStorage.removeItem("swipeClosureTime");
-							},
-						});
-					} else {
-						gsap.set(swipe, { xPercent: -100, x: 0 });
-					}
-				}
-			});
+			gsap.registerPlugin(ScrollTrigger);
 
 			// Official integration pattern: https://github.com/darkroomengineering/lenis#gsap-scrolltrigger
 			const lenis = new Lenis({
