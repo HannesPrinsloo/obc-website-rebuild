@@ -1,17 +1,676 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Picture } from "astro:assets";
+import tholaPhoneImg from "../assets/images/thola-zonke/thola-phone.webp";
+import tholaCardImg from "../assets/images/thola-zonke/thola-card.webp";
+import tholaBgImg from "../assets/images/thola-zonke/thola-bg.webp";
+import tholaIcon1 from "../assets/images/thola-zonke/icon-1-thola.webp";
+import tholaIcon2 from "../assets/images/thola-zonke/icon-2-thola.webp";
+import tholaIcon3 from "../assets/images/thola-zonke/icon-3-thola.webp";
+import tholaIcon4 from "../assets/images/thola-zonke/icon-4-thola.webp";
+import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp";
 ---
 
 <BaseLayout title="Thola Zonke">
-    <div class="max-w-4xl mx-auto py-16 px-4">
-        <h1
-            class="text-5xl font-display text-brand-primary mb-8 text-center text-4xl"
+    <div class="relative w-full bg-[#181818]">
+        <section
+            class="hero-wrapper relative w-full h-auto min-h-[100svh] lg:min-h-[80vh] lg:h-[clamp(calc(80vh),120vh,120vh)] md:h-[80vh] overflow-hidden flex flex-col lg:flex-row items-center pt-0 pb-8 md:pb-12 md:pt-10"
         >
-            Thola Zonke
-        </h1>
-        <div class="prose prose-lg mx-auto text-gray-800">
-            <p class="mb-6 leading-relaxed">Lorem Ipsum</p>
-            <p class="mb-6 leading-relaxed">Lorem Ipsum</p>
-        </div>
+            <!-- Orange Diagonal Background Component -->
+            <div
+                class="hero-bg-layer absolute right-0 bottom-0 top-[28%] lg:top-0 w-full md:w-[65%] z-0 flex justify-end pointer-events-none opacity-0 translate-x-12"
+            >
+                <Picture
+                    src={tholaBgImg}
+                    alt="Orange Diagonal Background"
+                    class="h-full w-full object-cover object-left"
+                    loading="eager"
+                    fetchpriority="high"
+                />
+            </div>
+
+            <!-- Left Column (Text) -->
+            <div
+                class="relative z-30 flex-1 w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-24 xl:pl-[12%] pointer-events-none"
+            >
+                <div
+                    class="hero-text-layer flex flex-col items-center lg:items-start space-y-4 md:space-y-6 pointer-events-auto opacity-0"
+                >
+                    <h1
+                        class="font-sans font-bold uppercase p-0 tracking-wide leading-[1.05] text-[clamp(3.5rem,7vw,8rem)] whitespace-nowrap text-center lg:text-left"
+                    >
+                        <span class="text-brand-primary">NEXT</span>
+                        <span class="text-white">GEN</span><br />
+                        <span class="text-white">OF</span>
+                        <span class="text-brand-primary">REWARDS</span>
+                    </h1>
+
+                    <div
+                        class="mt-4 lg:mt-6 text-center lg:text-left text-white w-full lg:max-w-xl hero-subtitle flex flex-col items-center lg:items-start"
+                    >
+                        <p
+                            class="text-sm md:text-base lg:text-[clamp(1rem,1.5vw,1.35rem)] font-bold tracking-widest uppercase leading-snug max-w-[280px] md:max-w-none mx-auto lg:mx-0"
+                        >
+                            JOIN OUR THOLA ZONKE LOYALTY, STOKVEL<br
+                                class="hidden md:block"
+                            />
+                            &amp; REWARDS PROGRAM TODAY.
+                        </p>
+
+                        <div class="mt-6 md:mt-8">
+                            <p
+                                class="text-xs md:text-xs font-bold tracking-[0.2em] uppercase mb-5 text-gray-300"
+                            >
+                                ALREADY A MEMBER? SIGN IN HERE
+                            </p>
+
+                            <div
+                                class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 px-4 lg:px-0 w-full"
+                            >
+                                <button
+                                    class="btn-outline w-full max-w-[220px] lg:w-auto bg-brand-primary before:bg-[#181818] text-brand-light font-bold text-xs md:text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest hover:opacity-90 transition-opacity"
+                                >
+                                    LOG IN
+                                </button>
+                                <button
+                                    class="thola-install-btn w-full max-w-[220px] lg:w-auto bg-transparent border border-gray-400 text-white font-bold text-xs md:text-sm px-6 py-3 rounded-full uppercase tracking-widest"
+                                >
+                                    INSTALL APP
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column (Images) -->
+            <div
+                class="relative z-20 flex-1 w-full h-[60vh] lg:h-full flex justify-center items-center px-4 md:px-8 pointer-events-none mt-2 md:mt-12 lg:mt-0"
+            >
+                <div
+                    class="relative w-[85%] max-w-[450px] md:max-w-[600px] lg:max-w-[700px] xl:max-w-[800px] h-full flex justify-center items-center group lg:scale-100 xl:scale-110 lg:origin-right"
+                >
+                    <!-- Phone Layer (Animates from top) -->
+                    <div
+                        class="hero-phone-layer absolute z-30 opacity-0 -translate-y-30 w-full flex justify-center"
+                    >
+                        <Picture
+                            src={tholaPhoneImg}
+                            alt="Thola Zonke App Phone"
+                            loading="eager"
+                            fetchpriority="high"
+                            class="w-full h-auto max-h-[70vh] lg:max-h-[85vh] object-contain drop-shadow-2xl"
+                        />
+                    </div>
+                    <!-- Card Layer (Animates from right) -->
+                    <div
+                        class="hero-card-layer absolute z-40 opacity-0 translate-x-24 bottom-[-10vh] right-[5%] lg:bottom-[20%] lg:-right-[0%] w-[55%] lg:w-[70%]"
+                    >
+                        <Picture
+                            src={tholaCardImg}
+                            alt="Thola Zonke Card"
+                            loading="eager"
+                            fetchpriority="high"
+                            class="w-full h-auto object-contain drop-shadow-2xl"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Content Section -->
+        <section
+            class="w-full flex flex-col items-center justify-center pt-8 md:pt-16 pb-24 md:pb-40 px-6 md:px-12 relative z-20"
+        >
+            <p
+                id="highlight-text"
+                class="body-text-large text-[#EFEFEF] text-center max-w-5xl mx-auto mb-16 md:mb-24"
+            >
+                Life’s circumstances can tempt you to spend which can make
+                managing your money difficult. By joining Thola Zonke Rewards
+                Club, you use your money in a way that your whole family will
+                benefit.
+            </p>
+
+            <!-- 4 Column Feature Grid -->
+            <div
+                class="thola-carousel-grid flex md:grid md:grid-cols-2 lg:grid-cols-4 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory gap-4 md:gap-6 lg:gap-8 w-full max-w-7xl mx-auto pb-4 md:pb-0"
+            >
+                <!-- Card 1 -->
+                <div
+                    class="thola-feature-card shrink-0 w-[85vw] md:w-auto snap-start cursor-default bg-black rounded-[2.5rem] p-8 flex flex-col items-center text-center justify-start shadow-xl"
+                >
+                    <Picture
+                        src={tholaIcon1}
+                        alt="ID Book"
+                        class="w-full max-w-[170px] h-auto object-contain mb-8 lg:mb-12"
+                        loading="lazy"
+                    />
+                    <p
+                        class="text-[#EFEFEF] text-xs md:text-sm font-medium leading-relaxed max-w-[220px]"
+                    >
+                        Go to your nearest OBC Better Butchery. Bring along your
+                        ID book or Passport to join.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="thola-feature-card shrink-0 w-[85vw] md:w-auto snap-start cursor-default bg-black rounded-[2.5rem] p-8 flex flex-col items-center text-center justify-start shadow-xl"
+                >
+                    <Picture
+                        src={tholaIcon2}
+                        alt="Camera or scanning"
+                        class="w-full max-w-[168px] h-auto object-contain mb-8 lg:mb-12"
+                        loading="lazy"
+                    />
+                    <p
+                        class="text-[#EFEFEF] text-xs md:text-sm font-medium leading-relaxed max-w-[220px]"
+                    >
+                        An OBC staff member will scan your ID book, capture your
+                        details and request your cellphone number.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="thola-feature-card shrink-0 w-[85vw] md:w-auto snap-start cursor-default bg-black rounded-[2.5rem] p-8 flex flex-col items-center text-center justify-start shadow-xl"
+                >
+                    <Picture
+                        src={tholaIcon3}
+                        alt="PIN entry"
+                        class="w-full max-w-[171px] h-auto object-contain mb-8 lg:mb-12"
+                        loading="lazy"
+                    />
+                    <p
+                        class="text-[#EFEFEF] text-xs md:text-sm font-medium leading-relaxed max-w-[220px]"
+                    >
+                        You will be asked to choose a PIN that you must
+                        remember.
+                    </p>
+                    <p
+                        class="text-[9px] font-bold uppercase tracking-wider text-gray-400 mt-4"
+                    >
+                        NB: DO NOT SHARE THIS PIN WITH ANYBODY
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="thola-feature-card shrink-0 w-[85vw] md:w-auto snap-start cursor-default bg-black rounded-[2.5rem] p-8 flex flex-col items-center text-center justify-start shadow-xl"
+                >
+                    <Picture
+                        src={tholaIcon4}
+                        alt="OTP on phone"
+                        class="w-full max-w-[147px] h-auto object-contain mb-8 lg:mb-12"
+                        loading="lazy"
+                    />
+                    <p
+                        class="text-[#EFEFEF] text-xs md:text-sm font-medium leading-relaxed max-w-[220px]"
+                    >
+                        Once you have entered the OTP sent to your cellphone you
+                        are good to go. You can now start to save and earn Thola
+                        Zonke Loyalty benefits.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mobile Carousel Tracker Dots -->
+            <div
+                id="thola-carousel-dots"
+                class="flex md:hidden items-center justify-center gap-3 mt-6 w-full"
+            >
+                <!-- Initialized with first dot active (wider and white) -->
+                <button
+                    class="carousel-dot w-4 h-2 rounded-full bg-white transition-all duration-300 pointer-events-auto"
+                    data-index="0"
+                    aria-label="Go to slide 1"></button>
+                <button
+                    class="carousel-dot w-2 h-2 rounded-full bg-[#333333] transition-all duration-300 pointer-events-auto"
+                    data-index="1"
+                    aria-label="Go to slide 2"></button>
+                <button
+                    class="carousel-dot w-2 h-2 rounded-full bg-[#333333] transition-all duration-300 pointer-events-auto"
+                    data-index="2"
+                    aria-label="Go to slide 3"></button>
+                <button
+                    class="carousel-dot w-2 h-2 rounded-full bg-[#333333] transition-all duration-300 pointer-events-auto"
+                    data-index="3"
+                    aria-label="Go to slide 4"></button>
+            </div>
+
+            <!-- Footer Closing Text -->
+            <p
+                id="text-under-card"
+                class="body-text-large text-[#EFEFEF] text-center max-w-4xl mx-auto mt-20 md:mt-28"
+            >
+                Thola Zonke Rewards Club is where you can save and have access
+                to benefits, savings deals and rewards.
+            </p>
+        </section>
     </div>
+
+    <!-- Expect More Split Section (Animation Ready) -->
+    <section
+        class="thola-expect-section w-full grid grid-cols-1 lg:grid-cols-2 bg-[#181818] relative"
+    >
+        <!-- Left Text Column -->
+        <div
+            class="thola-expect-text-container w-full z-10 aspect-square lg:aspect-auto [perspective:800px]"
+        >
+            <div
+                class="thola-expect-text bg-white w-full h-full flex flex-col items-center justify-center text-center px-8 md:px-12 lg:py-32 xl:p-24 2xl:p-32"
+            >
+                <h2
+                    class="font-sans text-[22px] md:text-3xl lg:text-4xl xl:text-[2.5rem] text-[#181818] font-normal tracking-wide leading-snug md:leading-snug lg:leading-tight max-w-[20rem] md:max-w-2xl mx-auto"
+                >
+                    <span class="thola-expect-line block overflow-hidden"
+                        ><span class="block"
+                            >EXPECT <span class="font-black tracking-widest"
+                                >GREAT BENEFITS</span
+                            ></span
+                        ></span
+                    >
+                    <span class="thola-expect-line block overflow-hidden"
+                        ><span class="block"
+                            >WHEN JOINING <span
+                                class="font-black tracking-widest"
+                                >THE THOLA</span
+                            ></span
+                        ></span
+                    >
+                    <span class="thola-expect-line block overflow-hidden"
+                        ><span class="font-black tracking-widest block"
+                            >ZONKE REWARDS CLUB</span
+                        ></span
+                    >
+                </h2>
+                <p
+                    class="thola-expect-tag font-sans font-black text-[#181818] mt-6 lg:mt-10 tracking-widest text-sm md:text-[15px]"
+                >
+                    #expectmore
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Image Column -->
+        <div
+            class="thola-expect-img-container relative w-full aspect-square lg:aspect-auto lg:h-full overflow-hidden [perspective:800px]"
+        >
+            <div
+                class="thola-expect-img-wrap relative w-full h-full overflow-hidden flex items-center justify-center bg-[#ea9e48]"
+            >
+                <Picture
+                    src={tholaFistBumpImg}
+                    alt="Expect great benefits when joining the Thola Zonke Rewards Club"
+                    class="thola-expect-img absolute lg:relative inset-0 lg:inset-auto w-full h-full lg:h-auto object-cover object-center lg:object-left"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+    </section>
+
+    <script>
+        import { gsap } from "gsap";
+        import { ScrollTrigger } from "gsap/ScrollTrigger";
+        import { SplitText } from "gsap/SplitText";
+
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+
+        let heroCtx: ReturnType<typeof gsap.context> | null;
+
+        function initHeroAnimations() {
+            if (heroCtx) {
+                heroCtx.revert();
+                heroCtx = null;
+            }
+
+            if (!document.querySelector(".hero-wrapper")) return;
+
+            heroCtx = gsap.context(() => {
+                requestAnimationFrame(() => {
+                    // SplitText masked line reveal
+                    SplitText.create(".hero-text-layer h1", {
+                        type: "lines",
+                        mask: "lines",
+                        autoSplit: true,
+                        onSplit: (self) => {
+                            gsap.set(".hero-text-layer", { opacity: 1, y: 0 });
+                            return gsap.from(self.lines, {
+                                yPercent: 120,
+                                duration: 1.2,
+                                ease: "expo.out",
+                                stagger: 0.05,
+                                delay: 0.1,
+                            });
+                        },
+                    });
+
+                    gsap.from(".hero-subtitle", {
+                        opacity: 0,
+                        y: 20,
+                        duration: 1,
+                        ease: "power3.out",
+                        delay: 0.6,
+                    });
+
+                    // Cards Stagger
+                    gsap.from(".thola-feature-card", {
+                        opacity: 0,
+                        y: 60,
+                        duration: 1,
+                        stagger: 0.3,
+                        ease: "back.out(1.2)",
+                        scrollTrigger: {
+                            trigger: ".thola-feature-card",
+                            start: "top 85%", // starts when the top of the grid enters the lower part of screen
+                        },
+                    });
+
+                    // Manage hover transforms explicitly through GSAP to prevent CSS transition fighting
+                    const featureCards = gsap.utils.toArray(
+                        ".thola-feature-card",
+                    ) as HTMLElement[];
+                    featureCards.forEach((card) => {
+                        card.addEventListener("mouseenter", () => {
+                            gsap.to(card, {
+                                y: -12,
+                                duration: 0.3,
+                                ease: "power2.out",
+                            });
+                        });
+                        card.addEventListener("mouseleave", () => {
+                            gsap.to(card, {
+                                y: 0,
+                                duration: 0.3,
+                                ease: "power2.out",
+                            });
+                        });
+                    });
+
+                    // Entry Timeline
+                    const tl = gsap.timeline({
+                        defaults: { ease: "power3.out" },
+                    });
+
+                    tl.to(
+                        ".hero-bg-layer",
+                        { opacity: 1, x: 0, duration: 1.5 },
+                        0,
+                    )
+                        .to(
+                            ".hero-phone-layer",
+                            { opacity: 1, y: 0, duration: 1.2 },
+                            "-=1.0",
+                        )
+                        .to(
+                            ".hero-card-layer",
+                            { opacity: 1, x: 0, y: 0, duration: 1.2 },
+                            "-=0.9",
+                        );
+
+                    // Subtle Parallax Scroll Interactions
+                    gsap.to(".hero-phone-layer", {
+                        yPercent: -10,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".hero-wrapper",
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    });
+
+                    gsap.to(".hero-card-layer", {
+                        yPercent: -25,
+                        rotation: -3,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ".hero-wrapper",
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    });
+
+                    // Scroll-Reveal text setup mimicking the CodePen example
+                    const highlightText =
+                        document.querySelector("#highlight-text");
+                    if (highlightText) {
+                        const splitHighlight = new SplitText(highlightText, {
+                            type: "lines",
+                        });
+
+                        const masks: HTMLElement[] = [];
+                        splitHighlight.lines.forEach((line) => {
+                            // Ensure the line can contain the absolute mask
+                            line.style.position = "relative";
+
+                            // Create the mask element
+                            const mask = document.createElement("span");
+                            // Starts scaled to 0 (invisible). Origin left means it will grow reading left-to-right to cover text.
+                            mask.className =
+                                "absolute top-0 left-0 w-full h-[115%] bg-[#181818] opacity-[0.85] z-10 origin-left scale-x-0 pointer-events-none";
+                            line.appendChild(mask);
+                            masks.push(mask);
+                        });
+
+                        // Unified staggered timeline mapped to the overall paragraph block.
+                        // By setting stagger and duration equally, the animations string together end-to-end
+                        // without ANY mathematical possibility of overlapping lines!
+                        gsap.to(masks, {
+                            scaleX: 1, // Grows the dark mask to 100%, effectively dimming the text
+                            ease: "none",
+                            duration: 1,
+                            stagger: 1, // Enforces strict, zero-overlap sequential transitions
+                            scrollTrigger: {
+                                trigger: highlightText,
+                                start: "top 50%", // Triggers safely a quarter way down the screen
+                                end: "bottom 15%", // Expands active scroll area, natively slowing the effect massively
+                                scrub: true,
+                            },
+                        });
+                    }
+
+                    // Footer Anti-Highlight setup
+                    const footerHighlight =
+                        document.querySelector("#text-under-card");
+                    if (footerHighlight) {
+                        const splitFooter = new SplitText(footerHighlight, {
+                            type: "lines",
+                        });
+
+                        const footerMasks: HTMLElement[] = [];
+                        splitFooter.lines.forEach((line) => {
+                            line.style.position = "relative";
+                            const mask = document.createElement("span");
+                            mask.className =
+                                "absolute top-0 left-0 w-full h-[115%] bg-[#181818] opacity-[0.85] z-10 origin-left scale-x-0 pointer-events-none";
+                            line.appendChild(mask);
+                            footerMasks.push(mask);
+                        });
+
+                        gsap.to(footerMasks, {
+                            scaleX: 1,
+                            ease: "none",
+                            duration: 1,
+                            stagger: 1,
+                            scrollTrigger: {
+                                trigger: footerHighlight,
+                                start: "top 75%", // Triggers when text is 3/4 down the screen
+                                end: "bottom 35%", // Ends effectively right before it hits the bottom
+                                scrub: true,
+                            },
+                        });
+                    }
+
+                    // Expect More 3D Rotating Entrance
+                    const expectSection = document.querySelector(
+                        ".thola-expect-section",
+                    );
+                    if (expectSection) {
+                        const expectText =
+                            expectSection.querySelector(".thola-expect-text");
+                        const expectImgWrap = expectSection.querySelector(
+                            ".thola-expect-img-wrap",
+                        );
+
+                        const expectTl = gsap.timeline({
+                            scrollTrigger: {
+                                trigger: expectSection,
+                                start: "top 95%",
+                                end: "top 10%", // Track stretch for massive glide
+                                scrub: 1, // 1.5s momentum delay
+                            },
+                        });
+
+                        if (expectText) {
+                            expectTl.from(
+                                expectText,
+                                {
+                                    y: -100,
+                                    rotationX: 10, // Top tilts backward, pulling top corners closer (Trapezoid)
+                                    transformOrigin: "center center", // Base stays anchored to section
+                                    ease: "power1.out", // Erases curve-related snapping
+                                },
+                                0,
+                            );
+                        }
+
+                        if (expectImgWrap) {
+                            expectTl.from(
+                                expectImgWrap,
+                                {
+                                    y: 100,
+                                    rotationX: -10, // Bottom tilts backward, pulling bottom corners closer
+                                    transformOrigin: "center center", // Roof stays anchored to section
+                                    ease: "power1.out", // Erases curve-related snapping
+                                },
+                                0, // Perfectly parallel
+                            );
+                        }
+                    }
+                });
+            });
+        }
+
+        function initCarouselTracking() {
+            const grid = document.querySelector(
+                ".thola-carousel-grid",
+            ) as HTMLElement;
+            const cards = document.querySelectorAll(
+                ".thola-carousel-grid .thola-feature-card",
+            );
+            const dots = document.querySelectorAll(
+                "#thola-carousel-dots .carousel-dot",
+            );
+
+            if (!grid || cards.length === 0 || dots.length === 0) return;
+
+            // Click dots to forcefully scroll
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => {
+                    const card = cards[index] as HTMLElement;
+                    if (card) {
+                        grid.scrollTo({
+                            left: card.offsetLeft - grid.offsetLeft,
+                            behavior: "smooth",
+                        });
+                    }
+                });
+            });
+
+            // Intersection Observer to naturally update active dot during swipe coasting
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        // Triggers when 60% of a card's area crosses the central view threshold
+                        if (entry.isIntersecting) {
+                            const index = Array.from(cards).indexOf(
+                                entry.target,
+                            );
+                            if (index !== -1 && dots[index]) {
+                                // Reset inactive states
+                                dots.forEach((d) => {
+                                    d.classList.remove("bg-white", "w-4");
+                                    d.classList.add("bg-[#333333]", "w-2");
+                                });
+                                // Emphasize active dot
+                                dots[index].classList.remove(
+                                    "bg-[#333333]",
+                                    "w-2",
+                                );
+                                dots[index].classList.add("bg-white", "w-4");
+                            }
+                        }
+                    });
+                },
+                {
+                    root: grid,
+                    threshold: 0.6,
+                },
+            );
+
+            // Hook up all cards
+            cards.forEach((card) => observer.observe(card));
+
+            // Astro lifecycle cleanup
+            document.addEventListener(
+                "astro:before-swap",
+                () => {
+                    observer.disconnect();
+                },
+                { once: true },
+            );
+        }
+
+        document.addEventListener("astro:page-load", () => {
+            initHeroAnimations();
+            initCarouselTracking();
+        });
+    </script>
 </BaseLayout>
+
+<style>
+    .thola-carousel-grid {
+        scrollbar-width: none; /* Firefox native scrub */
+        -ms-overflow-style: none; /* Legacy Microsoft scrub */
+    }
+    .thola-carousel-grid::-webkit-scrollbar {
+        display: none; /* WebKit scrub */
+    }
+
+    /* Independent button styling based on .btn-outline but safely isolated from global !important overrides */
+    .thola-install-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        transition:
+            border-color 0.35s ease,
+            letter-spacing 0.35s ease,
+            color 0.35s ease;
+        z-index: 1;
+    }
+
+    .thola-install-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--color-brand-primary);
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: -1;
+    }
+
+    .thola-install-btn:hover {
+        border-color: var(--color-brand-dark) !important;
+        color: var(--color-brand-dark) !important;
+        letter-spacing: 0.14em;
+        text-wrap: nowrap;
+    }
+
+    .thola-install-btn:hover::before {
+        clip-path: inset(0 0% 0 0);
+    }
+</style>

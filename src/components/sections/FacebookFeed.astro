@@ -70,6 +70,19 @@ const posts = await getLatestFacebookPosts();
         ))
       }
     </div>
+
+    <!-- Mobile Carousel Tracker Dots -->
+    <div class="fb-carousel-dots flex md:hidden items-center justify-center gap-3 mt-6 w-full">
+      {
+        posts.map((_, index) => (
+          <button
+            class={`fb-dot h-2 rounded-full transition-all duration-300 pointer-events-auto ${index === 0 ? "bg-brand-primary w-4" : "bg-gray-300 w-2"}`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))
+      }
+    </div>
+
   </div>
 </section>
 
@@ -113,3 +126,53 @@ const posts = await getLatestFacebookPosts();
     }
   }
 </style>
+
+<script>
+  function initFBDots() {
+    const grid = document.querySelector('.fb-cards-grid') as HTMLElement;
+    if (!grid) return;
+    const cards = grid.querySelectorAll('.fb-card');
+    const dots = document.querySelectorAll('.fb-dot');
+    
+    if (cards.length === 0 || dots.length === 0) return;
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            const card = cards[index] as HTMLElement;
+            if (card) {
+                grid.scrollTo({
+                    left: card.offsetLeft - grid.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = Array.from(cards).indexOf(entry.target);
+                if (index !== -1 && dots[index]) {
+                    dots.forEach(d => {
+                        d.classList.remove('bg-brand-primary', 'w-4');
+                        d.classList.add('bg-gray-300', 'w-2');
+                    });
+                    dots[index].classList.remove('bg-gray-300', 'w-2');
+                    dots[index].classList.add('bg-brand-primary', 'w-4');
+                }
+            }
+        });
+    }, {
+        root: grid,
+        threshold: 0.6
+    });
+
+    cards.forEach(card => observer.observe(card));
+    
+    document.addEventListener("astro:before-swap", () => {
+        observer.disconnect();
+    }, { once: true });
+  }
+
+  document.addEventListener("astro:page-load", initFBDots);
+</script>

@@ -58,6 +58,18 @@ const processedCards = await Promise.all(
       ))
     }
   </div>
+
+  <!-- Mobile Carousel Tracker Dots -->
+  <div class="dept-carousel-dots flex md:hidden items-center justify-center gap-3 mt-6 w-full">
+    {
+      processedCards.map((_, index) => (
+        <button
+          class={`dept-dot h-2 rounded-full transition-all duration-300 pointer-events-auto ${index === 0 ? "bg-brand-primary w-4" : "bg-gray-300 w-2"}`}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))
+    }
+  </div>
 </section>
 
 <style>
@@ -238,10 +250,59 @@ const processedCards = await Promise.all(
     ScrollTrigger.refresh();
   }
 
+  function initDeptDots() {
+    const grids = document.querySelectorAll('.dept-cards-grid');
+    grids.forEach(grid => {
+        const section = grid.closest('.dept-cards-section');
+        if (!section) return;
+        const cards = grid.querySelectorAll('.dept-card');
+        const dots = section.querySelectorAll('.dept-dot');
+        
+        if (cards.length === 0 || dots.length === 0) return;
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                const card = cards[index] as HTMLElement;
+                if (card) {
+                    grid.scrollTo({
+                        left: card.offsetLeft - grid.clientLeft, // clientLeft adjusts for borders
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(cards).indexOf(entry.target);
+                    if (index !== -1 && dots[index]) {
+                        dots.forEach(d => {
+                            d.classList.remove('bg-brand-primary', 'w-4');
+                            d.classList.add('bg-gray-300', 'w-2');
+                        });
+                        dots[index].classList.remove('bg-gray-300', 'w-2');
+                        dots[index].classList.add('bg-brand-primary', 'w-4');
+                    }
+                }
+            });
+        }, { root: grid, threshold: 0.6 });
+
+        cards.forEach(card => observer.observe(card));
+        
+        document.addEventListener("astro:before-swap", () => {
+            observer.disconnect();
+        }, { once: true });
+    });
+  }
+
   // ASTRO bug prevention -
   document.addEventListener("astro:before-swap", () => {
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
   });
 
-  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:page-load", () => {
+    init();
+    initDeptDots();
+  });
 </script>
