@@ -1,17 +1,526 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Carousel from "../components/react/Carousel";
+import { getImage, Picture, Image } from "astro:assets";
+import { generateLqip } from "../utils/lqip";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+import heroImgImport from "../assets/images/about-us/hero-img.webp";
+import heroImgMobileImport from "../assets/images/about-us/hero-img-mobile.webp";
+import circleImg1 from "../assets/images/about-us/circle-img-1.webp";
+import circleImg2 from "../assets/images/about-us/circle-img-2.webp";
+import circleImg3 from "../assets/images/about-us/circle-img-3.webp";
+import pattern from "../assets/textures_and_borders/pattern.webp";
+
+const [heroImg, heroImgMobile] = await Promise.all([
+  getImage({ src: heroImgImport, format: "webp" }),
+  //replace if and when
+  getImage({
+    src: heroImgMobileImport,
+    format: "webp",
+    width: 480,
+    height: 640,
+  }),
+]);
+
+const lqipDesktop = await generateLqip(
+  await readFile(
+    join(process.cwd(), "src/assets/images/about-us/hero-img.webp"),
+  ),
+);
+
+const lqipMobile = await generateLqip(
+  await readFile(
+    join(process.cwd(), "src/assets/images/about-us/hero-img-mobile.webp"),
+  ),
+);
+
+const heroImages = [
+  {
+    src: heroImg.src,
+    lqip: lqipDesktop,
+    mobileSrc: heroImgMobile.src,
+    mobileLqip: lqipMobile,
+    alt: "OBC Group Decorative Carousel",
+  },
+];
 ---
 
-<BaseLayout title="About Us">
-  <div class="max-w-4xl mx-auto py-16 px-4">
-    <h1 class="text-5xl font-display text-brand-primary mb-8 text-center text-4xl">Our Story</h1>
-    <div class="prose prose-lg mx-auto text-gray-800">
-      <p class="mb-6 leading-relaxed">
-        Lorem Ipsum
-      </p>
-      <p class="mb-6 leading-relaxed">
-        Lorem Ipsum
-      </p>
+<BaseLayout
+  title="About Us"
+  description="OBC Better Butchery - Find out more about your Better Butchery"
+>
+  <div>
+    <div class="sticky top-0 w-full z-0">
+      <Carousel client:load images={heroImages} />
     </div>
   </div>
+  <div class="w-full relative overflow-hidden leading-none z-10">
+    <Image
+      src={pattern}
+      alt=""
+      aria-hidden="true"
+      class="w-full h-auto block"
+      loading="eager"
+    />
+  </div>
+
+  <div class="relative w-full z-20 bg-brand-bg">
+    <section
+      class="w-full flex flex-col items-center bg-[#181818] justify-center pt-20 pb-20 md:pt-32 md:pb-32 px-6 md:px-12"
+    >
+      <p
+        id="highlight-text"
+        class="body-text-large text-brand-light text-center max-w-5xl"
+      >
+        Hello there. It’s our pleasure to introduce you to OBC Better Butchery.
+        We’re one of South Africa’s fastest growing retail brands, with a
+        mission to support the low to mid market sector by providing quality,
+        affordability and convenience.
+      </p>
+    </section>
+
+    <!-- ── Row 1: Image Left, Text Right ────── -->
+    <section class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-20 pb-32">
+      <div
+        class="flex flex-col md:flex-row items-center gap-10 md:gap-20 lg:gap-32"
+      >
+        <!-- Left: large circle -->
+        <div
+          class="w-full md:w-1/2 relative flex justify-center md:justify-end"
+        >
+          <div class="relative w-full max-w-[414px]">
+            <div class="aspect-square rounded-full overflow-hidden zoom-circle">
+              <Image
+                src={circleImg1}
+                alt="OBC Butchery Super Market"
+                class="zoom-circle-img w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: text -->
+        <div
+          class="w-full md:w-1/2 font-sans text-brand-dark text-[15px] md:text-base leading-tight"
+        >
+          <div class="mb-6">
+            <h2
+              class="text-3xl md:text-4xl lg:text-[40px] font-sans font-bold text-brand-dark leading-tight"
+            >
+              Quality, Fresh &amp; Your<br />Better Choice
+            </h2>
+          </div>
+          <div class="space-y-6 text-[1.3rem] leading-6">
+            <p>
+              While we don't like to fluff our tail feathers too much, our story
+              is one we're really quite proud of. You see, in 30 years OBC
+              Chicken has grown to a network of over 90 stores and a solid
+              foundation is now ready for rapid nationwide expansion. We did it
+              by thinking about the everyday needs of ordinary South Africans.
+              Positioning OBC stores strategically near to mass market
+              communities and transport nodes, we offer convenient access to
+              frozen chicken, fish, red meat, processed meat and other essential
+              grocery items to a growing market.
+            </p>
+            <p>
+              It's taken hard work and dedication, but today we've succeeded in
+              establishing a foothold in every province. Bringing success and
+              attracting foot traffic to communities and centres wherever we go.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ── Row 2: Text Left, Image Right ────── -->
+    <section class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-0 pb-32">
+      <div
+        class="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-20 lg:gap-32"
+      >
+        <!-- Left: text -->
+        <div
+          class="w-full md:w-1/2 font-sans text-brand-dark text-[15px] md:text-base leading-tight"
+        >
+          <div class="mb-6">
+            <h2
+              class="text-3xl md:text-4xl lg:text-[40px] font-sans font-bold text-brand-dark leading-tight"
+            >
+              Consistency, Competitiveness<br />&amp; Convenience
+            </h2>
+          </div>
+          <div class="space-y-6 text-[1.3rem] leading-6">
+            <p>
+              The pride we take in the quality of our food is echoed in the care
+              we take with our brand. A proud FASA member, we’ve invested in our
+              success through sustained, effective advertising and painstakingly
+              built one of the most recognised and well-loved names within this
+              segment.
+            </p>
+            <p>
+              This is part of the reason that OBC has become the tenant of
+              choice in the chicken and meat segment. In fact, many stores that
+              undergo conversion to OBC, experience an overnight uptick in trade
+              immediately after the OBC branding goes up.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: large circle -->
+        <div
+          class="w-full md:w-1/2 relative flex justify-center md:justify-start"
+        >
+          <div class="relative w-full max-w-[414px]">
+            <div class="aspect-square rounded-full overflow-hidden zoom-circle">
+              <Image
+                src={circleImg2}
+                alt="OBC Butchery Display"
+                class="zoom-circle-img w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Row 3: Image Left, Text Right ────── -->
+    <section class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-0 pb-32">
+      <div
+        class="flex flex-col md:flex-row items-center gap-10 md:gap-20 lg:gap-32"
+      >
+        <!-- Left: large circle -->
+        <div
+          class="w-full md:w-1/2 relative flex justify-center md:justify-end"
+        >
+          <div class="relative w-full max-w-[414px]">
+            <div class="aspect-square rounded-full overflow-hidden zoom-circle">
+              <Image
+                src={circleImg3}
+                alt="OBC Butchery Success Story"
+                class="zoom-circle-img w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: text -->
+        <div
+          class="w-full md:w-1/2 font-sans text-brand-dark text-[15px] md:text-base leading-tight"
+        >
+          <div class="mb-6">
+            <h2
+              class="text-3xl md:text-4xl lg:text-[40px] font-sans font-bold text-brand-dark leading-tight"
+            >
+              Feeding a growing success<br />story since 1987
+            </h2>
+          </div>
+          <div class="space-y-6 text-[1.3rem] leading-6">
+            <p>
+              Built on strong family values and a powerful brand, OBC empowers
+              independent entrepreneurs to compete with major retail chains.
+            </p>
+            <p>
+              By joining our network of over 90 stores, owners enjoy the
+              collective advantages of a large group—including bulk buying,
+              aggressive marketing, and specialised financial services—all
+              backed by an efficient distribution system that keeps shelves
+              fully stocked.
+            </p>
+            <p>
+              Our model doesn't just nurture quality products; it nurtures the
+              entrepreneurial spirit of South Africa’s hard-working people,
+              providing the tools and support needed to turn business dreams
+              into a thriving reality.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Awards Section ────── -->
+    <section
+      class="w-full bg-[#181818] py-24 px-6 md:px-12 lg:px-16 mt-8 xl:mt-16"
+    >
+      <div class="max-w-7xl mx-auto flex flex-col items-center gap-10">
+        <h2
+          class="text-3xl md:text-4xl lg:text-[40px] font-sans font-bold text-brand-primary text-center"
+        >
+          Awards
+        </h2>
+
+        <div
+          class="grid grid-cols-[auto_1fr] md:grid-cols-[auto_auto_1fr] items-center gap-x-4 md:gap-x-10 md:gap-y-2 text-[15px] sm:text-lg md:text-xl font-sans tracking-wide mx-auto w-max max-w-full"
+        >
+          <!-- Row 1 -->
+          <div class="text-brand-primary font-black">2018</div>
+          <div class="text-brand-primary font-black uppercase">
+            FRANCHISOR OF THE YEAR
+          </div>
+          <div
+            class="text-gray-200 uppercase col-start-2 md:col-auto mb-6 md:mb-0 md:whitespace-nowrap"
+          >
+            STANDARD BANK | SAPCC
+          </div>
+
+          <!-- Row 2 -->
+          <div class="text-brand-primary font-black">2016</div>
+          <div class="text-brand-primary font-black uppercase">
+            FRANCHISOR OF THE YEAR
+          </div>
+          <div
+            class="text-gray-200 uppercase col-start-2 md:col-auto mb-6 md:mb-0 md:whitespace-nowrap"
+          >
+            FASA
+          </div>
+
+          <!-- Row 3 -->
+          <div class="text-brand-primary font-black">2016</div>
+          <div class="text-brand-primary font-black uppercase">
+            LARGE BUSINESS AWARD
+          </div>
+          <div
+            class="text-gray-200 uppercase col-start-2 md:col-auto mb-6 md:mb-0 md:whitespace-nowrap"
+          >
+            STANDARD BANK | SAPCC
+          </div>
+
+          <!-- Row 4 -->
+          <div class="text-brand-primary font-black">2016</div>
+          <div class="text-brand-primary font-black uppercase">
+            FRANCHISOR OF THE YEAR
+          </div>
+          <div
+            class="text-gray-200 uppercase col-start-2 md:col-auto mb-6 md:mb-0 md:whitespace-nowrap"
+          >
+            FASA
+          </div>
+
+          <!-- Row 5 -->
+          <div class="text-brand-primary font-black">2016</div>
+          <div class="text-brand-primary font-black uppercase">
+            LARGE BUSINESS AWARD
+          </div>
+          <div
+            class="text-gray-200 uppercase col-start-2 md:col-auto mb-6 md:mb-0 md:whitespace-nowrap"
+          >
+            STANDARD BANK | SAPCC
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Our Franchise Section ────── -->
+    <section
+      class="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-24 pb-32 w-full overflow-hidden"
+    >
+      <h2
+        class="text-3xl md:text-4xl lg:text-[40px] font-sans font-bold text-brand-dark mb-12 md:mb-16 fade-up"
+      >
+        Our Franchise
+      </h2>
+
+      <div class="flex flex-col w-full">
+        <!-- Item 1 -->
+        <div
+          class="flex flex-col md:flex-row md:items-start gap-8 md:gap-16 py-12 md:py-16 border-b border-brand-primary/50 w-full fade-up"
+        >
+          <div class="w-full md:w-1/3 flex justify-start md:justify-center">
+            <span
+              class="text-[130px] md:text-[220px] lg:text-[300px] font-sans font-bold tracking-tight leading-[0.8] text-brand-dark"
+              >1.</span
+            >
+          </div>
+          <div class="w-full md:w-2/3 max-w-3xl pt-0 md:pt-4">
+            <h3
+              class="uppercase tracking-[0.25em] text-lg font-sans font-bold text-brand-dark mb-4"
+            >
+              STARTING UP &amp; ONGOING SUPPORT
+            </h3>
+            <p
+              class="text-[1.3rem] leading-6 text-brand-dark font-sans opacity-95"
+            >
+              With over 90 successful stores established, the OBC operations
+              team has perfected the shortest route from aspiring entrepreneur
+              to thriving franchisees. Leveraging decades of front-line retail
+              expertise, we provide a comprehensive setup that includes
+              everything from optimised store layouts and accounting tools to
+              full shop fitting and IT installation. Regardless of your previous
+              experience, OBC ensures you hit the ground running from day one
+              with intensive on-site training for both managers and staff,
+              offering a proven blueprint for retail success.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div
+          class="flex flex-col md:flex-row md:items-start gap-8 md:gap-16 py-12 md:py-16 border-b border-brand-primary/50 w-full fade-up"
+        >
+          <div class="w-full md:w-1/3 flex justify-start md:justify-center">
+            <span
+              class="text-[130px] md:text-[220px] lg:text-[300px] font-sans font-bold tracking-tight leading-[0.8] text-brand-dark"
+              >2.</span
+            >
+          </div>
+          <div class="w-full md:w-2/3 max-w-3xl pt-0 md:pt-4">
+            <h3
+              class="uppercase tracking-[0.25em] text-lg font-sans font-bold text-brand-dark mb-4"
+            >
+              QUALITY CONTROL
+            </h3>
+            <p
+              class="text-[1.3rem] leading-6 text-brand-dark font-sans opacity-95"
+            >
+              To safeguard our reputation and ensure product excellence, OBC
+              enforces strict quality, cleanliness, and hygiene standards
+              through regular inspections—a vital practice for handling
+              perishable goods. We ensure every store adheres to our specific
+              layout and merchandising guidelines, with our operations team
+              providing hands-on assistance to resolve any issues and bring
+              stores back up to our required standards.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div
+          class="flex flex-col md:flex-row md:items-start gap-8 md:gap-16 py-12 md:py-16 w-full fade-up"
+        >
+          <div class="w-full md:w-1/3 flex justify-start md:justify-center">
+            <span
+              class="text-[130px] md:text-[220px] lg:text-[300px] font-sans font-bold tracking-tight leading-[0.8] text-brand-dark"
+              >3.</span
+            >
+          </div>
+          <div class="w-full md:w-2/3 max-w-3xl pt-0 md:pt-4">
+            <h3
+              class="uppercase tracking-[0.25em] text-lg font-sans font-bold text-brand-dark mb-4"
+            >
+              QUALITY CONTROL
+            </h3>
+            <p
+              class="text-[1.3rem] leading-6 text-brand-dark font-sans opacity-95"
+            >
+              To safeguard our reputation and ensure product excellence, OBC
+              enforces strict quality, cleanliness, and hygiene standards
+              through regular inspections—a vital practice for handling
+              perishable goods. We ensure every store adheres to our specific
+              layout and merchandising guidelines, with our operations team
+              providing hands-on assistance to resolve any issues and bring
+              stores back up to our required standards.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="w-full flex flex-col items-center bg-brand-bg justify-center pt-20 pb-20 md:pt-32 md:pb-32 px-6 md:px-12"
+    >
+      <p class="body-text-large text-brand-dark text-center max-w-5xl">
+        Wherever people love good food, they love OBC
+      </p>
+    </section>
+  </div>
+
+  <script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { SplitText } from "gsap/SplitText";
+
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    function init() {
+      const highlightText = document.querySelector("#highlight-text");
+      if (highlightText) {
+        if ((highlightText as any)._split) {
+          (highlightText as any)._split.revert();
+        }
+
+        const splitHighlight = new SplitText(highlightText, {
+          type: "lines",
+        });
+        (highlightText as any)._split = splitHighlight;
+
+        const masks: HTMLElement[] = [];
+        splitHighlight.lines.forEach((line) => {
+          line.style.position = "relative";
+
+          const mask = document.createElement("span");
+          mask.className =
+            "absolute top-0 left-0 w-full h-[115%] bg-[#181818] opacity-[0.75] z-10 origin-left scale-x-0 pointer-events-none";
+          line.appendChild(mask);
+          masks.push(mask);
+        });
+
+        gsap.to(masks, {
+          scaleX: 1,
+          ease: "none",
+          duration: 1,
+          stagger: 1,
+          scrollTrigger: {
+            trigger: highlightText,
+            start: "top 50%",
+            end: "bottom 30%",
+            scrub: true,
+          },
+        });
+      }
+
+      document.querySelectorAll(".fade-up").forEach((item) => {
+        gsap.fromTo(
+          item,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            delay: 0.3,
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 75%",
+            },
+          },
+        );
+      });
+
+      document.querySelectorAll(".zoom-circle").forEach((circle) => {
+        const img = circle.querySelector(".zoom-circle-img");
+        if (!img) return;
+
+        gsap.fromTo(
+          img,
+          { scale: 1.2 },
+          {
+            scale: 1.0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: circle,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
+      });
+
+      ScrollTrigger.refresh();
+    }
+
+    document.addEventListener("astro:before-swap", () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    });
+
+    document.addEventListener("astro:page-load", init);
+  </script>
 </BaseLayout>
+
+<style>
+  .zoom-circle-img {
+    transform: scale(1.2);
+    transform-origin: center center;
+  }
+</style>
