@@ -1,35 +1,337 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Carousel from "../components/react/Carousel";
+import RecipesSection from "../components/sections/RecipesSection.astro";
+import { getImage, Image } from "astro:assets";
+import { generateLqip } from "../utils/lqip";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-const recipes = [
-  { title: "Classic Beef Stew", time: "2 Hours", difficulty: "Easy" },
-  { title: "Spicy Chicken Wings", time: "45 Mins", difficulty: "Medium" },
-  { title: "Perfect Braai Chops", time: "30 Mins", difficulty: "Easy" },
+import heroCarouselImport from "../assets/images/recipes/hero-carousel.webp";
+import pastaLaVista from "../assets/images/recipes/pasta-la-vista.png";
+import forTheLoveOfFish from "../assets/images/recipes/for-the-love-of-fish.png";
+import theBetterBoerieRoll from "../assets/images/recipes/better-boerie.webp";
+import dontChickenOut from "../assets/images/recipes/dont-chicken-out.webp";
+import theImpeccaBellPepper from "../assets/images/recipes/pepper.png";
+import breakfastForDinner from "../assets/images/recipes/breakfast-for-dinner.png";
+import demBunz from "../assets/images/recipes/dem-bunz.png";
+import sweetMornings from "../assets/images/recipes/sweet-mornings.png";
+import pattern from "../assets/textures_and_borders/pattern.webp";
+
+const [
+  heroCarouselImg,
+  heroCarouselImgMobile,
+  pastaLaVistaImg,
+  forTheLoveOfFishImg,
+  theBetterBoerieRollImg,
+  dontChickenOutImg,
+  theImpeccaBellPepperImg,
+  breakfastForDinnerImg,
+  demBunzImg,
+  sweetMorningsImg,
+] = await Promise.all([
+  getImage({ src: heroCarouselImport, format: "webp" }),
+  getImage({ src: heroCarouselImport, format: "webp", width: 480, height: 640 }),
+  getImage({ src: pastaLaVista, format: "webp" }),
+  getImage({ src: forTheLoveOfFish, format: "webp" }),
+  getImage({ src: theBetterBoerieRoll, format: "webp" }),
+  getImage({ src: dontChickenOut, format: "webp" }),
+  getImage({ src: theImpeccaBellPepper, format: "webp" }),
+  getImage({ src: breakfastForDinner, format: "webp" }),
+  getImage({ src: demBunz, format: "webp" }),
+  getImage({ src: sweetMornings, format: "webp" }),
+]);
+
+const dinnerRecipes = [
+  {
+    id: "pasta-la-vista",
+    slug: "pasta-la-vista",
+    title: "PASTA LA VISTA",
+    byLine: "Quick & Easy Wors Pasta",
+    serves: "4 - 6 Servings",
+    prepTime: "10 minutes",
+    cookTime: "30 minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "500g OBC Spaghetti or Macaroni",
+      "800g OBC Boerewors (eg. OBC Nyama Boerie Braai)",
+      "2 Tomatoes cut in cubes",
+      "OBC Mixed Herbs (for flavour)",
+      "1 Chilli (optional)",
+      "50g Tomato paste",
+      "OBC Cooking Oil (for frying the wors)",
+    ],
+    method: [
+      "1. Cook the spaghetti in boiling salted water. View cooking instructions on packet",
+      "2. Slice the wors up into smaller pieces (discs) and fry in a non-stick pan until the meat starts going brown and is just cooked through. Remove the meat and let it drain on a paper towel. Discard the fat and return to the pan, which is now just coated in a thin layer of the leftover fat.",
+      "3. Flash cook the tomatoes until heated through. Add the sausage back with the herbs, chilli and tomato paste and heat through. Check the seasoning and add salt and pepper.",
+      "4. Serve with pasta. Quick and easy, dinner sorted!",
+    ],
+    imageSrc: pastaLaVistaImg.src,
+  },
+  {
+    id: "for-the-love-of-fish",
+    slug: "for-the-love-of-fish",
+    title: "FOR THE LOVE OF FISH",
+    byLine: "Dinner in a hurry",
+    serves: "4 Servings",
+    prepTime: "5 minutes",
+    cookTime: "25 Minutes",
+    difficulty: "Very easy",
+    ingredients: [
+      "500g OBC Spaghetti or OBC Macaroni",
+      "400g Glenryck Pilchards in Tomato Sauce (or use canned Tuna)",
+      "2 tbsp OBC Cooking Oil",
+      "1 Green pepper chopped (optional)",
+      "1 tbsp crushed garlic (Optional)",
+      "1 tbsp OBC BBQ Chicken Spice",
+      "60 ml water",
+      "Fresh basil/parsley (optional)",
+    ],
+    method: [
+      "1. Cook Spaghetti according to packet instructions",
+      "2. Drain pilchards/tuna, reserving the sauce",
+      "3. Heat oil in a medium size pot over medium heat and fry onion and pepper until golden brown in colour. 7 minutes. Add garlic and OBC Chicken Spice.",
+      "4. Then add the reserved tomato sauce, pilchards and water. Cook on low heat for 10 minutes or until sauce has thickened.",
+      "5. Add parsley/basil and gently toss through cooked spaghetti.",
+    ],
+    imageSrc: forTheLoveOfFishImg.src,
+  },
+  {
+    id: "better-boerie",
+    slug: "better-boerie",
+    title: "THE BETTER BOERIE ROLL",
+    byLine: "Boerie roll with a twist",
+    serves: "6 Servings",
+    prepTime: "10 minutes",
+    cookTime: "40 Minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "2 Tablespoons OBC Cooking Oil",
+      "1 Onion peeled and finely chopped",
+      "3 Carrots, peeled and grated (optional)",
+      "1 Can OBC Chakalaka",
+      "1 Green pepper finely chopped (optional)",
+      "700g OBC Superior/Kameelhout Boerewors (or any OBC wors you like)",
+      "3 Tablespoons OBC Shisanyama Spice",
+      "6 Bread Rolls",
+      "Butter/Margarine (optional)",
+      "100g Feta or any cheese (optional)",
+    ],
+    method: [
+      "1. Heat the oil in a saucepan and fry the onions and green peppers until soft",
+      "2. Add the grated carrots and sauté for a further 10 minutes, or until softened. Add the OBC Shisanyama spice and stir for a minute.",
+      "3. In a small bowl, make a smooth mixture of the OBC Chakalaka and water, and add this to the saucepan. Stir well and simmer over a medium-low heat for 15-20 minutes, or until the chakalaka reaches the desired consistency.",
+      "4. Braai the boerewors over low to medium coals until cooked through, taking care not to burn it on the outside. Remove from the grid and cut into portions.",
+      "5. Slice the rolls lengthways, and butter them (optional). Place a boerewors piece in each roll and top with the chakalaka and cheese",
+    ],
+    imageSrc: theBetterBoerieRollImg.src,
+  },
+  {
+    id: "dont-chicken-out",
+    slug: "dont-chicken-out",
+    title: "DON'T CHICKEN OUT",
+    byLine: "Hearty gizzard stew",
+    serves: "6 Servings",
+    prepTime: "10 minutes",
+    cookTime: "1 h 20 minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "500g OBC Chicken Gizzards",
+      "2 tbsp OBC Cooking Oil",
+      "1 Heaped Tbsp OBC Paprika",
+      "1 tsp black pepper",
+      "1/4 cup chopped tomatoes",
+      "1 Large Onion (finely chopped)",
+      "2 tbsp Garlic (Optional)",
+      "2 tbsp White Vinegar",
+      "Salt, to taste",
+      "Bay leaves (optional)",
+    ],
+    method: [
+      "1. Trim and wash OBC gizzards thoroughly, add salt and boil them for at least 1 hours until they are nice and tender, keep topping up the water and skim any scum formed as they boil.",
+      "2. When cooked, add OBC cooking oil in gizzards. OBC Paprika, black pepper and bay leaves and fry until gizzards are brown.",
+      "3. Add the vinegar and fry, then add onions and garlic, and cook on a medium heat until onions are nice and soft and have changed slightly in colour.",
+      "4. Add tomatoes and fry further making sure they are cooked",
+      "5. Add 1/2 cup of water and simmer over low heat for 20 minutes",
+      "6. Let it cool off. Serve & Enjoy!",
+    ],
+    imageSrc: dontChickenOutImg.src,
+  },
+  {
+    id: "pepper",
+    slug: "pepper",
+    title: "IMPECCA'BELL PEPPER RECIPE",
+    byLine: "A little something outside the box",
+    serves: "4 - 8 Servings",
+    prepTime: "10 minutes",
+    cookTime: "1 h 20 minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "1/2 Cup uncooked OBC Rice",
+      "2 tbsp OBC Cooking Oil",
+      "1 Medium Onion Chopped",
+      "1 Can OBC Chakalaka",
+      "Garlic (optional)",
+      "500g OBC Beef Mince (or chicken breast cubes)",
+      "4 Bell Peppers (tops & core removed)",
+      "Shredded Cheese (Optional)",
+      "Salt & Pepper to taste",
+    ],
+    method: [
+      "1. Cut off the top of all 4 peppers and pull out the core and the seeds. Remove any seeds left over. The peppers are easier to fill when raw.",
+      "2. Preheat oven to 400°C. In a small saucepan, prepare rice according to package instructions.",
+      "3. In a large skillet over medium heat, heat oil. Cook onion until soft, about 5 minutes",
+      "4. Stir in tomato paste and garlic and cook until glossy.",
+      "5. Add ground beef and cook. Cook until brown.",
+      "6. Stir in cooked rice and chakalaka. Season with salt, and pepper. Let simmer until liquid has reduced slightly, about 5 minutes.",
+      "7. Place peppers cut side-up in a baking dish and drizzle with oil. Spoon beef mixture into each pepper and top with cheese, then cover baking dish with foil.",
+      "8. Bake until peppers are tender, about 35 minutes. Uncover and bake until cheese is bubbly, 10 minutes more.",
+      "9. Serve & Enjoy!",
+    ],
+    imageSrc: theImpeccaBellPepperImg.src,
+  },
+  {
+    id: "breakfast-for-dinner",
+    slug: "breakfast-for-dinner",
+    title: "BREAKFAST FOR DINNER",
+    byLine: "Quick & easy dinner sorted",
+    serves: "4 Servings",
+    prepTime: "10 minutes",
+    cookTime: "50 minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "OBC Boerewors or OBC Russians Bacon",
+      "8 OBC Eggs",
+      "1 Tbsp Garlic (Optional)",
+      "Tomato (Cut in thick slices)",
+      "1 Tin OBC Baked Beans",
+      "400g Sliced Mushrooms",
+      "BBQ Spice",
+      "Cooking Oil (For Cooking)",
+      "Toast",
+    ],
+    method: [
+      "1. Heat up an over proof dish in the oven or on the braai",
+      "2. On a hot pan, grill pan or skottelbraai, fry the bacon with some oil",
+      "3. Braai your sausage/boerewors on a hot pan, grill pan or skottelbraai",
+      "4. Place in the hot dish or in oven to keep warm",
+      "5. In the same pan, grill the mushrooms and season with salt and pepper",
+      "6. Thereafter, grill your tomatoes and place mushrooms and tomatoes in hot dish or in the oven to keep them warm",
+      "7. In a greased frying pan, heat cooking oil to medium heat. Place the eggs in the frying pan. Fry eggs to soft/medium/hard. Place in the oven/hot dish to keep warm",
+      "8. Butter bread slices and fry on the pan as well or in a toaster oven",
+      "9. Serve & Enjoy!",
+    ],
+    imageSrc: breakfastForDinnerImg.src,
+  },
+];
+
+const sweetRecipes = [
+  {
+    id: "dem-bunz",
+    slug: "dem-bunz",
+    title: "'DEM BUNZ FOR YOUR DMAMZO",
+    byLine: "Fresh & sweet cinnabon recipe",
+    serves: "8 People",
+    prepTime: "1 - 2 hours",
+    cookTime: "25 minutes in the oven",
+    difficulty: "Medium/Hard",
+    ingredients: [
+      "FOR THE DOUGH",
+      "1/4 Cup Warm Water",
+      "1 tsp yeast",
+      "3/4 OBC Cup Milk",
+      "2 OBC Eggs",
+      "1/2 cup OBC Brown Sugar, plus 1/2 tsp OBC Brown Sugar",
+      "1 tsp Salt",
+      "1/2 tsp Vanilla Extract",
+      "6 tsp butter, melted",
+      "437g flour",
+      "FOR THE FILLING",
+      "57g butter (softened)",
+      "85g Cream Cheese (Softened)",
+      "1/2 tsp Vanilla Extract",
+      "300g Icing Sugar",
+      "Pecan Nuts for garnish (optional)",
+      "FOR THE CREAM CHEESE FROSTING",
+      "84g Butter Softened",
+      "200g OBC Brown Sugar",
+      "2 tsp Ground Cinnamon",
+    ],
+    method: [
+      "1. Take the dough, whisk together the water, yeast and 1/2 t sugar in a jug, then set aside to foam up for about 10-15 minutes.",
+      "2. In a medium bowl, combine the milk, eggs, 100g Brown Sugar, salt, Vanilla and Butter using an electric beater until combined",
+      "3. Add the yeast mixture to the milk mixture and stir through. Sift 212g flour into a large bowl and make a well in the centre. Pour a quarter of the liquid into the well and mix through. Alternatively add the remaining flour and liquid until you have a soft dough that's not sticky but not dry either (be careful not to add too much flour as this will make your dough stiff).",
+      "4. Knead the dough for 5 minutes until smooth, then place in a greased bowl and loosely cover with cling wrap. Place in a warm area and allow to rise for 1 – 1 1/2 hours or until it doubled in size.",
+      "5. Once the dough has risen, roll it out into a large rectangle about 25cm x 45cm. Rub the softened butter for the filling over the dough. Combine the sugar and the cinnamon in a bowl and spread it over the dough, leaving no corners empty.",
+      "6. Roll up the dough from top to bottom (lengthwise) and place them onto a lined baking tray or cake tin. Allow to rest for 1 hour then bake at 190oC for 20-25 minutes.",
+      "7. While the buns are baking, make the frosting. Whisk together all the ingredients until smooth. Remove the buns from the over and pour over the frosting while the buns are still warm. Sprinkle with nuts and serve immediately.",
+    ],
+    imageSrc: demBunzImg.src,
+  },
+  {
+    id: "sweet-mornings",
+    slug: "sweet-mornings",
+    title: "SWEET MORNINGS",
+    byLine: "Quick & easy breakfast sorted",
+    serves: "Makes roughly 26 small pancakes",
+    prepTime: "5 - 10 minutes",
+    cookTime: "40 minutes",
+    difficulty: "Very Easy",
+    ingredients: [
+      "2 cups All-Purpose Flour",
+      "4 tablespoons OBC Brown Sugar",
+      "4 teaspoons Baking Powder",
+      "1 teaspoon Salt",
+      "2 Cups OBC Milk",
+      "4 tablespoons of OBC Cooking Oil (for Batter)",
+      "2 Large OBC Eggs",
+      "2 tablespoons OBC Cooking Oil (for cooking)",
+      "Assorted Toppings, such as butter, maple syrup, honey, jams, preserves, whipped cream or chocolate syrup",
+    ],
+    method: [
+      "1. Preheat oven to 200°C; have a baking sheet or heatproof dish ready to keep cooked pancakes warm in the oven (optional).",
+      "2. In a small bowl, whisk together flour, sugar, baking powder and salt; set aside.",
+      "3. In a medium bowl, whisk together the milk, cooking oil and eggs. Add dry ingredients to milk mixture; whisk until just moistened (do not overtax; a few small lumps are fine)",
+      "4. Heat a large skillet (nonstick or cast-iron) over medium heat. Moist the skillet with cooking oil.",
+      "5. For each pancake, spoon 2 – 3 tablespoons of batter onto skillet, using the back of the spoon to spread batter into a round shape.",
+      "6. Cook until the surface of pancakes have some bubbles (1 to 2 minutes on each side) Flip carefully with a thin spatula, and cook until browned on the underside. Transfer to a baking sheet or heatproof dish and keep warm in the oven.",
+      "7. Continue with more oil and remaining batter. (You'll have 24 – 26 pancakes)",
+      "8. Serve warm, with desired toppings",
+    ],
+    imageSrc: sweetMorningsImg.src,
+  },
+];
+
+const heroCarouselLqip = await generateLqip(
+  await readFile(join(process.cwd(), "src/assets/images/recipes/hero-carousel.webp")),
+);
+
+const heroCarousel = [
+  {
+    src: heroCarouselImg.src,
+    lqip: heroCarouselLqip,
+    mobileSrc: heroCarouselImgMobile.src,
+    mobileLqip: heroCarouselLqip,
+    alt: "Hero Carousel",
+  },
 ];
 ---
 
 <BaseLayout title="Recipes">
-  <div class="max-w-7xl mx-auto py-16 px-4">
-    <div class="text-center mb-16">
-      <h1 class="text-5xl font-display text-brand-primary mb-4">OBC Recipes</h1>
-      <p class="text-lg text-gray-700 max-w-2xl mx-auto">Discover delicious ways to prepare our premium quality meats, straight from our Blockman\'s Den to your kitchen.</p>
+  <div id="recipe-hero-carousel">
+    <Carousel client:load images={heroCarousel} />
+    <div class="w-full overflow-hidden leading-none">
+      <Image
+        src={pattern}
+        alt=""
+        aria-hidden="true"
+        class="w-full h-auto block"
+        loading="eager"
+      />
     </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {recipes.map((recipe) => (
-        <a href="#" class="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow border border-gray-100 block">
-          <div class="h-48 bg-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-gray-300 transition-colors">
-            Image Placeholder
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-primary transition-colors">{recipe.title}</h3>
-            <div class="flex justify-between text-sm text-gray-500 font-medium">
-              <span>⏱ {recipe.time}</span>
-              <span>🔥 {recipe.difficulty}</span>
-            </div>
-          </div>
-        </a>
-      ))}
-    </div>
+  </div>
+  <div class="bg-brand-bg w-full">
+    <RecipesSection dinnerRecipes={dinnerRecipes} sweetRecipes={sweetRecipes} />
   </div>
 </BaseLayout>
