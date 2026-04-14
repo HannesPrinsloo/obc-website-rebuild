@@ -151,7 +151,7 @@ const scatterImages = processedScatterImages.slice(1);
 ---
 
 <BaseLayout title="Home" description="Your Better Butchery">
-  <div class="relative w-full bg-brand-bg">
+  <div id="home-page" class="relative w-full bg-brand-bg">
     <!-- Responsive Layered Hero -->
     <section
       class="hero-wrapper relative w-full h-auto min-h-auto lg:h-[clamp(calc(80vh),120vh,120vh)] md:h-[80vh] overflow-hidden bg-brand-bg flex flex-col items-center pt-32 pb-0 md:pt-60"
@@ -268,15 +268,17 @@ const scatterImages = processedScatterImages.slice(1);
       let heroCtx: ReturnType<typeof gsap.context> | null;
 
       function initHeroAnimations() {
-        if (heroCtx) {
-          heroCtx.revert();
-          heroCtx = null;
-        }
+        if (!document.getElementById("home-page")) return;
 
-        if (!document.querySelector(".hero-wrapper")) return;
+        requestAnimationFrame(() => {
+          if (!document.getElementById("home-page")) return; // Safe check if navigated away
+          
+          if (heroCtx) {
+            heroCtx.revert();
+            heroCtx = null;
+          }
 
-        heroCtx = gsap.context(() => {
-          requestAnimationFrame(() => {
+          heroCtx = gsap.context(() => {
             // SplitText masked line reveal
             SplitText.create(".hero-text-layer h1", {
               type: "lines",
@@ -342,11 +344,54 @@ const scatterImages = processedScatterImages.slice(1);
                 scrub: true,
               },
             });
+
+            const highlightText = document.querySelector("#highlight-text");
+            if (highlightText) {
+              if ((highlightText as any)._split) {
+                (highlightText as any)._split.revert();
+              }
+
+              const splitHighlight = new SplitText(highlightText, {
+                type: "lines",
+              });
+              (highlightText as any)._split = splitHighlight;
+
+              const masks: HTMLElement[] = [];
+              splitHighlight.lines.forEach((line) => {
+                line.style.position = "relative";
+
+                const mask = document.createElement("span");
+                mask.className =
+                  "absolute top-0 left-0 w-full h-[115%] bg-brand-bg opacity-[0.85] z-10 origin-left scale-x-0 pointer-events-none";
+                line.appendChild(mask);
+                masks.push(mask);
+              });
+
+              gsap.to(masks, {
+                scaleX: 1,
+                ease: "none",
+                duration: 1,
+                stagger: 1,
+                scrollTrigger: {
+                  trigger: highlightText,
+                  start: "top 75%",
+                  end: "bottom 45%",
+                  scrub: true,
+                },
+              });
+            }
           });
         });
       }
 
       document.addEventListener("astro:page-load", initHeroAnimations);
+
+      document.addEventListener("astro:before-swap", () => {
+        if (heroCtx) {
+          heroCtx.revert();
+          heroCtx = null;
+        }
+      });
     </script>
     <!-- Thin pattern -->
     <div class="w-full overflow-hidden leading-none">
@@ -443,7 +488,7 @@ const scatterImages = processedScatterImages.slice(1);
       <BlockmansDenPreview />
 
       <!-- Facebook Feed Section -->
-      <FacebookFeed />
+      <!-- <FacebookFeed /> -->
 
       <!-- Thola Zonke Banner -->
       <div class="pt-[10vh] md:pt[25vh] w-full z-40">

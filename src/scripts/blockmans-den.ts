@@ -20,8 +20,9 @@ document.addEventListener("astro:page-load", () => {
 
     cards.forEach((card) => {
         card.addEventListener("mouseenter", () => {
+            if (window.innerWidth < 768) return;
             if (card.classList.contains("active")) return;
-            
+
             const state = Flip.getState(".animal-card, .details img, .byLine", { props: "opacity" });
             document.querySelector(".animal-card.active")?.classList.remove("active");
             card.classList.add("active");
@@ -42,6 +43,7 @@ document.addEventListener("astro:page-load", () => {
     });
 
     accordion?.addEventListener("mouseleave", () => {
+        if (window.innerWidth < 768) return;
         const activeCard = document.querySelector(".animal-card.active");
         if (activeCard?.classList.contains("clicked")) return;
         if (!activeCard) return;
@@ -99,7 +101,7 @@ document.addEventListener("astro:page-load", () => {
         cuts.forEach((item: any) => {
             const div = document.createElement("div");
             div.className = "gallery-item w-[70vw] lg:w-[35vw] shrink-0 flex justify-center items-center will-change-transform";
-            div.innerHTML = `<img class="max-h-[30vh] lg:max-h-[45vh] max-w-full object-contain filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.15)]" src="${item.ImageObj}" alt="${item.Title}" />`;
+            div.innerHTML = `<img class="max-h-[30vh] lg:max-h-[45vh] max-w-full object-contain filter" src="${item.ImageObj}" alt="${item.Title}" />`;
             track.appendChild(div);
         });
 
@@ -153,8 +155,8 @@ document.addEventListener("astro:page-load", () => {
                 scrollTrigger: {
                     trigger: ".explorer-container",
                     pin: true,
-                    scrub: 1,
-                    end: () => "+=" + items.length * 1200,
+                    scrub: 0.3,
+                    end: () => "+=" + items.length * (isMobile ? 300 : 1200),
                     invalidateOnRefresh: true,
                     onUpdate: () => {
                         let currentX = gsap.getProperty(track, "x") as number;

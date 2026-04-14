@@ -12,7 +12,7 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
 ---
 
 <BaseLayout title="Thola Zonke">
-    <div class="relative w-full bg-[#181818]">
+    <div id="thola-zonke-page" class="relative w-full bg-[#181818]">
         <section
             class="hero-wrapper relative w-full h-full min-h-[100svh] lg:min-h-[80vh] lg:h-[clamp(calc(80vh),120vh,120vh)] md:h-[80vh] overflow-hidden flex flex-col lg:flex-row items-center pt-30 pb-8 md:pb-12 md:pt-10"
         >
@@ -65,16 +65,22 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
                             <div
                                 class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 px-4 lg:px-0 w-full"
                             >
-                                <button
-                                    class="btn-outline w-full max-w-[220px] lg:w-auto bg-brand-primary before:bg-[#181818] text-brand-light font-bold text-xs md:text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest hover:opacity-90 transition-opacity"
+                                <a
+                                    href="https://tholazonke.co.za/#!/obcLogin"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn-outline flex items-center justify-center text-center w-full max-w-[220px] lg:w-auto bg-brand-primary before:bg-[#181818] text-brand-light font-bold text-xs md:text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest hover:opacity-90 transition-opacity"
                                 >
                                     LOG IN
-                                </button>
-                                <button
-                                    class="thola-install-btn w-full max-w-[220px] lg:w-auto bg-transparent border border-gray-400 text-white font-bold text-xs md:text-sm px-6 py-3 rounded-full uppercase tracking-widest"
+                                </a>
+                                <a
+                                    href="https://tholazonke.co.za/#!/obcLogin"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="thola-install-btn flex items-center justify-center text-center w-full max-w-[220px] lg:w-auto bg-transparent border border-gray-400 text-white font-bold text-xs md:text-sm px-6 py-3 rounded-full uppercase tracking-widest"
                                 >
                                     INSTALL APP
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -394,16 +400,22 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
             <div
                 class="flex flex-col lg:flex-row items-center justify-center gap-4 w-full"
             >
-                <button
-                    class="btn-outline w-full max-w-[220px] lg:w-auto bg-brand-primary before:bg-[#181818] text-brand-light font-bold text-xs md:text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest hover:opacity-90 transition-opacity"
+                <a
+                    href="https://tholazonke.co.za/#!/obcLogin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-outline flex items-center justify-center text-center w-full max-w-[220px] lg:w-auto bg-brand-primary before:bg-[#181818] text-brand-light font-bold text-xs md:text-sm px-8 py-3 rounded-full border-brand-primary uppercase tracking-widest hover:opacity-90 transition-opacity"
                 >
                     LOG IN
-                </button>
-                <button
-                    class="thola-install-btn w-full max-w-[220px] lg:w-auto bg-transparent border mb-12 md:mb-0 border-gray-400 text-white font-bold text-xs md:text-sm px-6 py-3 rounded-full uppercase tracking-widest"
+                </a>
+                <a
+                    href="https://tholazonke.co.za/#!/obcLogin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="thola-install-btn flex items-center justify-center text-center w-full max-w-[220px] lg:w-auto bg-transparent border mb-12 md:mb-0 border-gray-400 text-white font-bold text-xs md:text-sm px-6 py-3 rounded-full uppercase tracking-widest"
                 >
                     INSTALL APP
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -573,15 +585,17 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
         let heroCtx: ReturnType<typeof gsap.context> | null;
 
         function initHeroAnimations() {
-            if (heroCtx) {
-                heroCtx.revert();
-                heroCtx = null;
-            }
+            if (!document.getElementById("thola-zonke-page")) return;
 
-            if (!document.querySelector(".hero-wrapper")) return;
+            requestAnimationFrame(() => {
+                if (!document.getElementById("thola-zonke-page")) return;
 
-            heroCtx = gsap.context(() => {
-                requestAnimationFrame(() => {
+                if (heroCtx) {
+                    heroCtx.revert();
+                    heroCtx = null;
+                }
+
+                heroCtx = gsap.context(() => {
                     // SplitText masked line reveal
                     SplitText.create(".hero-text-layer h1", {
                         type: "lines",
@@ -889,7 +903,20 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
             }, section);
         }
 
+        document.addEventListener("astro:before-swap", () => {
+            if (heroCtx) {
+                heroCtx.revert();
+                heroCtx = null;
+            }
+            if (horizontalOrangeCtx) {
+                horizontalOrangeCtx.revert();
+                horizontalOrangeCtx = null;
+            }
+        });
+
         document.addEventListener("astro:page-load", () => {
+            if (!document.getElementById("thola-zonke-page")) return;
+            
             initHeroAnimations();
             initCarouselTracking();
             initPromoHorizontalScroll();

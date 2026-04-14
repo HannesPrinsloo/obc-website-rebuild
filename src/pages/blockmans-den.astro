@@ -88,18 +88,18 @@ for (const [animalKey, cutsArray] of Object.entries(blockmansData)) {
             animals.map((animal, index) => (
                 <div
                     id={animal.name}
-                    class={`animal-card flex-1 rounded-2xl cursor-pointer overflow-hidden relative ${index % 2 === 0 ? "bg-brand-light" : "bg-[#FFFFFF]"}`}
+                    class={`animal-card flex-1 cursor-pointer overflow-hidden relative ${index % 2 === 0 ? "bg-brand-light" : "bg-[#FFFFFF]"}`}
                 >
                     <div class="card-content">
                         <div class="details">
                             <Image src={animal.Image} alt={animal.name} />
                         </div>
                         <div class="byLine flex flex-col items-center w-full">
-                            <h2 class="text-4xl md:text-5xl font-black uppercase tracking-wider mb-2 relative inline-block text-[#222]">
+                            <h2 class="text-4xl md:text-5xl font-black uppercase tracking-wider mb-2 relative inline-block text-brand-light">
                                 {animal.name} CUTS
                                 <div class="absolute -bottom-2 left-0 right-0 h-[2px] bg-brand-primary" />
                             </h2>
-                            <p class="mt-4 text-xs md:text-sm font-bold uppercase tracking-widest text-brand-dark">
+                            <p class="mt-4 text-xs md:text-sm font-bold uppercase tracking-widest text-brand-light">
                                 Get to know your{" "}
                                 <span class="font-black">better</span> meat cuts
                             </p>
@@ -114,7 +114,7 @@ for (const [animalKey, cutsArray] of Object.entries(blockmansData)) {
             class="hidden animate-bounce group z-[100] absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-auto"
         >
             <div
-                class="w-10 h-10 rounded-full border border-brand-primary flex items-center justify-center pointer-events-none"
+                class="w-10 h-10 rounded-full border border-brand-light flex items-center justify-center pointer-events-none"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ for (const [animalKey, cutsArray] of Object.entries(blockmansData)) {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="w-5 h-5 text-brand-primary"
+                    class="w-5 h-5 text-brand-light"
                 >
                     <path
                         stroke-linecap="round"
@@ -313,71 +313,33 @@ for (const [animalKey, cutsArray] of Object.entries(blockmansData)) {
         cursor: pointer;
     }
 
-    .animal-card.active img {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
     .details {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
     }
 
     .details img {
-        position: absolute;
-        max-width: 120vw !important;
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 30vh;
-        object-fit: contain;
-    }
-
-    #Pork .details img {
-        transform: translateX(-50%) scale(0.6);
-        transform-origin: top center;
-    }
-
-    @media (min-width: 768px) {
-        .details img {
-            left: 30%;
-            top: auto;
-            bottom: 20%;
-            transform: none;
-            height: 60vh;
-            width: auto;
-            object-fit: contain;
-        }
-
-        #Pork .details img {
-            transform: none;
-            height: 50vh;
-        }
-        #Poultry .details img {
-            transform: none;
-            height: 60vh;
-            left: 50%;
-        }
-
-        #Pork.active .details img {
-            transform: translateX(-50%);
-        }
-        #Poultry.active .details img {
-            transform: translateX(-50%);
-        }
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .byLine {
         position: absolute;
-        bottom: 10%;
+        bottom: 18%;
         left: 0;
         width: 100%;
         opacity: 0;
         pointer-events: none;
         white-space: nowrap;
+    }
+
+    @media (min-width: 768px) {
+        .byLine {
+            bottom: 10%;
+        }
     }
 
     .bg-fill {

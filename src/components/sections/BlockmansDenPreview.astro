@@ -55,7 +55,7 @@ const animals = [
             {animal.name} CUTS
             <span class="card-underline" />
           </h3>
-          <p class="card-sub">
+          <p class="card-sub pb-16">
             Get to know your <strong>better</strong> meat cuts
           </p>
         </div>
@@ -153,13 +153,6 @@ const animals = [
     overflow: hidden;
     transition: flex 0.4s ease;
     cursor: pointer;
-    border-radius: 1rem; /* rounded-2xl */
-  }
-
-  @media (min-width: 768px) {
-    .animal-card {
-      border-radius: 0;
-    }
   }
 
   .card-link {
@@ -255,67 +248,22 @@ const animals = [
     transform: scaleY(1);
   } */
 
-  .animal-grid:has(.animal-card:hover) .animal-card:not(:hover) {
-    flex: 1;
-  }
-
-  .animal-card:hover {
-    flex: 3;
-  }
-
-  /* Images: right-offset by default, slide to center on hover */
-  .animal-img {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 90%;
-    width: auto;
-    max-width: 120vw;
-    object-fit: contain;
-    object-position: bottom center;
-    transition: left 0.4s ease, top 0.4s ease, height 0.4s ease, transform 0.4s ease;
-  }
-
-  #Pork .animal-img {
-    transform: translateX(-50%) scale(0.6);
-    transform-origin: top center;
-  }
-
   @media (min-width: 768px) {
-    .animal-img {
-      top: auto;
-      bottom: 15%;
-      left: 70%;
-      height: 70%;
-      max-width: none;
-      transform: translateX(-50%);
+    .animal-grid:has(.animal-card:hover) .animal-card:not(:hover) {
+      flex: 1;
     }
 
-    .animal-card:hover .animal-img {
-      left: 50%;
+    .animal-card:hover {
+      flex: 3;
     }
+  }
 
-    /* Pork: wide illustration — starts right of center, centers on hover */
-    #Pork .animal-img {
-      transform: translateX(-50%);
-      height: 60%;
-      width: auto;
-      left: 110%;
-    }
-
-    #Pork:hover .animal-img {
-      left: 50%;
-    }
-
-    /* Poultry: default offset */
-    #Poultry .animal-img {
-      left: 90%;
-    }
-
-    #Poultry:hover .animal-img {
-      left: 50%;
-    }
+  .animal-card :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
   }
 
   /* ── Per-card byline ── */
@@ -335,19 +283,21 @@ const animals = [
     pointer-events: none;
   }
 
-  .animal-card:hover .card-byline {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+  @media (min-width: 768px) {
+    .animal-card:hover .card-byline {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
   }
 
   .card-title {
     display: inline-block;
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-size: clamp(1.1rem, 3vw, 3rem);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--color-brand-dark, #1a1a1a);
+    color: var(--color-brand-light, #efefef);
     margin: 0 0 0.35rem;
     position: relative;
   }
@@ -360,11 +310,11 @@ const animals = [
   }
 
   .card-sub {
-    font-size: 0.65rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--color-brand-dark, #1a1a1a);
+    color: var(--color-brand-light, #efefef);
     margin: 0.4rem 0 0;
   }
 </style>

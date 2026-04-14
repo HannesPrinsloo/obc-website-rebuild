@@ -51,7 +51,7 @@ const heroImages = [
   title="About Us"
   description="OBC Better Butchery - Find out more about your Better Butchery"
 >
-  <div>
+  <div id="about-us-page">
     <div class="sticky top-0 w-full z-0">
       <Carousel client:load images={heroImages} />
     </div>
@@ -432,12 +432,22 @@ const heroImages = [
 
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
+    let aboutCtx: ReturnType<typeof gsap.context> | null = null;
+
     function init() {
-      const highlightText = document.querySelector("#highlight-text");
-      if (highlightText) {
-        if ((highlightText as any)._split) {
-          (highlightText as any)._split.revert();
-        }
+      if (!document.getElementById("about-us-page")) return;
+
+      if (aboutCtx) {
+        aboutCtx.revert();
+        aboutCtx = null;
+      }
+
+      aboutCtx = gsap.context(() => {
+        const highlightText = document.querySelector("#highlight-text");
+        if (highlightText) {
+          if ((highlightText as any)._split) {
+            (highlightText as any)._split.revert();
+          }
 
         const splitHighlight = new SplitText(highlightText, {
           type: "lines",
@@ -505,13 +515,17 @@ const heroImages = [
             },
           },
         );
+        });
       });
 
       ScrollTrigger.refresh();
     }
 
     document.addEventListener("astro:before-swap", () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (aboutCtx) {
+        aboutCtx.revert();
+        aboutCtx = null;
+      }
     });
 
     document.addEventListener("astro:page-load", init);
