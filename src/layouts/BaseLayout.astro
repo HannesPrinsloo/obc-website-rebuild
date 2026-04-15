@@ -70,6 +70,9 @@ const {
 
 			// avoids scroll jitter
 			gsap.ticker.lagSmoothing(0);
+
+			// Normalize scroll for Safari jitter fix
+			// ScrollTrigger.normalizeScroll(true);
 		</script>
 	</body>
 </html>

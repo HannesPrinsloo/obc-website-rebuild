@@ -29,7 +29,7 @@ const links = [
       <div class="flex items-center justify-start">
         <button
           id="menu-open-btn"
-          class="text-brand-light hover:text-brand-primary focus:outline-none transition-transform hover:scale-105"
+          class="text-brand-light hover:text-brand-primary focus:outline-none transition-transform cursor-pointer hover:scale-105"
         >
           <svg
             class="h-8 w-8"
@@ -65,7 +65,7 @@ const links = [
           <li>
             <a
               href="/thola-zonke"
-              class="w-[82px] h-auto flex items-center justify-center transition-colors shadow-md"
+              class="w-[60px] h-auto flex items-center justify-center transition-colors cursor:pointer shadow-md transition-transform duration-300 hover:scale-105"
               title="Loyalty App"
             >
               <img
@@ -84,14 +84,14 @@ const links = [
 <!-- Mobile Menu Drawer Overlay -->
 <div
   id="mobile-menu-overlay"
-  class="fixed inset-0 bg-brand-light/10 z-[100] hidden opacity-0 transition-opacity duration-300 backdrop-blur-[3px]"
+  class="fixed inset-0 bg-brand-light/10 z-[100] cursor-pointer hidden opacity-0 transition-opacity duration-300 backdrop-blur-[3px]"
 >
 </div>
 
 <!-- Main Mobile Menu Drawer -->
 <nav
   id="mobile-menu-drawer"
-  class="fixed top-0 left-0 w-full sm:w-100 max-w-md h-dvh bg-brand-dark z-[101] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl border-r border-brand-primary/20"
+  class="fixed top-0 left-0 w-full cursor-pointer sm:w-100 max-w-md h-dvh bg-brand-dark z-[101] transform -translate-x-full transition-transform duration-300 flex flex-col shadow-2xl border-r border-brand-primary/20"
 >
   <div class="flex items-center justify-start h-20 px-4 sm:px-6">
     <button

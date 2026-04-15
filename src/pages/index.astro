@@ -7,7 +7,7 @@ import type { ImageMetadata } from "astro";
 import DepartmentCards from "../components/sections/DepartmentCards.astro";
 import DepartmentIcons from "../components/sections/DepartmentIcons.astro";
 import BlockmansDenPreview from "../components/sections/BlockmansDenPreview.astro";
-import FacebookFeed from "../components/sections/FacebookFeed.astro";
+// import FacebookFeed from "../components/sections/FacebookFeed.astro";
 import { getImage, Picture, Image } from "astro:assets";
 import { generateLqip } from "../utils/lqip";
 import { readFile } from "node:fs/promises";
@@ -22,7 +22,6 @@ import h3Mobile from "../assets/images/home-page/home-page-carousel/home-carouse
 import tholaZonkeImport from "../assets/images/home-page/thola-zonke-banner.webp";
 import tholaZonkeMobileImport from "../assets/images/home-page/thola-zonke-banner-mobile.webp";
 import heroMobile from "../assets/images/home-page/hero-mobile.webp";
-import patternHorizontalImg from "../assets/images/hero-images/pattern-horizontal.svg";
 import patternDiagonalImg from "../assets/images/hero-images/pattern-diagonal.svg";
 import spicesImg from "../assets/images/hero-images/spice.png";
 import grinderImg from "../assets/images/hero-images/pepper-grinder.png";
@@ -176,7 +175,7 @@ const scatterImages = processedScatterImages.slice(1);
           class="hero-text-layer w-full lg:w-[65%] flex flex-col items-center md:items-start -mt-[calc(20%+10px)] space-y-4 md:space-y-6 pointer-events-auto opacity-0"
         >
           <h1
-            class="text-brand-dark font-sans font-bold uppercase mt-40 md:mt-2 p-0 tracking-wide leading-[0.82] text-[clamp(3rem,8vw,10.5rem)] text-center md:text-left"
+            class="text-brand-dark font-sans font-bold uppercase mt-40 md:mt-2 p-0 tracking-wide leading-[0.9] text-[clamp(4rem,8vw,10.5rem)] text-center md:text-left"
           >
             <span class="font-normal tracking-[-0.02em]">The</span><br
             />Obvi'yass<br />
@@ -272,7 +271,7 @@ const scatterImages = processedScatterImages.slice(1);
 
         requestAnimationFrame(() => {
           if (!document.getElementById("home-page")) return; // Safe check if navigated away
-          
+
           if (heroCtx) {
             heroCtx.revert();
             heroCtx = null;
@@ -428,7 +427,7 @@ const scatterImages = processedScatterImages.slice(1);
       <Carousel client:load images={homeCarouselImages} />
     </div>
     <!--  Rest of the Page Content -->
-    <div class="relative z-20 bg-brand-bg min-h-screen pt-[10vh] md:pt-[25vh]">
+    <div class="relative z-20 bg-brand-bg min-h-screen pt-[10vh] md:pt-[10vh]">
       <h3 class="small-heading text-center py-12">
         QUALITY &amp; AFFORDABILITY SINCE 1984
       </h3>
@@ -440,7 +439,7 @@ const scatterImages = processedScatterImages.slice(1);
       <div class="text-center mt-8 mb-20">
         <a
           href="/about-us"
-          class="small-heading relative inline-block group transition-opacity duration-300 ease-out"
+          class="small-heading scale-70 relative inline-block group transition-opacity duration-300 ease-out"
         >
           <span
             class="inline-block transition-transform duration-300 ease-out group-hover:-skew-x-12"
@@ -489,6 +488,18 @@ const scatterImages = processedScatterImages.slice(1);
 
       <!-- Facebook Feed Section -->
       <!-- <FacebookFeed /> -->
+      <p
+        id="highlight-text-bottom"
+        class="body-text-large max-w-6xl mx-auto mt-[25vh] mb-[10vh] px-8"
+      >
+        Experience the difference with OBC - the home of quality, affordability,
+        and Kasi convenience. We’re more than just a butchery. Our stores are
+        stocked with everything from fresh produce to groceries, ensuring your
+        budget goes further without compromising on that A-grade taste. Whether
+        you’re fueling the hustle or feeding the whole family, we’ve got you
+        covered under one roof with the freshest deals in town. <br /><br
+        /><span class="font-black">#JoinTheBraaiNation</span>
+      </p>
 
       <!-- Thola Zonke Banner -->
       <div class="pt-[10vh] md:pt[25vh] w-full z-40">
@@ -515,3 +526,135 @@ const scatterImages = processedScatterImages.slice(1);
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  let heroCtx: ReturnType<typeof gsap.context> | null;
+
+  function initHeroAnimations() {
+    if (!document.getElementById("home-page")) return;
+
+    requestAnimationFrame(() => {
+      if (!document.getElementById("home-page")) return; // Safe check if navigated away
+
+      if (heroCtx) {
+        heroCtx.revert();
+        heroCtx = null;
+      }
+
+      heroCtx = gsap.context(() => {
+        // SplitText masked line reveal
+        SplitText.create(".hero-text-layer h1", {
+          type: "lines",
+          mask: "lines",
+          autoSplit: true,
+          onSplit: (self) => {
+            gsap.set(".hero-text-layer", { opacity: 1, y: 0 });
+            return gsap.from(self.lines, {
+              yPercent: 120,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.05,
+              delay: 0.8,
+            });
+          },
+        });
+
+        // Entry Timeline
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        tl.to(".pattern-bg", { opacity: 0.8, duration: 1.5 })
+          .to(
+            ".hero-mobile-layer",
+            { opacity: 1, y: 0, duration: 0.8 },
+            "-=1.0",
+          )
+          .to(".hero-wors-layer", { opacity: 1, y: 0, duration: 0.9 }, "-=0.8")
+          .to(
+            ".hero-grinder-layer",
+            { opacity: 1, y: 0, duration: 0.8 },
+            "-=0.7",
+          )
+          .to(
+            ".hero-spices-layer",
+            { opacity: 1, y: 0, duration: 0.5 },
+            "-=0.9",
+          );
+
+        // Subtle Parallax Scroll Interactions
+        gsap.to(".hero-spices-layer", {
+          yPercent: -15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero-wrapper",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        gsap.to(".hero-grinder-layer", {
+          yPercent: -25,
+          rotation: 10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero-wrapper",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        const highlightText = document.querySelector("#highlight-text-bottom");
+        if (highlightText) {
+          if ((highlightText as any)._split) {
+            (highlightText as any)._split.revert();
+          }
+
+          const splitHighlight = new SplitText(highlightText, {
+            type: "lines",
+          });
+          (highlightText as any)._split = splitHighlight;
+
+          const masks: HTMLElement[] = [];
+          splitHighlight.lines.forEach((line) => {
+            line.style.position = "relative";
+
+            const mask = document.createElement("span");
+            mask.className =
+              "absolute top-0 left-0 w-full h-[115%] bg-brand-bg opacity-[0.85] z-10 origin-left scale-x-0 pointer-events-none";
+            line.appendChild(mask);
+            masks.push(mask);
+          });
+
+          gsap.to(masks, {
+            scaleX: 1,
+            ease: "none",
+            duration: 1,
+            stagger: 1,
+            scrollTrigger: {
+              trigger: highlightText,
+              start: "top 50%",
+              end: "bottom 20%",
+              scrub: true,
+            },
+          });
+        }
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initHeroAnimations);
+
+  document.addEventListener("astro:before-swap", () => {
+    if (heroCtx) {
+      heroCtx.revert();
+      heroCtx = null;
+    }
+  });
+</script>

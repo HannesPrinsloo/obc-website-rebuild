@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import bgMobile from "../../assets/images/home-page/blockmans-den-home-page-mobile.webp";
 
 import beefImg from "../../assets/images/blockmans-den/beef/beef-illustration.webp";
 import poultryImg from "../../assets/images/blockmans-den/poultry/poultry-illustration.webp";
@@ -30,10 +31,47 @@ const animals = [
 ];
 ---
 
+<div
+  class="block md:hidden relative w-full text-center overflow-hidden h-[80svh]"
+>
+  <Image
+    src={bgMobile}
+    alt="Blockmans Den"
+    class="absolute inset-0 w-full h-full object-cover object-center z-0"
+    loading="lazy"
+  />
+  <div
+    class="relative z-10 w-full h-full flex flex-col items-center justify-center text-brand-dark px-6"
+  >
+    <h3
+      class="font-sans font-bold text-sm md:text-[15px] tracking-[0.2em] mb-4 uppercase"
+    >
+      BLOCKMAN'S DEN
+    </h3>
+    <h2
+      class="font-sans font-bold text-[clamp(1.75rem,8vw,2.5rem)] leading-[1.1] mb-6"
+    >
+      Know your better meat cut
+    </h2>
+    <p class="font-sans text-[1.3rem] leading-6 max-w-sm mx-auto mb-10">
+      Welcome to Blockman's Den, your go-to spot for mastering meat cuts. Our
+      page breaks it down simply, from juicy steaks to tender roasts. From beef
+      to pork, lamb, and more, let's learn with our Master Blockman about the
+      different cuts of meat.
+    </p>
+    <a
+      href="/blockmans-den"
+      class="bg-brand-primary text-white font-bold text-xs md:text-sm px-8 py-3 rounded-full uppercase tracking-widest hover:opacity-90 transition-opacity whitespace-nowrap"
+    >
+      TAKE A LOOK
+    </a>
+  </div>
+</div>
+
 <div class="preview-text-block">
   <h3 class="small-heading">BLOCKMAN'S DEN</h3>
   <h2 class="preview-heading">Know your better meat cut</h2>
-  <p class="preview-body">
+  <p class="space-y-6 text-[1.3rem] leading-6 w-full max-w-5xl mx-auto">
     Welcome to Blockman's Den, your go-to spot for mastering meat cuts. Our page
     breaks it down simply, from juicy steaks to tender roasts. From beef to
     pork, lamb, and more, let's learn with our Master Blockman about the
@@ -108,12 +146,16 @@ const animals = [
 <style>
   /* ── Text block ── */
   .preview-text-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 2.5rem 1.5rem 2rem;
-    /* border-bottom: 1px solid #181818; */
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .preview-text-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2.5rem 1.5rem 2rem;
+    }
   }
 
   .preview-heading {
@@ -134,14 +176,12 @@ const animals = [
 
   /* ── Image grid ── */
   .animal-grid {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 5rem);
-    /* border-top: 1px solid #181818; */
+    display: none;
   }
 
   @media (min-width: 768px) {
     .animal-grid {
+      display: flex;
       flex-direction: row;
       height: 70vh;
     }

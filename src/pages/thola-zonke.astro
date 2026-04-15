@@ -35,7 +35,7 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
                     class="hero-text-layer flex flex-col items-center lg:items-start space-y-4 md:space-y-6 pointer-events-auto opacity-0"
                 >
                     <h1
-                        class="font-sans font-bold uppercase p-0 tracking-wide leading-[1.05] text-[clamp(3.5rem,7vw,8rem)] whitespace-nowrap text-center lg:text-left"
+                        class="font-sans font-black uppercase p-0 tracking-wide leading-[1.05] text-[clamp(3.5rem,7vw,8rem)] whitespace-nowrap text-center lg:text-left"
                     >
                         <span class="text-brand-primary">NEXT</span>
                         <span class="text-white">GEN</span><br />
@@ -608,7 +608,7 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
                                 duration: 1.2,
                                 ease: "expo.out",
                                 stagger: 0.05,
-                                delay: 0.1,
+                                delay: 0.8,
                             });
                         },
                     });
@@ -621,16 +621,18 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
                         delay: 0.6,
                     });
 
-                    gsap.from(".thola-feature-card", {
-                        opacity: 0,
-                        y: 60,
-                        duration: 1,
-                        stagger: 0.3,
-                        ease: "back.out(1.2)",
-                        scrollTrigger: {
-                            trigger: ".thola-feature-card",
-                            start: "top 85%",
-                        },
+                    gsap.matchMedia().add("(min-width: 768px)", () => {
+                        gsap.from(".thola-feature-card", {
+                            opacity: 0,
+                            y: 60,
+                            duration: 1,
+                            stagger: 0.3,
+                            ease: "back.out(1.2)",
+                            scrollTrigger: {
+                                trigger: ".thola-feature-card",
+                                start: "top 85%",
+                            },
+                        });
                     });
 
                     const featureCards = gsap.utils.toArray(
@@ -916,7 +918,7 @@ import tholaFistBumpImg from "../assets/images/thola-zonke/fist-bump-thola.webp"
 
         document.addEventListener("astro:page-load", () => {
             if (!document.getElementById("thola-zonke-page")) return;
-            
+
             initHeroAnimations();
             initCarouselTracking();
             initPromoHorizontalScroll();

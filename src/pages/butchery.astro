@@ -22,21 +22,21 @@ import b3 from "../assets/images/butchery-carousel/desktop/butchery3.webp";
 import b4 from "../assets/images/butchery-carousel/desktop/butchery4.webp";
 import b5 from "../assets/images/butchery-carousel/desktop/butchery5.webp";
 
-import b1m from "../assets/images/butchery-carousel/mobile/butchery1-mobile.webp";
+// import b1m from "../assets/images/butchery-carousel/mobile/butchery1-mobile.webp";
 import b2m from "../assets/images/butchery-carousel/mobile/butchery2-mobile.webp";
 import b3m from "../assets/images/butchery-carousel/mobile/butchery3-mobile.webp";
 import b4m from "../assets/images/butchery-carousel/mobile/butchery4-mobile.webp";
 import b5m from "../assets/images/butchery-carousel/mobile/butchery5-mobile.webp";
 
 // ── Carousel – Astro image pipeline ──────────────────────────────────────────
-const [img1, img2, img3, img4, img5, mob1, mob2, mob3, mob4, mob5] =
+const [img1, img2, img3, img4, img5, mob2, mob3, mob4, mob5] = //removed mob1
   await Promise.all([
     getImage({ src: b1, format: "webp" }),
     getImage({ src: b2, format: "webp" }),
     getImage({ src: b3, format: "webp" }),
     getImage({ src: b4, format: "webp" }),
     getImage({ src: b5, format: "webp" }),
-    getImage({ src: b1m, format: "webp" }),
+    // getImage({ src: b1m, format: "webp" }),
     getImage({ src: b2m, format: "webp" }),
     getImage({ src: b3m, format: "webp" }),
     getImage({ src: b4m, format: "webp" }),
@@ -64,13 +64,13 @@ const [lqipDesktop, lqipMobile] = await Promise.all([
 ]);
 
 const butcheryCarouselImages = [
-  {
-    src: img1.src,
-    lqip: lqipDesktop,
-    mobileSrc: mob1.src,
-    mobileLqip: lqipMobile,
-    alt: "OBC Butchery",
-  },
+  // {
+  //   src: img1.src,
+  //   lqip: lqipDesktop,
+  //   mobileSrc: mob1.src,
+  //   mobileLqip: lqipMobile,
+  //   alt: "OBC Butchery",
+  // },
   {
     src: img2.src,
     lqip: lqipDesktop,
@@ -177,7 +177,7 @@ const butcheryCarouselImages = [
 
           <!-- Right: text -->
           <div
-            class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pl-8 lg:pl-12"
+            class="w-full md:w-1/2 font-sans text-brand-dark space-y-6 text-[1.3rem] leading-6 md:pl-8 lg:pl-12"
           >
             <p>
               Welcome to OBC Better Butchery, where quality meats meet
@@ -205,7 +205,7 @@ const butcheryCarouselImages = [
         >
           <!-- Left: text -->
           <div
-            class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pr-8 lg:pr-12"
+            class="w-full md:w-1/2 font-sans text-brand-dark space-y-6 text-[1.3rem] leading-6 md:pr-8 lg:pr-12"
           >
             <p>
               But we're not just a butchery — many of our stores, including our
@@ -279,7 +279,7 @@ const butcheryCarouselImages = [
 
           <!-- Right: text -->
           <div
-            class="w-full md:w-1/2 font-sans text-brand-dark space-y-5 text-[15px] md:text-base leading-relaxed md:pl-8 lg:pl-12"
+            class="w-full md:w-1/2 font-sans text-brand-dark space-y-6 text-[1.3rem] leading-6 md:pl-8 lg:pl-12"
           >
             <p>
               As we continue to expand and open new locations across the

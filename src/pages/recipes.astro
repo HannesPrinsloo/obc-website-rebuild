@@ -8,14 +8,17 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import heroCarouselImport from "../assets/images/recipes/hero-carousel.webp";
-import pastaLaVista from "../assets/images/recipes/pasta-la-vista.png";
-import forTheLoveOfFish from "../assets/images/recipes/for-the-love-of-fish.png";
+import heroCarouselImportMobile from "../assets/images/recipes/hero-carousel-mobile.webp";
+import pastaLaVista from "../assets/images/recipes/pasta-la-vista.webp";
+import forTheLoveOfFish from "../assets/images/recipes/for-the-love-of-fish.webp";
 import theBetterBoerieRoll from "../assets/images/recipes/better-boerie.webp";
 import dontChickenOut from "../assets/images/recipes/dont-chicken-out.webp";
-import theImpeccaBellPepper from "../assets/images/recipes/pepper.png";
-import breakfastForDinner from "../assets/images/recipes/breakfast-for-dinner.png";
-import demBunz from "../assets/images/recipes/dem-bunz.png";
-import sweetMornings from "../assets/images/recipes/sweet-mornings.png";
+import theImpeccaBellPepper from "../assets/images/recipes/pepper.webp";
+import breakfastForDinner from "../assets/images/recipes/breakfast-for-dinner.webp";
+import demBunz from "../assets/images/recipes/dem-bunz.webp";
+import sweetMornings from "../assets/images/recipes/sweet-mornings.webp";
+import perfectlyDoneSardines from "../assets/images/recipes/perfectly-done-sardines.webp";
+import perfectlyDoneMince from "../assets/images/recipes/perfectly-done-mince.webp";
 import pattern from "../assets/textures_and_borders/pattern.webp";
 
 const [
@@ -29,9 +32,11 @@ const [
   breakfastForDinnerImg,
   demBunzImg,
   sweetMorningsImg,
+  perfectlyDoneSardinesImg,
+  perfectlyDoneMinceImg,
 ] = await Promise.all([
   getImage({ src: heroCarouselImport, format: "webp" }),
-  getImage({ src: heroCarouselImport, format: "webp", width: 480, height: 640 }),
+  getImage({ src: heroCarouselImportMobile, format: "webp" }),
   getImage({ src: pastaLaVista, format: "webp" }),
   getImage({ src: forTheLoveOfFish, format: "webp" }),
   getImage({ src: theBetterBoerieRoll, format: "webp" }),
@@ -40,9 +45,78 @@ const [
   getImage({ src: breakfastForDinner, format: "webp" }),
   getImage({ src: demBunz, format: "webp" }),
   getImage({ src: sweetMornings, format: "webp" }),
+  getImage({ src: perfectlyDoneSardines, format: "webp" }),
+  getImage({ src: perfectlyDoneMince, format: "webp" }),
 ]);
 
 const dinnerRecipes = [
+  {
+    id: "perfectly-done-sardines",
+    slug: "perfectly-done-sardines",
+    title: "PERFECTLY DONE SARDINES",
+    byLine: "Done the South African way",
+    serves: "4 Servings",
+    prepTime: "30 minutes",
+    cookTime: "20 minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "500g Frozen Sardines",
+      "OBC Fish Spice (as needed)",
+      "Lemon juice drizzle",
+      "1 tsp OBC Cooking Oil",
+      "2 tbsp OBC Cooking Oil (for frying)",
+      "2 tbsp chopped onions",
+      "1 tsp crushed garlic",
+      "2 tbsp chopped green peppers",
+      "6 tbsp tomato and onion mix",
+      "2 tbsp tomato paste",
+      "200ml water",
+      "A few drops of vinegar and Oil (for storage)",
+    ],
+    method: [
+      "1. Prep and clean the sardines: Ensure the sardines are at room temperature before cleaning. Remove the Head: Use a knife to cut all around the neck. As you feel the bone, stop cutting and gently pull to remove the head. Remove the Tail: Cut all around the tail. Debone: Carefully extract the entire backbone by wiggling it slightly until it comes loose. Pull it out slowly to keep the fish intact.",
+      "2. Marinate the sardines: Place the cleaned sardines on a plate and sprinkle generously with OBC Fish Spice. Drizzle with lemon juice and add 1 tsp of cooking oil. Let the sardines marinate in the refrigerator for 30 minutes.",
+      "3. Preparing the sauce base: Heat 2 tbsp of cooking oil in a frying pan over high heat. Add 2 tbsp of chopped onions and sauté until golden brown. Stir in 1 tsp of garlic and a drizzle of lemon juice. Add 2 tbsp of chopped green peppers and fry for a few minutes. Add 2 tsp of fish spice to the mixture to enhance the flavour.",
+      "4. Build the sauce: Add 6 tbsp of tomato and onion mix and 2 tbsp of tomato paste to the pan. In a separate bowl, mix 200ml of water with 2 tsp of fish spice to create a stock. Pour the stock into the pan and stir well. Reduce the heat and let the sauce simmer.",
+      "5. Cook the sardines: Gently place the marinated sardines into the simmering sauce. Allow them to cook through in the sauce until they are 'perfectly done'.",
+      "6. Serving suggestions: Plate the sardines with your choice of rice, pasta, or pap.",
+      "7. To Store: If you have leftovers, place them in a sealed container with a few drops of vinegar and oil. They will keep in the fridge for 2–4 days.",
+    ],
+    imageSrc: perfectlyDoneSardinesImg.src,
+  },
+  {
+    id: "perfectly-done-mince",
+    slug: "perfectly-done-mince",
+    title: "PERFECTLY DONE MINCE",
+    byLine: "Done the South African way",
+    serves: "4 - 6 Servings",
+    prepTime: "10 minutes",
+    cookTime: "50 minutes",
+    difficulty: "Easy",
+    ingredients: [
+      "1 kg OBC Ground Mince with gizzards",
+      "4 tbsp Chopped Onion",
+      "4 tbsp Chopped Carrot",
+      "2 tsp Garlic",
+      "1 tbsp All Gold Tomato Paste",
+      "1 tsp OBC Paprika Spice",
+      "2 tsp OBC BBQ Spice",
+      "2 tbsp Worcestershire Sauce",
+      "1 tsp OBC Beef & Veg Soup Powder",
+      "4 tbsp OBC Tomato Sauce",
+      "300 ml Water",
+    ],
+    method: [
+      "1. Start by placing 1 kg of the ground mince with gizzards into a pan over medium-high heat. Cook until the meat is browned",
+      "2. Incorporate 4 tablespoons of chopped onion into the pan. Add 2 teaspoons of garlic and stir it in",
+      "3. Add 4 tablespoons of chopped carrots. Stir in 1 tablespoon of tomato paste",
+      "4. Add 1 teaspoon of paprika spice and 2 teaspoons of barbeque spice. Pour in 2 tablespoons of Worcestershire sauce",
+      "5. In a separate bowl, mix 1 teaspoon of beef and vegetable soup powder with 300 ml of water. Pour this mixture into the pan with the mince",
+      "6. Add 4 tablespoons of tomato sauce to the pan",
+      "7. Stir everything together well and allow the mixture to simmer until the sauce has thickened and the flavors are well combined",
+    ],
+    imageSrc: perfectlyDoneMinceImg.src,
+  },
   {
     id: "pasta-la-vista",
     slug: "pasta-la-vista",
@@ -304,7 +378,9 @@ const sweetRecipes = [
 ];
 
 const heroCarouselLqip = await generateLqip(
-  await readFile(join(process.cwd(), "src/assets/images/recipes/hero-carousel.webp")),
+  await readFile(
+    join(process.cwd(), "src/assets/images/recipes/hero-carousel.webp"),
+  ),
 );
 
 const heroCarousel = [

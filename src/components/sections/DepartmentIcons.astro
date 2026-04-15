@@ -14,12 +14,12 @@ const items = [
     text: "We pride ourselves in our wide selection of meat cuts. Fresh from our deli.",
   },
   {
-    img: img2,
+    img: img3,
     title: "FROZEN MEAT",
     text: "We have a wide variety of frozen meat and veggies options. Buy bulk or only buy for tonight.",
   },
   {
-    img: img3,
+    img: img6,
     title: "GROCERIES",
     text: "Maize meal to Sunlight. Buy the necessities at OBC for your convenience.",
   },
@@ -34,14 +34,16 @@ const items = [
     text: "Dinner sorted with our already made meals. We also have a bakery in a few of our stores. *Only at selected stores",
   },
   {
-    img: img6,
+    img: img2,
     title: "FROM THE OCEAN",
     text: "We have a wide selection of fish options. Frozen or fresh. *Fresh fish only at selected stores",
   },
 ];
 ---
 
-<section class="max-w-[1600px] w-full mx-auto py-24 px-4 md:px-12 bg-brand-bg">
+<section
+  class="max-w-[1600px] w-full mx-auto py-[10vh] md:py-[22vh] px-4 md:px-12 bg-brand-bg"
+>
   <div class="relative w-full max-w-7xl mx-auto" id="dept-icons-wrapper">
     <!-- The horizontal line (hidden on mobile, visible on desktop) -->
     <div
@@ -57,7 +59,7 @@ const items = [
             <Image
               src={item.img}
               alt={item.title}
-              class="w-32 h-32 md:w-[150px] md:h-[150px] object-contain mb-6 hover:scale-110 transition-transform duration-300"
+              class="w-25 h-25 md:w-[150px] md:h-[150px] object-contain mb-6 hover:scale-110 transition-transform duration-300"
             />
             <h4 class="text-[12px] md:text-[13px] font-extrabold tracking-widest uppercase text-brand-dark mb-4 md:mb-[52px]">
               {item.title}
@@ -66,7 +68,7 @@ const items = [
             {/* Mobile line divider (shows only on mobile instead of the absolute line) */}
             <div class="w-full h-[2px] bg-brand-dark md:hidden mb-4 rounded-full" />
 
-            <p class="font-display text-[22px] md:text-[24px] leading-tight text-brand-dark px-2">
+            <p class="font-display text-[16px] md:text-[24px] leading-tight text-brand-dark px-2">
               {item.text}
             </p>
           </div>

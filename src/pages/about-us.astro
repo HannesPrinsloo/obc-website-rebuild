@@ -19,8 +19,6 @@ const [heroImg, heroImgMobile] = await Promise.all([
   getImage({
     src: heroImgMobileImport,
     format: "webp",
-    width: 480,
-    height: 640,
   }),
 ]);
 
@@ -399,18 +397,16 @@ const heroImages = [
             <h3
               class="uppercase tracking-[0.25em] text-lg font-sans font-bold text-brand-dark mb-4"
             >
-              QUALITY CONTROL
+              A STRONG FOOTING FOR GROWTH
             </h3>
             <p
               class="text-[1.3rem] leading-6 text-brand-dark font-sans opacity-95"
             >
-              To safeguard our reputation and ensure product excellence, OBC
-              enforces strict quality, cleanliness, and hygiene standards
-              through regular inspections—a vital practice for handling
-              perishable goods. We ensure every store adheres to our specific
-              layout and merchandising guidelines, with our operations team
-              providing hands-on assistance to resolve any issues and bring
-              stores back up to our required standards.
+              Finally, as an established retail group, we offer franchisees the
+              advantage of a large well-resourced support structure. This depth
+              of resource that means stores can enjoy unlimited growth.As our
+              stores grow, we grow with them and help them retain the values
+              that make the brand what it is, no matter how big they get.
             </p>
           </div>
         </div>
@@ -449,72 +445,72 @@ const heroImages = [
             (highlightText as any)._split.revert();
           }
 
-        const splitHighlight = new SplitText(highlightText, {
-          type: "lines",
-        });
-        (highlightText as any)._split = splitHighlight;
+          const splitHighlight = new SplitText(highlightText, {
+            type: "lines",
+          });
+          (highlightText as any)._split = splitHighlight;
 
-        const masks: HTMLElement[] = [];
-        splitHighlight.lines.forEach((line) => {
-          line.style.position = "relative";
+          const masks: HTMLElement[] = [];
+          splitHighlight.lines.forEach((line) => {
+            line.style.position = "relative";
 
-          const mask = document.createElement("span");
-          mask.className =
-            "absolute top-0 left-0 w-full h-[115%] bg-[#181818] opacity-[0.75] z-10 origin-left scale-x-0 pointer-events-none";
-          line.appendChild(mask);
-          masks.push(mask);
-        });
+            const mask = document.createElement("span");
+            mask.className =
+              "absolute top-0 left-0 w-full h-[115%] bg-[#181818] opacity-[0.75] z-10 origin-left scale-x-0 pointer-events-none";
+            line.appendChild(mask);
+            masks.push(mask);
+          });
 
-        gsap.to(masks, {
-          scaleX: 1,
-          ease: "none",
-          duration: 1,
-          stagger: 1,
-          scrollTrigger: {
-            trigger: highlightText,
-            start: "top 50%",
-            end: "bottom 30%",
-            scrub: true,
-          },
-        });
-      }
-
-      document.querySelectorAll(".fade-up").forEach((item) => {
-        gsap.fromTo(
-          item,
-          { y: 40, opacity: 0 },
-          {
-            y: 0,
-            delay: 0.3,
-            opacity: 1,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 75%",
-            },
-          },
-        );
-      });
-
-      document.querySelectorAll(".zoom-circle").forEach((circle) => {
-        const img = circle.querySelector(".zoom-circle-img");
-        if (!img) return;
-
-        gsap.fromTo(
-          img,
-          { scale: 1.2 },
-          {
-            scale: 1.0,
+          gsap.to(masks, {
+            scaleX: 1,
             ease: "none",
+            duration: 1,
+            stagger: 1,
             scrollTrigger: {
-              trigger: circle,
-              start: "top bottom",
-              end: "bottom top",
+              trigger: highlightText,
+              start: "top 50%",
+              end: "bottom 30%",
               scrub: true,
             },
-          },
-        );
+          });
+        }
+
+        document.querySelectorAll(".fade-up").forEach((item) => {
+          gsap.fromTo(
+            item,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              delay: 0.3,
+              opacity: 1,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: item,
+                start: "top 75%",
+              },
+            },
+          );
+        });
+
+        document.querySelectorAll(".zoom-circle").forEach((circle) => {
+          const img = circle.querySelector(".zoom-circle-img");
+          if (!img) return;
+
+          gsap.fromTo(
+            img,
+            { scale: 1.2 },
+            {
+              scale: 1.0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: circle,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            },
+          );
         });
       });
 

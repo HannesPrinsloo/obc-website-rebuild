@@ -160,14 +160,16 @@
     z-index: -1;
   }
 
-  .btn-outline:hover {
-    border-color: var(--color-brand-primary) !important;
-    color: var(--color-brand-primary) !important;
-    letter-spacing: 0.14em;
-    text-wrap: nowrap;
-  }
+  @media (hover: hover) {
+    .btn-outline:hover {
+      border-color: var(--color-brand-primary) !important;
+      color: var(--color-brand-primary) !important;
+      letter-spacing: 0.14em;
+      text-wrap: nowrap;
+    }
 
-  .btn-outline:hover::before {
-    clip-path: inset(0 0% 0 0);
+    .btn-outline:hover::before {
+      clip-path: inset(0 0% 0 0);
+    }
   }
 }
