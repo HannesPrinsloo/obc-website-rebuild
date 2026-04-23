@@ -7,7 +7,7 @@ import { generateLqip } from "../utils/lqip";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-// ── Section images ────────────────────────────────────────────────────────────
+
 import bTopLeft from "../assets/images/butchery-images/top_left_large.webp";
 import bMidRight from "../assets/images/butchery-images/mid_right_large.webp";
 import bMidSmall from "../assets/images/butchery-images/mid_right_small.webp";
@@ -15,7 +15,7 @@ import bSteak from "../assets/images/butchery-images/mid_left_small.webp";
 import bBottomLeft from "../assets/images/butchery-images/bottom_left_large.webp";
 import pattern from "../assets/textures_and_borders/pattern.webp";
 
-// ── Carousel – static imports ─────────────────────────────────────────────────
+
 import b1 from "../assets/images/butchery-carousel/desktop/butchery1.webp";
 import b2 from "../assets/images/butchery-carousel/desktop/butchery2.webp";
 import b3 from "../assets/images/butchery-carousel/desktop/butchery3.webp";
@@ -28,7 +28,7 @@ import b3m from "../assets/images/butchery-carousel/mobile/butchery3-mobile.webp
 import b4m from "../assets/images/butchery-carousel/mobile/butchery4-mobile.webp";
 import b5m from "../assets/images/butchery-carousel/mobile/butchery5-mobile.webp";
 
-// ── Carousel – Astro image pipeline ──────────────────────────────────────────
+
 const [img1, img2, img3, img4, img5, mob2, mob3, mob4, mob5] = //removed mob1
   await Promise.all([
     getImage({ src: b1, format: "webp" }),
@@ -43,7 +43,7 @@ const [img1, img2, img3, img4, img5, mob2, mob3, mob4, mob5] = //removed mob1
     getImage({ src: b5m, format: "webp" }),
   ]);
 
-// ── LQIP placeholders ─────────────────────────────────────────────────────────
+
 const [lqipDesktop, lqipMobile] = await Promise.all([
   generateLqip(
     await readFile(
@@ -102,12 +102,12 @@ const butcheryCarouselImages = [
   title="Butchery"
   description="OBC Better Butchery — quality meats at unbeatable value. Fresh cuts, affordable prices, 95+ stores nationwide."
 >
-  <!-- ── Sticky Carousel ──────────────────────────────────────────────────── -->
+
   <div class="sticky top-0 w-full z-0">
     <Carousel client:load images={butcheryCarouselImages} />
   </div>
 
-  <!-- ── Content layer (scrolls over the pinned carousel) ────────────────── -->
+
   <div class="relative z-20 bg-brand-bg">
     <!-- Divider: tribal pattern + orange paint stroke -->
     <div class="w-full overflow-hidden leading-none">
@@ -123,7 +123,7 @@ const butcheryCarouselImages = [
     <!-- Specials Banner -->
     <SpecialsBanner />
 
-    <!-- ── Main Content ──────────────────────────────────────────────────── -->
+
     <section id="butchery-content" class="w-full bg-brand-bg">
       <div class="max-w-7xl mx-auto py-16 px-6 md:px-12 lg:px-16">
         <!-- Section heading — left-aligned, matching original -->
@@ -140,7 +140,7 @@ const butcheryCarouselImages = [
           </h1>
         </div>
 
-        <!-- ── Row 1: Image Left (circle + tilted steak), Text Right ────── -->
+
         <div
           class="flex flex-col md:flex-row items-center gap-10 md:gap-16 mb-24 md:mb-32"
         >
@@ -199,7 +199,7 @@ const butcheryCarouselImages = [
           </div>
         </div>
 
-        <!-- ── Row 2: Text Left, Two Overlapping Circles Right ──────────── -->
+
         <div
           class="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16 mb-24 md:mb-32"
         >
@@ -257,7 +257,7 @@ const butcheryCarouselImages = [
           </div>
         </div>
 
-        <!-- ── Row 3: Image Left, Text Right ────────────────────────────── -->
+
         <div
           class="flex flex-col md:flex-row items-center gap-10 md:gap-16 pb-20"
         >
@@ -297,7 +297,7 @@ const butcheryCarouselImages = [
         </div>
       </div>
 
-      <!-- ── Scrolling Marquee ──────────────────────────────────────────── -->
+
       <div class="w-full overflow-hidden py-4 bg-brand-bg">
         <div class="marquee-track flex gap-12 whitespace-nowrap">
           {
@@ -312,7 +312,7 @@ const butcheryCarouselImages = [
         </div>
       </div>
 
-      <!-- ── CTA Buttons ────────────────────────────────────────────────── -->
+
       <div
         class="flex flex-col sm:flex-row items-center justify-center gap-4 py-14 px-6 bg-brand-bg"
       >
@@ -401,7 +401,7 @@ const butcheryCarouselImages = [
       ScrollTrigger.refresh();
     }
 
-    // ASTRO bug prevention
+
     document.addEventListener("astro:before-swap", () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     });

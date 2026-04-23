@@ -2,7 +2,7 @@
 import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+
 export interface CardItem {
   image: ImageMetadata; // Pass a static import — processed by Astro's image pipeline
   alt: string;
@@ -106,7 +106,7 @@ const processedCards = await Promise.all(
     }
   }
 
-  /* ── Card shell ──────────────────────────────────────────────────────────── */
+
   .dept-card {
     position: relative;
     display: flex;
@@ -131,7 +131,7 @@ const processedCards = await Promise.all(
     }
   }
 
-  /* ── Image wrapper + parallax image ─────────────────────────────────────── */
+
   .card-image-wrapper {
     position: absolute;
     inset: 0;
@@ -151,7 +151,7 @@ const processedCards = await Promise.all(
     will-change: transform;
   }
 
-  /* ── Overlay: default = dark gradient, hover = orange sweep L→R ─────────── */
+
   .card-overlay {
     position: absolute;
     bottom: 0;
