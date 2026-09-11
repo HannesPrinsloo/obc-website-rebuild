@@ -24,7 +24,7 @@ pnpm-debug.log*
 .idea/
 
 # pdf converter
-pdf-converter/
+image-compress/
 
 # Work in progress that I might finish later
 src/components/react/BlockmansDenInteractive.tsx

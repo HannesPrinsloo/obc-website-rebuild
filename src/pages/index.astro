@@ -31,7 +31,6 @@ import butcherySpecialsImg from "../assets/images/home-page/image-cards/butchery
 import liquorSpecialsImg from "../assets/images/home-page/image-cards/liquor-specials.webp";
 import storeFinderImg from "../assets/images/home-page/image-cards/store-finder.webp";
 
-
 const [img1, img2, img3] = await Promise.all([
   getImage({ src: h1, format: "webp" }),
   getImage({ src: h2, format: "webp" }),
@@ -151,11 +150,9 @@ const scatterImages = processedScatterImages.slice(1);
 
 <BaseLayout title="Home" description="Your Better Butchery">
   <div id="home-page" class="relative w-full bg-brand-bg">
-
     <section
       class="hero-wrapper relative w-full h-auto min-h-auto lg:h-[clamp(calc(80vh),120vh,120vh)] md:h-[80vh] overflow-hidden bg-brand-bg flex flex-col items-center pt-32 pb-0 md:pt-60"
     >
-
       <div
         class="absolute inset-0 z-0 flex hidden md:flex items-center justify-center opacity-100 pointer-events-none overflow-hidden"
       >
@@ -166,11 +163,9 @@ const scatterImages = processedScatterImages.slice(1);
         />
       </div>
 
-
       <div
         class="@container relative z-30 w-full px-6 md:pl-12 lg:pl-28 xl:pl-[12%] h-full flex flex-col md:justify-center pointer-events-none md:pt-12"
       >
-
         <div
           class="hero-text-layer w-full lg:w-[65%] flex flex-col items-center md:items-start mt-4 md:mt-8 lg:mt-16 space-y-4 md:space-y-6 pointer-events-auto opacity-0"
         >
@@ -185,7 +180,6 @@ const scatterImages = processedScatterImages.slice(1);
             >
           </h1>
         </div>
-
 
         <div
           class="relative w-[calc(100%+3rem)] -mx-6 mt-16 md:hidden h-auto pointer-events-none mt-auto opacity-0 hero-mobile-layer"
@@ -203,11 +197,9 @@ const scatterImages = processedScatterImages.slice(1);
         </div>
       </div>
 
-
       <div
         class="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-20"
       >
-
         <div
           class="hero-spices-layer absolute md:bottom-[5%] lg:bottom-[2%] md:right-[12%] md:w-[50%] lg:w-[45%] z-30 opacity-0 -translate-y-8"
         >
@@ -223,7 +215,6 @@ const scatterImages = processedScatterImages.slice(1);
           />
         </div>
 
-
         <div
           class="hero-grinder-layer absolute md:bottom-[35%] lg:bottom-[25%] md:right-[0%] md:w-[32%] lg:w-[24%] z-20 opacity-0 translate-y-8"
         >
@@ -238,7 +229,6 @@ const scatterImages = processedScatterImages.slice(1);
             class="w-full h-auto object-contain"
           />
         </div>
-
 
         <div
           class="hero-wors-layer absolute md:-bottom-[5%] lg:-bottom-[15%] md:right-[2%] lg:right-[4%] md:w-[60%] lg:w-[50%] z-10 opacity-0 translate-y-12 origin-bottom-right"
@@ -278,7 +268,6 @@ const scatterImages = processedScatterImages.slice(1);
           }
 
           heroCtx = gsap.context(() => {
-
             SplitText.create(".hero-text-layer h1", {
               type: "lines",
               mask: "lines",
@@ -294,7 +283,6 @@ const scatterImages = processedScatterImages.slice(1);
                 });
               },
             });
-
 
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -319,7 +307,6 @@ const scatterImages = processedScatterImages.slice(1);
                 { opacity: 1, y: 0, duration: 0.5 },
                 "-=0.9",
               );
-
 
             gsap.to(".hero-spices-layer", {
               yPercent: -15,
@@ -356,7 +343,8 @@ const scatterImages = processedScatterImages.slice(1);
               (highlightText as any)._split = splitHighlight;
 
               const masks: HTMLElement[] = [];
-              splitHighlight.lines.forEach((line) => {
+              splitHighlight.lines.forEach((lineElement) => {
+                const line = lineElement as HTMLElement;
                 line.style.position = "relative";
 
                 const mask = document.createElement("span");
@@ -432,9 +420,9 @@ const scatterImages = processedScatterImages.slice(1);
         QUALITY &amp; AFFORDABILITY SINCE 1984
       </h3>
       <p id="highlight-text" class="body-text-large max-w-6xl mx-auto px-8">
-        We have over 90 stores in South Africa and a few in Mozambique. We have
-        a mission to support the market by providing quality, affordability &
-        convenience
+        Experience the difference with OBC - the home of quality, affordability,
+        and Kasi convenience. We’re more than just a butchery. Our stores are
+        stocked with everything from fresh produce to groceries.
       </p>
       <div class="text-center mt-8 mb-20">
         <a
@@ -480,9 +468,7 @@ const scatterImages = processedScatterImages.slice(1);
         ]}
       />
 
-
       <DepartmentIcons />
-
 
       <BlockmansDenPreview />
 
@@ -501,7 +487,6 @@ const scatterImages = processedScatterImages.slice(1);
         /><span class="font-black">#JoinTheBraaiNation</span>
       </p>
 
-
       <div class="pt-[10vh] md:pt[25vh] w-full z-40">
         <Carousel client:load images={tholaZonkeImage} />
       </div>
@@ -515,7 +500,6 @@ const scatterImages = processedScatterImages.slice(1);
         />
       </div>
     </div>
-
 
     <div class="relative z-30 w-full bg-brand-bg">
       <ScatterGallery
@@ -548,7 +532,6 @@ const scatterImages = processedScatterImages.slice(1);
       }
 
       heroCtx = gsap.context(() => {
-
         SplitText.create(".hero-text-layer h1", {
           type: "lines",
           mask: "lines",
@@ -564,7 +547,6 @@ const scatterImages = processedScatterImages.slice(1);
             });
           },
         });
-
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -585,7 +567,6 @@ const scatterImages = processedScatterImages.slice(1);
             { opacity: 1, y: 0, duration: 0.5 },
             "-=0.9",
           );
-
 
         gsap.to(".hero-spices-layer", {
           yPercent: -15,

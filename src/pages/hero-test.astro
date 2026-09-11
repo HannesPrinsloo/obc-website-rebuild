@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroCanvas from "../components/sections/HeroCanvas.astro";
+---
+
+<BaseLayout title="Hero Test" hideFooter={true}>
+  <!-- Our new experimental component -->
+  <HeroCanvas />
+
+  <!-- Dummy content to allow scrolling past the hero -->
+  <div class="h-screen bg-brand-light flex items-center justify-center">
+    <div class="text-center">
+      <h2 class="text-4xl md:text-6xl text-brand-dark font-black uppercase mb-4">
+        Hero Animation Finished
+      </h2>
+      <p class="text-xl text-gray-600 font-bold tracking-widest">
+        This is the section below the hero.
+      </p>
+    </div>
+  </div>
+  
+  <div class="h-screen bg-brand-bg flex items-center justify-center">
+    <h2 class="text-2xl text-gray-400 font-bold uppercase tracking-widest">
+      Keep scrolling...
+    </h2>
+  </div>
+</BaseLayout>

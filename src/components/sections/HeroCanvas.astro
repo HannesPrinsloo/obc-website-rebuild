@@ -1,0 +1,128 @@
+---
+// src/components/sections/HeroCanvas.astro
+---
+
+<div class="hero-wrapper relative w-full h-[300vh]">
+  <!-- 
+    The sticky container stays pinned to the screen for 300vh of scrolling. 
+    Adjust the 300vh higher to make the scroll scrub slower.
+  -->
+  <div class="sticky top-0 w-full h-screen overflow-hidden bg-brand-dark">
+    <!-- The Canvas where we draw the frames -->
+    <canvas
+      id="video-canvas"
+      class="absolute inset-0 w-full h-full object-cover z-0"></canvas>
+
+    <!-- The Text Overlay -->
+    <div
+      class="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none"
+    >
+      <h1
+        class="text-brand-primary text-center font-black uppercase text-[clamp(4rem,8cqw,10rem)] leading-[0.9] drop-shadow-2xl"
+      >
+        Join the<br />
+        <span class="text-white">Braai Nation.</span>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  // Run only on the client after Astro loads the page
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const canvas = document.getElementById("video-canvas") as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    // 1. Determine which sequence to load based on screen size
+    const isMobile = window.innerWidth < 768;
+    const is4K = window.innerWidth >= 2560; // Triggers 4K assets on ultrawide/4K monitors
+
+    // Clean paths pointing to the public/hero/ directories
+    let basePath = "/hero/1080p/";
+    if (isMobile) basePath = "/hero/mobile/";
+    else if (is4K) basePath = "/hero/4k/";
+
+    // TOTAL FRAMES: 
+    // You reduced this to 145! This is much safer for iOS Safari memory.
+    const frameCount = 145;
+
+    // Helper to format numbers like 001, 002
+    const currentFrame = (index: number) =>
+      `${basePath}frame_${(index + 1).toString().padStart(3, "0")}.webp`;
+
+    // 2. Setup Canvas Size (matches the resolution of your assets)
+    if (isMobile) {
+      canvas.width = 720;
+      canvas.height = 1280;
+    } else if (is4K) {
+      canvas.width = 3840;
+      canvas.height = 2160;
+    } else {
+      canvas.width = 1728;
+      canvas.height = 1116;
+    }
+
+    // 3. Load the First Frame Immediately (Always happens)
+    const firstImage = new Image();
+    firstImage.src = currentFrame(0);
+    firstImage.onload = () => {
+      ctx?.drawImage(firstImage, 0, 0, canvas.width, canvas.height);
+    };
+
+    // 4. CONNECTION CHECK: Fallback for slow networks
+    // If the user is on 3G, 2G, or has "Data Saver" mode enabled, we STOP here.
+    // They get a beautiful static background (frame 1) and save 12MB+ of data.
+    const connection = (navigator as any).connection;
+    const isSlowNetwork = connection && (
+      connection.saveData || 
+      ['slow-2g', '2g', '3g'].includes(connection.effectiveType)
+    );
+
+    if (isSlowNetwork) {
+      console.log("Slow network or Data Saver detected. Using static hero fallback.");
+      return; // Abort loading the rest of the sequence
+    }
+
+    // 5. Preload the remaining frames in the background
+    const images: HTMLImageElement[] = [firstImage];
+    for (let i = 1; i < frameCount; i++) {
+      const img = new Image();
+      img.src = currentFrame(i);
+      images.push(img);
+    }
+
+    // 6. GSAP ScrollTrigger to scrub the frames
+    const imageInfo = { frame: 0 };
+    gsap.to(imageInfo, {
+      frame: frameCount - 1,
+      snap: "frame", // Snap to whole numbers
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".hero-wrapper",
+        start: "top top",
+        end: "bottom bottom",
+        // SCRUB TWEAK: 
+        // 0.5 = nearly instant. 1.5 = adds a 1.5 second easing catch-up delay.
+        // If they scroll like a maniac, this gives the network an extra 1.5s 
+        // to finish downloading the target frame before the canvas demands it!
+        scrub: 1.5, 
+      },
+      onUpdate: () => {
+        // As the user scrolls, draw the correct frame to the canvas
+        const img = images[imageInfo.frame];
+        
+        // Only draw if the image has actually finished downloading
+        if (img && img.complete) {
+          ctx?.clearRect(0, 0, canvas.width, canvas.height);
+          ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+      },
+    });
+  });
+</script>
