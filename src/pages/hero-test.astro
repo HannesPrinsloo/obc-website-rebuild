@@ -1,27 +1,33 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroCanvas from "../components/sections/HeroCanvas.astro";
+import ImageCarousel from "../components/sections/ImageCarousel.astro";
+
+// Import images via Astro assets pipeline
+import img1 from "../assets/images/hero-test/home_img_1.webp";
+import img2 from "../assets/images/hero-test/home_img_2.webp";
+import img3 from "../assets/images/hero-test/home_img_3.webp";
+import img4 from "../assets/images/hero-test/home_img_4.webp";
+import img5 from "../assets/images/hero-test/home_img_5.webp";
+
+const carouselImages = [
+  { src: img1, alt: "OBC Store Environment 1" },
+  { src: img2, alt: "OBC Store Environment 2" },
+  { src: img3, alt: "OBC Store Environment 3" },
+  { src: img4, alt: "OBC Store Environment 4" },
+  { src: img5, alt: "OBC Store Environment 5" },
+];
 ---
 
 <BaseLayout title="Hero Test" hideFooter={true}>
   <!-- Our new experimental component -->
+  <!-- We have moved the text highlighting animation directly into the hero curtain to remove the dead space! -->
   <HeroCanvas />
 
-  <!-- Dummy content to allow scrolling past the hero -->
-  <div class="h-screen bg-brand-light flex items-center justify-center">
-    <div class="text-center">
-      <h2 class="text-4xl md:text-6xl text-brand-dark font-black uppercase mb-4">
-        Hero Animation Finished
-      </h2>
-      <p class="text-xl text-gray-600 font-bold tracking-widest">
-        This is the section below the hero.
-      </p>
-    </div>
-  </div>
-  
-  <div class="h-screen bg-brand-bg flex items-center justify-center">
-    <h2 class="text-2xl text-gray-400 font-bold uppercase tracking-widest">
-      Keep scrolling...
-    </h2>
+  <!-- Our new seamless image carousel -->
+  <!-- We use a negative margin here to pull the carousel natively up over the empty bottom-half of the hero curtain! -->
+  <!-- This completely fixes the layout without breaking the document's scroll height! -->
+  <div class="relative z-40 -mt-[35vh] bg-[#181818]">
+    <ImageCarousel images={carouselImages} />
   </div>
 </BaseLayout>
