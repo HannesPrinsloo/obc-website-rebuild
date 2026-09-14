@@ -1,0 +1,159 @@
+---
+import { Image } from "astro:assets";
+import groceriesImg from "../../assets/images/hero-test/products_groceries.webp";
+import fruitImg from "../../assets/images/hero-test/products_fruit.webp";
+import meatImg from "../../assets/images/hero-test/products_meat.webp";
+---
+
+<section
+  class="expect-more-section relative w-full overflow-hidden bg-brand-dark flex items-center justify-start min-h-[60vh] md:min-h-[90vh] pt-8 pb-24 md:pt-12 md:pb-32"
+>
+  <!-- Background Text -->
+  <div
+    class="absolute inset-0 flex items-center justify-end pr-6 md:pr-16 lg:pr-32 pointer-events-none select-none overflow-hidden"
+  >
+    <!-- Right-aligned text in the background -->
+    <h2
+      class="expect-more-text text-[#FFFFFF] opacity-15 font-black text-[18vw] md:text-[15vw] leading-[0.8] tracking-wide text-right"
+    >
+      <span class="font-semibold tracking-normal">EXPECT</span><br />BETTER
+    </h2>
+  </div>
+
+  <!-- Foreground Overlapping Images Cluster -->
+  <!-- Shifted to the left, slightly smaller overall footprint -->
+  <div
+    class="expect-cluster relative w-full max-w-[1100px] ml-4 md:ml-[5%] lg:ml-[8%] aspect-[4/3] md:aspect-[16/10] z-10 mt-12 md:mt-0"
+  >
+    <!-- 1. Groceries (Left, Back layer) -->
+    <div
+      class="expect-img-wrap absolute w-[65%] md:w-[65%] left-0 top-[10%] md:top-[10%] z-10 pointer-events-none"
+    >
+      <div class="expect-parallax-inner w-full h-full" data-speed="0.8">
+        <Image
+          src={groceriesImg}
+          alt="OBC Groceries"
+          class="w-full h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)]"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- 2. Meat (Bottom Right, Middle layer) -->
+    <div
+      class="expect-img-wrap absolute w-[85%] md:w-[82%] left-0 md:left-0 top-[40%] md:top-[38%] z-40 pointer-events-none"
+    >
+      <div class="expect-parallax-inner w-full h-full" data-speed="1.1">
+        <Image
+          src={meatImg}
+          alt="OBC Quality Meat"
+          class="w-full h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)]"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- 3. Fruit/Jars (Top Right, Front layer) -->
+    <div
+      class="expect-img-wrap absolute w-[50%] md:w-[45%] right-0 md:right-0 top-[25%] md:top-[15%] z-30 pointer-events-none"
+    >
+      <div class="expect-parallax-inner w-full h-full" data-speed="1.3">
+        <Image
+          src={fruitImg}
+          alt="OBC Fresh Produce"
+          class="w-full h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.6)]"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.querySelector(".expect-more-section");
+    if (!section) return;
+
+    const wraps = section.querySelectorAll(".expect-img-wrap");
+    const parallaxInners = section.querySelectorAll(".expect-parallax-inner");
+    const text = section.querySelector(".expect-more-text");
+
+    // 1. Initial State for Pop-Up
+    gsap.set(wraps, { y: window.innerHeight, opacity: 1 });
+
+    // 2. Entrance Animation
+    ScrollTrigger.create({
+      trigger: text,
+      start: "top 40%",
+      onEnter: () => {
+        gsap.to(wraps, {
+          y: 0,
+          duration: 1.2,
+          stagger: 0.1,
+          ease: "expo.out",
+          overwrite: "auto",
+        });
+      },
+    });
+
+    // 3. Parallax Scroll Speed Effect
+    parallaxInners.forEach((inner) => {
+      const speed = parseFloat(inner.getAttribute("data-speed") || "1");
+
+      gsap.to(inner, {
+        yPercent: -15 * speed,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+
+    // 4. 3D Magnetic Tilt Interaction
+    const cluster = section.querySelector(".expect-cluster") as HTMLElement;
+
+    gsap.set(cluster, { css: { pointerEvents: "auto" } });
+
+    cluster.addEventListener("mousemove", (e) => {
+      const rect = cluster.getBoundingClientRect();
+      const xPos = (e.clientX - rect.left) / rect.width - 0.5;
+      const yPos = (e.clientY - rect.top) / rect.height - 0.5;
+
+      wraps.forEach((wrap, i) => {
+        const intensity = (i + 1) * 15;
+
+        gsap.to(wrap, {
+          x: xPos * intensity,
+          y: yPos * intensity,
+          rotationY: xPos * 10,
+          rotationX: -yPos * 10,
+          duration: 0.8,
+          ease: "power2.out",
+          transformPerspective: 1000,
+          transformOrigin: "center center",
+        });
+      });
+    });
+
+    cluster.addEventListener("mouseleave", () => {
+      wraps.forEach((wrap) => {
+        gsap.to(wrap, {
+          x: 0,
+          y: 0,
+          rotationY: 0,
+          rotationX: 0,
+          duration: 1.2,
+          ease: "elastic.out(1, 0.3)",
+        });
+      });
+    });
+  });
+</script>

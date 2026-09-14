@@ -25,10 +25,12 @@
         >
           <span>Join the</span>
           <span>
-            <span class="text-white">Braai Nation</span><span class="text-brand-primary">.</span>
+            <span class="text-white">Braai Nation</span><span
+              class="text-brand-primary">.</span
+            >
           </span>
         </h1>
-        
+
         <a
           id="hero-promotions-btn"
           href="#promotions"
@@ -78,6 +80,52 @@
   </div>
 </div>
 
+<!-- Premium Loading Screen -->
+<div
+  id="hero-loader"
+  class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-brand-dark transition-opacity duration-700"
+>
+  <!-- Flame Icon Container -->
+  <div class="relative w-16 h-16 md:w-20 md:h-20 mb-6">
+    <!-- Background Flame (Dark) -->
+    <svg
+      class="absolute inset-0 w-full h-full text-[#181818]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M12.963 2.286a.75.75 0 0 0-1.071-.136 9.742 9.742 0 0 0-3.539 6.176 7.547 7.547 0 0 1-1.705-1.715.75.75 0 0 0-1.152-.082A9 9 0 1 0 15.68 4.534a7.46 7.46 0 0 1-2.717-2.248ZM15.75 14.25a3.75 3.75 0 1 1-7.313-1.172c.628.46 1.305.814 2.012 1.05A3.75 3.75 0 0 1 15.75 14.25Z"
+        clip-rule="evenodd"></path>
+    </svg>
+
+    <!-- Foreground Flame (Orange) filling up -->
+    <div
+      id="hero-loader-progress-container"
+      class="absolute inset-x-0 bottom-0 overflow-hidden transition-[height] duration-300 ease-linear"
+      style="height: 0%;"
+    >
+      <!-- SVG anchored to bottom to reveal naturally -->
+      <svg
+        class="absolute bottom-0 left-0 w-16 h-16 md:w-20 md:h-20 text-brand-primary"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.963 2.286a.75.75 0 0 0-1.071-.136 9.742 9.742 0 0 0-3.539 6.176 7.547 7.547 0 0 1-1.705-1.715.75.75 0 0 0-1.152-.082A9 9 0 1 0 15.68 4.534a7.46 7.46 0 0 1-2.717-2.248ZM15.75 14.25a3.75 3.75 0 1 1-7.313-1.172c.628.46 1.305.814 2.012 1.05A3.75 3.75 0 0 1 15.75 14.25Z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div
+    class="text-brand-light font-bold uppercase tracking-[0.2em] text-sm animate-pulse"
+  >
+    Loading...
+  </div>
+</div>
+
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -90,8 +138,14 @@
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
+    // Lock scrolling while loading
+    document.body.style.overflow = "hidden";
+
     const isMobile = window.innerWidth < 768;
-    const is4K = window.innerWidth >= 2560;
+    const isHighDPI = window.devicePixelRatio > 1.2;
+    // Serve 4K to ultra-wide screens OR large screens with High-DPI (e.g., MacBooks)
+    const is4K =
+      window.innerWidth >= 2560 || (window.innerWidth >= 1024 && isHighDPI);
 
     let basePath = "/hero/1080p/";
     if (isMobile) basePath = "/hero/mobile/";
@@ -112,12 +166,6 @@
       canvas.height = 1116;
     }
 
-    const firstImage = new Image();
-    firstImage.src = currentFrame(0);
-    firstImage.onload = () => {
-      ctx?.drawImage(firstImage, 0, 0, canvas.width, canvas.height);
-    };
-
     const connection = (navigator as any).connection;
     const isSlowNetwork =
       connection &&
@@ -128,10 +176,50 @@
       console.log("Slow network detected. Static hero loaded.");
     }
 
+    let loadedCount = 0;
+    // We only wait for a "safe threshold" of frames (e.g., 30) before hiding the loader.
+    // The rest will continue downloading silently in the background!
+    const framesRequiredToStart = isSlowNetwork ? 1 : Math.min(30, frameCount);
+
+    const updateProgress = () => {
+      loadedCount++;
+      // We still calculate progress based on the threshold
+      const progress = (loadedCount / framesRequiredToStart) * 100;
+      const progressContainer = document.getElementById(
+        "hero-loader-progress-container",
+      );
+
+      if (progressContainer && loadedCount <= framesRequiredToStart) {
+        progressContainer.style.height = `${progress}%`;
+      }
+
+      if (loadedCount === framesRequiredToStart) {
+        // Unlock scroll and fade out loader once the safe threshold is reached
+        const loader = document.getElementById("hero-loader");
+        if (loader) {
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.style.display = "none";
+            document.body.style.overflow = "";
+          }, 700);
+        }
+      }
+    };
+
+    const firstImage = new Image();
+    firstImage.onload = () => {
+      ctx?.drawImage(firstImage, 0, 0, canvas.width, canvas.height);
+      updateProgress();
+    };
+    firstImage.onerror = updateProgress;
+    firstImage.src = currentFrame(0);
+
     const images: HTMLImageElement[] = [firstImage];
     if (!isSlowNetwork) {
       for (let i = 1; i < frameCount; i++) {
         const img = new Image();
+        img.onload = updateProgress;
+        img.onerror = updateProgress; // Prevent loader from getting stuck
         img.src = currentFrame(i);
         images.push(img);
       }
@@ -181,7 +269,7 @@
           trigger: ".hero-wrapper",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1.5,
+          scrub: 2.5,
           onLeave: () => {
             canvas.style.display = "none";
           },
@@ -233,29 +321,29 @@
           ease: "none",
           duration: 8.5,
         },
-        0
+        0,
       );
 
       // Shrink the gap between the button and the heading container
       tl.to(
         "#hero-squish",
         {
-          gap: "0vh", 
+          gap: "0vh",
           ease: "none",
           duration: 8.5,
         },
-        0
+        0,
       );
 
       // Shrink the gap between the two text lines themselves
       tl.to(
         "#hero-heading-squish",
         {
-          gap: "0vh", 
+          gap: "0vh",
           ease: "none",
           duration: 8.5,
         },
-        0
+        0,
       );
 
       // 4. Sweep from Convex to Concave using your bezier

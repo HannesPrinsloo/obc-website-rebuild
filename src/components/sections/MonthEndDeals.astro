@@ -1,0 +1,156 @@
+---
+import { Image } from "astro:assets";
+import hoverButch from "../../assets/images/hero-test/hover_butch.webp";
+import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
+---
+
+<section class="month-end-deals w-full max-w-[1308px] mx-auto px-6 md:px-8 py-12 md:py-24 flex flex-col gap-6 md:gap-8">
+  
+  <!-- Butchery Button -->
+  <a 
+    href="/pdfs/butchery-specials.pdf" 
+    target="_blank" 
+    class="deal-btn relative flex items-center justify-between w-full rounded-2xl md:rounded-[20px] bg-brand-primary text-white py-6 md:py-8 lg:py-10 px-8 md:px-12 group origin-left"
+    data-hover-target="#hover-img-butch"
+  >
+    <div class="deal-content flex flex-col md:flex-row md:items-center gap-1 md:gap-3 opacity-0 scale-95 origin-left">
+      <span class="font-black uppercase text-2xl md:text-3xl lg:text-4xl tracking-wide">
+        BUTCHERY
+      </span>
+      <span class="font-normal text-white/90 uppercase text-xl md:text-3xl lg:text-4xl tracking-wide">
+        MONTH END DEALS
+      </span>
+    </div>
+    
+    <svg class="deal-content w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 opacity-0 scale-95 shrink-0 ml-4 group-hover:translate-x-2 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="7" y1="17" x2="17" y2="7"></line>
+      <polyline points="7 7 17 7 17 17"></polyline>
+    </svg>
+  </a>
+
+  <!-- Liquor Button -->
+  <a 
+    href="/pdfs/liquor-specials.pdf" 
+    target="_blank" 
+    class="deal-btn relative flex items-center justify-between w-full rounded-2xl md:rounded-[20px] bg-brand-primary text-white py-6 md:py-8 lg:py-10 px-8 md:px-12 group origin-left"
+    data-hover-target="#hover-img-liq"
+  >
+    <div class="deal-content flex flex-col md:flex-row md:items-center gap-1 md:gap-3 opacity-0 scale-95 origin-left">
+      <span class="font-black uppercase text-2xl md:text-3xl lg:text-4xl tracking-wide">
+        LIQUOR
+      </span>
+      <span class="font-normal text-white/90 uppercase text-xl md:text-3xl lg:text-4xl tracking-wide">
+        MONTH END DEALS
+      </span>
+    </div>
+    
+    <svg class="deal-content w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 opacity-0 scale-95 shrink-0 ml-4 group-hover:translate-x-2 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="7" y1="17" x2="17" y2="7"></line>
+      <polyline points="7 7 17 7 17 17"></polyline>
+    </svg>
+  </a>
+
+</section>
+
+<!-- Fixed Hover Images (Hidden by default, scaled down, isolated from document flow) -->
+<!-- Z-index 100 ensures they float above all other content on the page -->
+<div id="hover-img-butch" class="hover-follower fixed top-0 left-0 w-32 md:w-48 lg:w-64 pointer-events-none opacity-0 scale-0 z-[100] origin-top-left">
+  <Image src={hoverButch} alt="Butchery Specials" class="w-full h-auto drop-shadow-[0_20px_25px_rgba(0,0,0,0.8)] -rotate-6" />
+</div>
+
+<div id="hover-img-liq" class="hover-follower fixed top-0 left-0 w-32 md:w-48 lg:w-64 pointer-events-none opacity-0 scale-0 z-[100] origin-top-left">
+  <Image src={hoverLiq} alt="Liquor Specials" class="w-full h-auto drop-shadow-[0_20px_25px_rgba(0,0,0,0.8)] rotate-6" />
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.querySelector(".month-end-deals");
+    if (!section) return;
+
+    const btns = document.querySelectorAll(".deal-btn");
+
+    // 1. Entrance Animation
+    // Set initial state (shrunk to width 0 on the left axis)
+    gsap.set(btns, { scaleX: 0 });
+    
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top 65%", // Trigger when the top of the buttons reach 65% of viewport (higher up)
+      }
+    });
+
+    // Grow the orange backgrounds left to right
+    tl.to(btns, {
+      scaleX: 1,
+      duration: 1.2,
+      stagger: 0.2,
+      ease: "expo.out"
+    });
+
+    // Pop in the text and arrows
+    // We select deal-content specifically inside this section
+    const contents = section.querySelectorAll(".deal-content");
+    tl.to(contents, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.6,
+      stagger: 0.05,
+      ease: "back.out(1.5)"
+    }, "-=0.8"); // Start this slightly before the background finishes expanding
+
+    // 2. Mouse Follower Hover Effect
+    // We only attach this logic if the user has a fine pointer (like a mouse or trackpad)
+    // Touch devices (mobile/tablet) will ignore this completely.
+    if (window.matchMedia("(pointer: fine)").matches) {
+      btns.forEach((btn) => {
+        const targetId = btn.getAttribute("data-hover-target");
+        if (!targetId) return;
+        
+        const follower = document.querySelector(targetId) as HTMLElement;
+        if (!follower) return;
+
+        // Create GSAP quickTo functions for highly optimized, smooth cursor tracking
+        // 0.4s duration gives it that natural, organic "spring" trailing effect
+        const xTo = gsap.quickTo(follower, "x", { duration: 0.4, ease: "power3" });
+        const yTo = gsap.quickTo(follower, "y", { duration: 0.4, ease: "power3" });
+
+        btn.addEventListener("mouseenter", (e) => {
+          // Immediately place it near cursor BEFORE scaling up, so it doesn't fly in from the top left corner of the screen
+          const mouseEvent = e as MouseEvent;
+          gsap.set(follower, { x: mouseEvent.clientX + 15, y: mouseEvent.clientY + 15 });
+          
+          gsap.to(follower, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.4,
+            ease: "back.out(1.5)",
+            overwrite: "auto"
+          });
+        });
+
+        btn.addEventListener("mousemove", (e) => {
+          const mouseEvent = e as MouseEvent;
+          // Offset by 15px so the cursor itself doesn't cover the image
+          xTo(mouseEvent.clientX + 15);
+          yTo(mouseEvent.clientY + 15);
+        });
+
+        btn.addEventListener("mouseleave", () => {
+          gsap.to(follower, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.in",
+            overwrite: "auto"
+          });
+        });
+      });
+    }
+  });
+</script>

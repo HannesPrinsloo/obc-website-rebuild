@@ -2,8 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroCanvas from "../components/sections/HeroCanvas.astro";
 import ImageCarousel from "../components/sections/ImageCarousel.astro";
+import ExpectMore from "../components/sections/ExpectMore.astro";
+import MonthEndDeals from "../components/sections/MonthEndDeals.astro";
 
-// Import images via Astro assets pipeline
+// Import WebP assets explicitly for the Astro Image pipeline
 import img1 from "../assets/images/hero-test/home_img_1.webp";
 import img2 from "../assets/images/hero-test/home_img_2.webp";
 import img3 from "../assets/images/hero-test/home_img_3.webp";
@@ -29,5 +31,11 @@ const carouselImages = [
   <!-- This completely fixes the layout without breaking the document's scroll height! -->
   <div class="relative z-40 -mt-[35vh] bg-[#181818]">
     <ImageCarousel images={carouselImages} />
+    
+    <!-- The new Expect More overlapping images section -->
+    <ExpectMore />
+
+    <!-- The new Month End Deals buttons section -->
+    <MonthEndDeals />
   </div>
 </BaseLayout>
