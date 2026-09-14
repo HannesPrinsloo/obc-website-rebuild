@@ -1,0 +1,161 @@
+---
+import { Image } from "astro:assets";
+import storeFinderImg from "../../assets/images/hero-test/store_finder_img.webp";
+import blockmansDenImg from "../../assets/images/hero-test/blockmans_den_img.webp";
+---
+
+<section
+  class="w-full max-w-[1308px] mx-auto px-6 md:px-8 pb-24 flex flex-col gap-6 md:gap-8"
+>
+  <!-- Store Finder Section -->
+  <div
+    class="rounded-2xl md:rounded-[20px] bg-brand-primary flex flex-col md:flex-row items-center p-6 md:p-10 lg:p-12 gap-8 md:gap-12"
+  >
+    <!-- Text Content -->
+    <!-- order-2 on mobile (below image), order-1 on desktop (left) -->
+    <div
+      class="flex-1 flex flex-col justify-center items-center text-center text-white order-2 md:order-1 px-2 md:px-4"
+    >
+      <h3
+        class="text-lg lg:text-2xl font-black tracking-widest uppercase mb-2 md:mb-3 leading-none"
+      >
+        FIND AN OBC NEAR YOU
+      </h3>
+      <p class="text-xl md:text-2xl lg:text-3xl font-light leading-tight mb-8">
+        <span class="font-bold">We are growing, fast.</span> We're opening stores<br
+          class="hidden lg:block"
+        />
+        every month - if you don't already have an OBC<br
+          class="hidden lg:block"
+        />
+        near you, trust us we'll be there very soon.
+      </p>
+
+      <!-- Styled Link exactly like "ABOUT OBC" -->
+      <a
+        href="/store-finder"
+        class="text-xl lg:text-2xl font-bold relative inline-block group transition-opacity duration-300 ease-out text-white"
+      >
+        <span
+          class="inline-block transition-transform duration-300 ease-out group-hover:-skew-x-12"
+          >Store Finder</span
+        >
+        <span
+          class="absolute right-0 -bottom-1 w-full h-[2px] bg-white transition-all duration-300 ease-out group-hover:w-0"
+        ></span>
+      </a>
+    </div>
+
+    <!-- Image Content -->
+    <!-- order-1 on mobile (top), order-2 on desktop (right) -->
+    <div
+      class="parallax-container w-full max-w-[386px] shrink-0 aspect-[386/343] rounded-2xl overflow-hidden order-1 md:order-2 relative mx-auto md:mx-0"
+    >
+      <Image
+        src={storeFinderImg}
+        alt="OBC Butchery Store Front"
+        class="parallax-image absolute inset-0 w-full h-full object-cover"
+      />
+    </div>
+  </div>
+
+  <!-- Blockman's Den Section -->
+  <div
+    class="rounded-2xl md:rounded-[20px] bg-[#181818] flex flex-col md:flex-row items-center p-6 md:p-10 lg:p-12 gap-8 md:gap-12"
+  >
+    <!-- Image Content -->
+    <!-- order-1 on mobile (top), order-1 on desktop (left) -->
+    <div
+      class="parallax-container w-full max-w-[386px] shrink-0 aspect-[386/343] rounded-2xl overflow-hidden order-1 relative mx-auto md:mx-0"
+    >
+      <Image
+        src={blockmansDenImg}
+        alt="Blockman's Den"
+        class="parallax-image absolute inset-0 w-full h-full object-cover"
+      />
+    </div>
+
+    <!-- Text Content -->
+    <!-- order-2 on mobile (below image), order-2 on desktop (right) -->
+    <div
+      class="flex-1 flex flex-col justify-center items-center text-center text-white order-2 px-2 md:px-4"
+    >
+      <h3
+        class="text-lg lg:text-2xl font-black tracking-widest uppercase mb-2 md:mb-3 leading-none"
+      >
+        LEARN FROM OUR BLOCKMAN
+      </h3>
+      <p class="text-xl md:text-2xl lg:text-3xl font-light leading-tight mb-8">
+        Welcome to Blockman's Den, your go-to spot for<br
+          class="hidden lg:block"
+        />
+        mastering meat cuts. Our page breaks it down simply,<br
+          class="hidden lg:block"
+        />
+        from juicy steaks to tender roasts, let's learn with our<br
+          class="hidden lg:block"
+        />
+        master Blockman about the different cuts of meat!
+      </p>
+
+      <!-- Styled Link exactly like "ABOUT OBC" -->
+      <a
+        href="/blockmans-den"
+        class="text-xl lg:text-2xl font-bold relative inline-block group transition-opacity duration-300 ease-out text-white"
+      >
+        <span
+          class="inline-block transition-transform duration-300 ease-out group-hover:-skew-x-12"
+          >Blockman's Den</span
+        >
+        <span
+          class="absolute right-0 -bottom-1 w-full h-[2px] bg-white transition-all duration-300 ease-out group-hover:w-0"
+        ></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Match the link styles from index.astro */
+  .small-heading {
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Apply the zoom-out parallax effect to both images
+    const containers = document.querySelectorAll<HTMLElement>(
+      ".parallax-container",
+    );
+
+    containers.forEach((container) => {
+      const img = container.querySelector<HTMLElement>(".parallax-image");
+      if (!img) return;
+
+      // Start scaled up at 1.2 and scrub down to 1 as it scrolls through the viewport
+      gsap.fromTo(
+        img,
+        { scale: 1.2 },
+        {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+    });
+  });
+</script>

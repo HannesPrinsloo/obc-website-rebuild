@@ -34,7 +34,7 @@
         <a
           id="hero-promotions-btn"
           href="#promotions"
-          class="btn-outline card-btn inline-flex before:bg-[#181818] items-center justify-center bg-brand-primary text-brand-light font-bold px-8 py-3 md:px-10 md:py-4 rounded-full hover:bg-brand-primary border-brand-primary transition-colors uppercase tracking-[0.2em] pointer-events-auto text-[clamp(0.75rem,0.9vw,0.95rem)] [box-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)]"
+          class="btn-outline card-btn inline-flex before:bg-[#181818] items-center justify-center bg-brand-primary text-brand-light font-bold px-6 py-2 md:px-5 md:py-3 rounded-full hover:bg-brand-primary border-brand-primary transition-colors uppercase tracking-[0.2em] pointer-events-auto text-[clamp(0.75rem,0.9vw,0.95rem)] [box-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)]"
         >
           VIEW OUR PROMOTIONS
         </a>
@@ -80,14 +80,13 @@
   </div>
 </div>
 
-<!-- Premium Loading Screen -->
+<!-- Premium Loading Screen (DISABLED FOR NOW) -->
+<!--
 <div
   id="hero-loader"
   class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-brand-dark transition-opacity duration-700"
 >
-  <!-- Flame Icon Container -->
   <div class="relative w-16 h-16 md:w-20 md:h-20 mb-6">
-    <!-- Background Flame (Dark) -->
     <svg
       class="absolute inset-0 w-full h-full text-[#181818]"
       viewBox="0 0 24 24"
@@ -99,13 +98,11 @@
         clip-rule="evenodd"></path>
     </svg>
 
-    <!-- Foreground Flame (Orange) filling up -->
     <div
       id="hero-loader-progress-container"
       class="absolute inset-x-0 bottom-0 overflow-hidden transition-[height] duration-300 ease-linear"
       style="height: 0%;"
     >
-      <!-- SVG anchored to bottom to reveal naturally -->
       <svg
         class="absolute bottom-0 left-0 w-16 h-16 md:w-20 md:h-20 text-brand-primary"
         viewBox="0 0 24 24"
@@ -125,6 +122,7 @@
     Loading...
   </div>
 </div>
+-->
 
 <script>
   import { gsap } from "gsap";
@@ -138,8 +136,8 @@
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    // Lock scrolling while loading
-    document.body.style.overflow = "hidden";
+    // Lock scrolling while loading (DISABLED FOR NOW)
+    // document.body.style.overflow = "hidden";
 
     const isMobile = window.innerWidth < 768;
     const isHighDPI = window.devicePixelRatio > 1.2;
