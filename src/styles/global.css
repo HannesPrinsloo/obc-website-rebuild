@@ -173,3 +173,11 @@
     }
   }
 }
+@layer components {
+  @media (hover: hover) {
+    .btn-install-app:hover {
+      color: var(--color-brand-light) !important;
+      border-color: var(--color-brand-light) !important;
+    }
+  }
+}

@@ -18,16 +18,19 @@
       class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
     >
       <!-- The Dynamically Shrinking Container -->
-      <div id="hero-squish" class="flex flex-col items-center gap-[8vh]">
+      <div id="hero-squish" class="flex flex-col items-center gap-[8vh] opacity-0">
         <h1
           id="hero-heading-squish"
-          class="flex flex-col items-center text-brand-primary text-center font-black uppercase text-[clamp(4rem,8cqw,10rem)] leading-[0.8] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] gap-[4vh]"
+          class="flex flex-col items-center text-center uppercase leading-[0.85] gap-[1vh] md:gap-[2vh]"
         >
-          <span>Join the</span>
-          <span>
-            <span class="text-white">Braai Nation</span><span
-              class="text-brand-primary">.</span
-            >
+          <span class="block text-brand-primary font-medium text-[clamp(40px,10vw,140px)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)]">
+            JOIN THE
+          </span>
+          <span class="block text-white font-black text-[clamp(70px,18vw,240px)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%]">
+            BRAAI
+          </span>
+          <span class="block text-white font-black text-[clamp(70px,18vw,240px)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%] pl-[0.15em]">
+            NATION<span class="text-brand-primary">.</span>
           </span>
         </h1>
 
@@ -72,8 +75,6 @@
         >
           Experience the difference with OBC - the home of quality,
           affordability, and Kasi convenience. We’re more than just a butchery.
-          Our stores are stocked with everything from fresh produce to
-          groceries.
         </p>
       </div>
     </div>
@@ -259,6 +260,36 @@
         }
       };
 
+      // ENTRANCE ANIMATION (Matches thola-zonke.astro)
+      const heroHeading = document.querySelector("#hero-heading-squish");
+      if (heroHeading) {
+        if ((heroHeading as any)._splitEntrance) (heroHeading as any)._splitEntrance.revert();
+        const splitEntrance = new SplitText(heroHeading, {
+          type: "lines",
+          mask: "lines",
+          autoSplit: true,
+          onSplit: (self) => {
+            gsap.set("#hero-squish", { opacity: 1 });
+            gsap.from(self.lines, {
+              yPercent: 120,
+              duration: 1.2,
+              ease: "expo.out",
+              stagger: 0.05,
+              delay: 0.8,
+            });
+          },
+        });
+        (heroHeading as any)._splitEntrance = splitEntrance;
+      }
+
+      gsap.from("#hero-promotions-btn", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        ease: "power3.out",
+        delay: 0.6,
+      });
+
       // GSAP TIMELINE
       const imageInfo = { frame: 0 };
 
@@ -297,13 +328,13 @@
         0,
       );
 
-      // 2. Start the Convex Arc (Mask dips in the middle, pushing video down)
+      // 2. Start the Valley Arc (Sides move up first)
       tl.to(
         arcState,
         {
           side: 0,
           mid: 100,
-          ease: "power2.inOut",
+          ease: "power2.in", // Accelerate into the transition
           duration: 1.5,
           onUpdate: updatePath,
         },
@@ -311,13 +342,13 @@
       );
 
       // 3. Subtle Parallax and Line Spacing Squeeze on the Text
-      // This spans the entire duration of the scrub + curtain slide (8.5 total)
+      // This spans the entire duration of the scrub + curtain slide (8.0 total)
       tl.to(
         "#hero-text",
         {
           y: "15vh", // Subtly move down the screen
           ease: "none",
-          duration: 8.5,
+          duration: 8.0,
         },
         0,
       );
@@ -328,7 +359,7 @@
         {
           gap: "0vh",
           ease: "none",
-          duration: 8.5,
+          duration: 8.0,
         },
         0,
       );
@@ -339,37 +370,38 @@
         {
           gap: "0vh",
           ease: "none",
-          duration: 8.5,
+          duration: 8.0,
         },
         0,
       );
 
-      // 4. Sweep from Convex to Concave using your bezier
+      // 4. Sweep from Valley to Hill
       tl.to(
         arcState,
         {
           side: 100,
           mid: 0,
-          ease: "cubic-bezier(0.59, 0.22, 0.73, 0.67)",
+          ease: "power2.out", // Decelerate out of the transition
           duration: 2.5,
           onUpdate: updatePath,
         },
         5.5,
       );
 
-      // 5. Slide the Next Section up
+      // 5. Slide the Next Section up (Synchronized at 5.5!)
       tl.to(
         "#next-section",
         {
           yPercent: -100,
-          ease: "cubic-bezier(0.59, 0.22, 0.73, 0.67)",
+          ease: "power2.out", // Match the arc deceleration perfectly
           duration: 2.5,
         },
-        6.0,
+        5.5,
       );
 
       // 6. Highlight text!
-      // Setting stagger equal to duration ensures they run perfectly sequentially (one at a time)
+      // Synchronized to trigger just as the section finishes sliding up (5.5 + 2.5 = 8.0)
+      // Since it staggers, we trigger it at 6.7 so it begins sweeping mid-slide and finishes as we land
       if (masks.length > 0) {
         tl.to(
           masks,
@@ -379,7 +411,7 @@
             duration: 0.5,
             stagger: 0.5,
           },
-          7.2,
+          6.7,
         );
       }
     });

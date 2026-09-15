@@ -123,7 +123,7 @@ const bannerCarouselImages = [
       >
         We are bringing{" "}
         <span class="font-bold">quality, affordability & convenience</span><br
-        />to you Mzansi.<br /><span class="small-heading text-center"
+        />to you, Mzansi.<br /><span class="small-heading text-center"
           >#<span class="font-normal">THE</span>OBVIYASBETTER<span
             class="font-normal">CHOICE</span
           ></span
@@ -135,8 +135,42 @@ const bannerCarouselImages = [
     </div>
   </div>
 
-  <!-- Thola Zonke Rewards CTA - Sticky so the footer scrolls over it -->
-  <div class="sticky top-0 w-full z-0">
+  <!-- Thola Zonke Rewards CTA - Pinned so the footer scrolls over it -->
+  <div id="thola-cta-pin" class="w-full z-0 relative">
     <TholaZonkeCTA />
   </div>
 </BaseLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let ctaPinTrigger;
+
+  function initCtaPin() {
+    if (!document.getElementById("thola-cta-pin")) return;
+
+    if (ctaPinTrigger) {
+      ctaPinTrigger.kill();
+    }
+
+    ctaPinTrigger = ScrollTrigger.create({
+      trigger: "#thola-cta-pin",
+      start: "top top",
+      end: () => `+=${document.querySelector("footer")?.offsetHeight || 500}`,
+      pin: true,
+      pinSpacing: false,
+    });
+  }
+
+  document.addEventListener("astro:page-load", initCtaPin);
+
+  document.addEventListener("astro:before-swap", () => {
+    if (ctaPinTrigger) {
+      ctaPinTrigger.kill();
+      ctaPinTrigger = null;
+    }
+  });
+</script>

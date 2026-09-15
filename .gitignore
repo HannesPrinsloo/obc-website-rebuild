@@ -28,3 +28,6 @@ image-compress/
 
 # Work in progress that I might finish later
 src/components/react/BlockmansDenInteractive.tsx
+
+#docs
+docs/

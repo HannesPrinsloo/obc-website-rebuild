@@ -6,15 +6,15 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
 ---
 
 <section
-  class="expect-more-section relative w-full overflow-hidden bg-brand-dark flex items-center justify-start min-h-[60vh] md:min-h-[90vh] pt-8 pb-24 md:pt-12 md:pb-32"
+  class="expect-more-section relative w-full overflow-hidden bg-brand-dark flex flex-col md:flex-row items-center justify-start py-8 md:py-12"
 >
   <!-- Background Text -->
+  <!-- On mobile: static, stacked above products. On desktop: absolute, behind products -->
   <div
-    class="absolute inset-0 flex items-center justify-end pr-6 md:pr-16 lg:pr-32 pointer-events-none select-none overflow-hidden"
+    class="relative md:absolute md:inset-0 flex items-center justify-center md:justify-end pr-0 md:pr-16 lg:pr-32 pointer-events-none select-none overflow-hidden w-full"
   >
-    <!-- Right-aligned text in the background -->
     <h2
-      class="expect-more-text text-[#FFFFFF] opacity-15 font-black text-[18vw] md:text-[15vw] leading-[0.8] tracking-wide text-right"
+      class="expect-more-text text-[#FFFFFF] opacity-15 font-black text-[100px] md:text-[15vw] leading-[0.8] tracking-wide text-center md:text-right"
     >
       <span class="font-semibold tracking-normal">EXPECT</span><br />BETTER
     </h2>
@@ -23,7 +23,7 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
   <!-- Foreground Overlapping Images Cluster -->
   <!-- Shifted to the left, slightly smaller overall footprint -->
   <div
-    class="expect-cluster relative w-full max-w-[1100px] ml-4 md:ml-[5%] lg:ml-[8%] aspect-[4/3] md:aspect-[16/10] z-10 mt-12 md:mt-0"
+    class="expect-cluster relative w-full max-w-[1100px] ml-0 md:ml-[5%] lg:ml-[8%] aspect-[4/3] md:aspect-[16/10] z-10 -mt-20 md:mt-0"
   >
     <!-- 1. Groceries (Left, Back layer) -->
     <div
