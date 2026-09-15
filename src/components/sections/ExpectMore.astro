@@ -9,7 +9,6 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
   class="expect-more-section relative w-full overflow-hidden bg-brand-dark flex flex-col md:flex-row items-center justify-start py-8 md:py-12"
 >
   <!-- Background Text -->
-  <!-- On mobile: static, stacked above products. On desktop: absolute, behind products -->
   <div
     class="relative md:absolute md:inset-0 flex items-center justify-center md:justify-end pr-0 md:pr-16 lg:pr-32 pointer-events-none select-none overflow-hidden w-full"
   >
@@ -21,11 +20,9 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
   </div>
 
   <!-- Foreground Overlapping Images Cluster -->
-  <!-- Shifted to the left, slightly smaller overall footprint -->
   <div
     class="expect-cluster relative w-full max-w-[1100px] ml-0 md:ml-[5%] lg:ml-[8%] aspect-[4/3] md:aspect-[16/10] z-10 -mt-20 md:mt-0"
   >
-    <!-- 1. Groceries (Left, Back layer) -->
     <div
       class="expect-img-wrap absolute w-[65%] md:w-[65%] left-0 top-[10%] md:top-[10%] z-10 pointer-events-none"
     >
@@ -39,7 +36,6 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
       </div>
     </div>
 
-    <!-- 2. Meat (Bottom Right, Middle layer) -->
     <div
       class="expect-img-wrap absolute w-[85%] md:w-[82%] left-0 md:left-0 top-[40%] md:top-[38%] z-40 pointer-events-none"
     >
@@ -53,7 +49,6 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
       </div>
     </div>
 
-    <!-- 3. Fruit/Jars (Top Right, Front layer) -->
     <div
       class="expect-img-wrap absolute w-[50%] md:w-[45%] right-0 md:right-0 top-[25%] md:top-[15%] z-30 pointer-events-none"
     >
@@ -83,10 +78,8 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
     const parallaxInners = section.querySelectorAll(".expect-parallax-inner");
     const text = section.querySelector(".expect-more-text");
 
-    // 1. Initial State for Pop-Up
     gsap.set(wraps, { y: window.innerHeight, opacity: 1 });
 
-    // 2. Entrance Animation
     ScrollTrigger.create({
       trigger: text,
       start: "top 40%",
@@ -101,7 +94,6 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
       },
     });
 
-    // 3. Parallax Scroll Speed Effect
     parallaxInners.forEach((inner) => {
       const speed = parseFloat(inner.getAttribute("data-speed") || "1");
 
@@ -117,7 +109,6 @@ import meatImg from "../../assets/images/hero-test/products_meat.webp";
       });
     });
 
-    // 4. 3D Magnetic Tilt Interaction
     const cluster = section.querySelector(".expect-cluster") as HTMLElement;
 
     gsap.set(cluster, { css: { pointerEvents: "auto" } });

@@ -45,7 +45,6 @@ const items = [
   class="max-w-[1600px] w-full mx-auto py-[10vh] md:py-[22vh] px-4 md:px-12 bg-brand-bg"
 >
   <div class="relative w-full max-w-5xl xl:max-w-6xl mx-auto px-2 md:px-8" id="dept-icons-wrapper">
-    <!-- The horizontal line (hidden on mobile, visible on desktop) -->
     <div
       class="absolute top-[218px] left-0 right-0 h-[2px] bg-brand-dark hidden md:block z-0"
       id="dept-icons-line"
@@ -67,7 +66,6 @@ const items = [
               {item.title}
             </h4>
 
-            {/* Mobile line divider (shows only on mobile instead of the absolute line) */}
             <div class="w-full h-[2px] bg-brand-dark md:hidden mb-4 rounded-full" />
 
             <p class="font-display text-[16px] md:text-[19px] lg:text-[20px] leading-tight text-brand-dark px-2">
@@ -87,10 +85,8 @@ const items = [
   gsap.registerPlugin(ScrollTrigger);
 
   function init() {
-    // bail if this component isn't on the current page
     if (!document.querySelector("#dept-icons-wrapper")) return;
 
-    // Animate the horizontal line spanning across the section
     gsap.fromTo(
       "#dept-icons-line",
       { scaleX: 0, transformOrigin: "left center" },
@@ -105,7 +101,6 @@ const items = [
       },
     );
 
-    // Stagger fade-in-up for each icon item, left to right
     gsap.to(".dept-icon-item", {
       y: 0,
       opacity: 1,

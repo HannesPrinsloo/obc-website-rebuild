@@ -196,7 +196,6 @@ const links = [
     const deptContent = document.getElementById("dept-accordion-content");
     const deptIcon = document.getElementById("dept-accordion-icon");
 
-    // Accordion setup
     if (deptBtn && deptContent && deptIcon) {
       deptBtn.addEventListener("click", () => {
         const isOpen = deptContent.classList.contains("grid-rows-[1fr]");
@@ -231,7 +230,6 @@ const links = [
       drawer.classList.add("-translate-x-full");
       body.style.overflow = "";
 
-      // Also reset accordion when menu closes
       if (deptContent && deptIcon) {
         deptContent.classList.remove("grid-rows-[1fr]");
         deptContent.classList.add("grid-rows-[0fr]");

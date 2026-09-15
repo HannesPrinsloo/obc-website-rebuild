@@ -3,33 +3,27 @@
 ---
 
 <div class="hero-wrapper relative w-full h-[400vh]">
-  <!-- 
-    The sticky container stays pinned to the screen for the duration of the scroll.
-  -->
   <div class="sticky top-0 w-full h-screen overflow-hidden bg-brand-dark">
-    <!-- The Canvas where we draw the frames -->
     <canvas
       id="video-canvas"
       class="absolute inset-0 w-full h-full object-cover z-0"></canvas>
 
-    <!-- The Text Overlay -->
     <div
       id="hero-text"
       class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
     >
-      <!-- The Dynamically Shrinking Container -->
       <div id="hero-squish" class="flex flex-col items-center gap-[8vh] opacity-0">
         <h1
           id="hero-heading-squish"
-          class="flex flex-col items-center text-center uppercase leading-[0.85] gap-[1vh] md:gap-[2vh]"
+          class="flex flex-col items-center text-center font-sans tracking-wide uppercase leading-[0.85] gap-[1vh] md:gap-[2vh]"
         >
-          <span class="block text-brand-primary font-medium text-[clamp(40px,10vw,140px)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)]">
+          <span class="block text-brand-primary font-medium text-[clamp(2rem,5.2vw,7rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)]">
             JOIN THE
           </span>
-          <span class="block text-white font-black text-[clamp(70px,18vw,240px)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%]">
+          <span class="block text-white font-black text-[clamp(3.5rem,9vw,12rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%]">
             BRAAI
           </span>
-          <span class="block text-white font-black text-[clamp(70px,18vw,240px)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%] pl-[0.15em]">
+          <span class="block text-white font-black text-[clamp(3.5rem,9vw,12rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%] pl-[0.15em]">
             NATION<span class="text-brand-primary">.</span>
           </span>
         </h1>
@@ -44,13 +38,10 @@
       </div>
     </div>
 
-    <!-- The Next Section (Starts positioned exactly below the viewport) -->
     <div
       id="next-section"
       class="absolute top-full left-0 w-full h-screen bg-brand-dark z-30 flex flex-col items-center justify-center"
     >
-      <!-- SVG Mask is now the literal leading edge of the next section -->
-      <!-- Added bottom-[calc(100%-2px)] to overlap by 2px and eliminate the sub-pixel gap -->
       <svg
         class="absolute bottom-[calc(100%-2px)] left-0 w-full h-[25vh] md:h-[50vh] pointer-events-none"
         viewBox="0 0 100 100"
@@ -62,7 +53,6 @@
           d="M 0 100 L 0 100 Q 50 100 100 100 L 100 100 Z"></path>
       </svg>
 
-      <!-- We put the text physically ON the curtain, perfectly centered. Zero dead space. -->
       <div
         class="w-full max-w-6xl mx-auto px-6 md:px-8 flex flex-col items-center justify-center mt-[-10vh]"
       >
@@ -176,13 +166,10 @@
     }
 
     let loadedCount = 0;
-    // We only wait for a "safe threshold" of frames (e.g., 30) before hiding the loader.
-    // The rest will continue downloading silently in the background!
     const framesRequiredToStart = isSlowNetwork ? 1 : Math.min(30, frameCount);
 
     const updateProgress = () => {
       loadedCount++;
-      // We still calculate progress based on the threshold
       const progress = (loadedCount / framesRequiredToStart) * 100;
       const progressContainer = document.getElementById(
         "hero-loader-progress-container",
@@ -193,7 +180,6 @@
       }
 
       if (loadedCount === framesRequiredToStart) {
-        // Unlock scroll and fade out loader once the safe threshold is reached
         const loader = document.getElementById("hero-loader");
         if (loader) {
           loader.style.opacity = "0";
@@ -308,7 +294,6 @@
         },
       });
 
-      // 1. Scrub the Video (Timeline 0 to 6)
       tl.to(
         imageInfo,
         {
@@ -328,32 +313,28 @@
         0,
       );
 
-      // 2. Start the Valley Arc (Sides move up first)
       tl.to(
         arcState,
         {
           side: 0,
           mid: 100,
-          ease: "power2.in", // Accelerate into the transition
+          ease: "power2.in",
           duration: 1.5,
           onUpdate: updatePath,
         },
         4,
       );
 
-      // 3. Subtle Parallax and Line Spacing Squeeze on the Text
-      // This spans the entire duration of the scrub + curtain slide (8.0 total)
       tl.to(
         "#hero-text",
         {
-          y: "15vh", // Subtly move down the screen
+          y: "15vh",
           ease: "none",
           duration: 8.0,
         },
         0,
       );
 
-      // Shrink the gap between the button and the heading container
       tl.to(
         "#hero-squish",
         {
@@ -364,7 +345,6 @@
         0,
       );
 
-      // Shrink the gap between the two text lines themselves
       tl.to(
         "#hero-heading-squish",
         {
@@ -375,33 +355,28 @@
         0,
       );
 
-      // 4. Sweep from Valley to Hill
       tl.to(
         arcState,
         {
           side: 100,
           mid: 0,
-          ease: "power2.out", // Decelerate out of the transition
+          ease: "power2.out",
           duration: 2.5,
           onUpdate: updatePath,
         },
         5.5,
       );
 
-      // 5. Slide the Next Section up (Synchronized at 5.5!)
       tl.to(
         "#next-section",
         {
           yPercent: -100,
-          ease: "power2.out", // Match the arc deceleration perfectly
+          ease: "power2.out",
           duration: 2.5,
         },
         5.5,
       );
 
-      // 6. Highlight text!
-      // Synchronized to trigger just as the section finishes sliding up (5.5 + 2.5 = 8.0)
-      // Since it staggers, we trigger it at 6.7 so it begins sweeping mid-slide and finishes as we land
       if (masks.length > 0) {
         tl.to(
           masks,

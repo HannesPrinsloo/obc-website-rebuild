@@ -50,7 +50,6 @@
     @apply antialiased;
   }
 
-  /* Lenis recommended styling */
   html.lenis,
   html.lenis body {
     height: auto;
@@ -81,7 +80,6 @@
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 14px;
-  /* mobile */
   line-height: 18px;
   letter-spacing: 0.07em;
   color: var(--color-brand-dark);
@@ -113,7 +111,6 @@
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  /* responsive mobile */
   line-height: 1.15;
   color: #EFEEEE;
 
@@ -137,7 +134,6 @@
     color: #EFEFEF;
     font-family: var(--font-sans);
     font-weight: 700;
-    /* Adjust sizing away from hero - match Figma*/
     font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;

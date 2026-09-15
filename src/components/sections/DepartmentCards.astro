@@ -85,10 +85,9 @@ const processedCards = await Promise.all(
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 1rem;
-    max-width: 80rem; /* matches max-w-7xl */
+    max-width: 80rem;
     margin-inline: auto;
 
-    /* Hide scrollbars for native carousel look */
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -111,21 +110,18 @@ const processedCards = await Promise.all(
     position: relative;
     display: flex;
     flex-direction: column;
-    /* Mobile carousel sizing & snapping */
     flex: 0 0 85vw;
     scroll-snap-align: start;
 
     border-radius: 0.25rem;
-    overflow: hidden; /* clips the zooming image to card bounds */
+    overflow: hidden;
     text-decoration: none;
     cursor: pointer;
-    /* Aspect ratio: roughly 3:4 portrait — closest match to Figma */
     aspect-ratio: 3 / 4;
   }
 
   @media (width >= 768px) {
     .dept-card {
-      /* Reset carousel overrides for desktop grid */
       flex: none;
       width: auto;
     }
@@ -157,7 +153,6 @@ const processedCards = await Promise.all(
     bottom: 0;
     left: 0;
     right: 0;
-    /* Dark gradient for text legibility — no orange in default state */
     background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.5) 0%,
@@ -169,31 +164,28 @@ const processedCards = await Promise.all(
     flex-direction: column;
     gap: 0.75rem;
     isolation: isolate;
-    /* Extend the overlay taller so it covers bottom ~100% of the card */
     min-height: 100%;
     justify-content: flex-end;
-    align-items: center; /* Centers both the text and the button horizontally */
-    text-align: center; /* Centers any wrapping text */
+    align-items: center;
+    text-align: center;
   }
 
-  /* Orange fades in on hover — sits above gradient, below text */
   .card-overlay::before {
     content: "";
     position: absolute;
     inset: 0;
     background: var(--color-brand-primary);
-    opacity: 0; /* fully transparent by default */
-    transition: opacity 0.3s ease; /* quick fade in */
+    opacity: 0;
+    transition: opacity 0.3s ease;
     z-index: 0;
   }
 
   @media (hover: hover) {
     .dept-card:hover .card-overlay::before {
-      opacity: 1; /* fades fully in on hover */
+      opacity: 1;
     }
   }
 
-  /* Content sits above the gradient and the orange sweep */
   .card-title,
   .card-btn {
     position: relative;

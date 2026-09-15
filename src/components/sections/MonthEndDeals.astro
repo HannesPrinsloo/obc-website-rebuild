@@ -81,8 +81,6 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
   </a>
 </section>
 
-<!-- Fixed Hover Images (Hidden by default, scaled down, isolated from document flow) -->
-<!-- Z-index 100 ensures they float above all other content on the page -->
 <div
   id="hover-img-butch"
   class="hover-follower fixed top-0 left-0 w-32 md:w-48 lg:w-64 pointer-events-none opacity-0 scale-0 z-[100] origin-top-left"
@@ -117,18 +115,15 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
 
     const btns = document.querySelectorAll(".deal-btn");
 
-    // 1. Entrance Animation
-    // Set initial state (shrunk to width 0 on the left axis)
     gsap.set(btns, { scaleX: 0 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: "top 65%", // Trigger when the top of the buttons reach 65% of viewport (higher up)
+        start: "top 65%",
       },
     });
 
-    // Grow the orange backgrounds left to right
     tl.to(btns, {
       scaleX: 1,
       duration: 1.2,
@@ -136,8 +131,6 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
       ease: "expo.out",
     });
 
-    // Pop in the text and arrows
-    // We select deal-content specifically inside this section
     const contents = section.querySelectorAll(".deal-content");
     tl.to(
       contents,
@@ -149,11 +142,8 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
         ease: "back.out(1.5)",
       },
       "-=0.8",
-    ); // Start this slightly before the background finishes expanding
+    );
 
-    // 2. Mouse Follower Hover Effect
-    // We only attach this logic if the user has a fine pointer (like a mouse or trackpad)
-    // Touch devices (mobile/tablet) will ignore this completely.
     if (window.matchMedia("(pointer: fine)").matches) {
       btns.forEach((btn) => {
         const targetId = btn.getAttribute("data-hover-target");
@@ -162,8 +152,6 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
         const follower = document.querySelector(targetId) as HTMLElement;
         if (!follower) return;
 
-        // Create GSAP quickTo functions for highly optimized, smooth cursor tracking
-        // 0.4s duration gives it that natural, organic "spring" trailing effect
         const xTo = gsap.quickTo(follower, "x", {
           duration: 0.4,
           ease: "power3",
