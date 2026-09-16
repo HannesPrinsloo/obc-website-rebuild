@@ -129,6 +129,9 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
       duration: 1.2,
       stagger: 0.2,
       ease: "expo.out",
+      onComplete: () => {
+        gsap.set(btns, { transformOrigin: "center" });
+      },
     });
 
     const contents = section.querySelectorAll(".deal-content");
@@ -176,6 +179,13 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
             ease: "back.out(1.5)",
             overwrite: "auto",
           });
+
+          gsap.to(btn, {
+            scale: 0.99,
+            duration: 0.4,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
         });
 
         btn.addEventListener("mousemove", (e) => {
@@ -191,6 +201,13 @@ import hoverLiq from "../../assets/images/hero-test/hover_liq.webp";
             opacity: 0,
             duration: 0.3,
             ease: "power2.in",
+            overwrite: "auto",
+          });
+
+          gsap.to(btn, {
+            scale: 1,
+            duration: 0.4,
+            ease: "power2.out",
             overwrite: "auto",
           });
         });
