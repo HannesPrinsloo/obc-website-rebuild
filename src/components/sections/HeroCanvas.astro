@@ -18,15 +18,15 @@
       >
         <h1
           id="hero-heading-squish"
-          class="flex flex-col items-center text-center font-sans uppercase leading-[0.88] gap-[1vh] md:gap-[2vh]"
+          class="flex flex-col items-center text-center font-sans uppercase leading-[0.85] gap-[1vh] md:gap-[2vh]"
         >
           <span class="block text-brand-primary font-medium text-[clamp(2.8rem,5.2vw,7rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)]">
             JOIN THE
           </span>
-          <span class="block text-white font-black text-[clamp(4.9rem,9vw,12rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[3%]">
+          <span class="block text-white font-black text-[clamp(4.9rem,9vw,12rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%]">
             BRAAI
           </span>
-          <span class="block text-white font-black text-[clamp(4.9rem,9vw,12rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[3%] pl-[0.15em]">
+          <span class="block text-white font-black text-[clamp(4.9rem,9vw,12rem)] [text-shadow:5px_3px_3.4px_rgba(0,0,0,0.9)] -mt-[2%] pl-[0.15em]">
             NATION<span class="text-brand-primary">.</span>
           </span>
         </h1>
@@ -260,6 +260,19 @@
           autoSplit: true,
           onSplit: (self) => {
             gsap.set("#hero-squish", { opacity: 1 });
+            
+            // Expand GSAP masks (must override Tailwind's border-box to actually grow the mask)
+            self.lines.forEach((line) => {
+              const mask = line.parentNode as HTMLElement;
+              if (mask) {
+                mask.style.boxSizing = "content-box";
+                mask.style.paddingTop = "0.3em";
+                mask.style.marginTop = "-0.3em";
+                mask.style.paddingBottom = "0.3em";
+                mask.style.marginBottom = "-0.3em";
+              }
+            });
+
             gsap.from(self.lines, {
               yPercent: 120,
               duration: 1.2,
