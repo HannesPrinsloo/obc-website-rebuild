@@ -257,22 +257,11 @@
         const splitEntrance = new SplitText(heroHeading, {
           type: "lines",
           mask: "lines",
+          linesClass: "box-content py-[0.3em] -my-[0.3em]",
           autoSplit: true,
           onSplit: (self) => {
             gsap.set("#hero-squish", { opacity: 1 });
             
-            // Expand GSAP masks (must override Tailwind's border-box to actually grow the mask)
-            self.lines.forEach((line) => {
-              const mask = line.parentNode as HTMLElement;
-              if (mask) {
-                mask.style.boxSizing = "content-box";
-                mask.style.paddingTop = "0.3em";
-                mask.style.marginTop = "-0.3em";
-                mask.style.paddingBottom = "0.3em";
-                mask.style.marginBottom = "-0.3em";
-              }
-            });
-
             gsap.from(self.lines, {
               yPercent: 120,
               duration: 1.2,
