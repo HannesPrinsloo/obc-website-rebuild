@@ -290,6 +290,14 @@ for (const [animalKey, cutsArray] of Object.entries(blockmansData)) {
         </button>
     </div>
 
+    <!-- Cursor following "Click" tooltip -->
+    <div
+        id="click-tooltip"
+        class="fixed top-0 left-0 pointer-events-none opacity-0 scale-0 z-[200] bg-brand-dark text-brand-primary font-bold py-1 px-3 rounded-full text-sm origin-center shadow-lg"
+    >
+        CLICK ME!
+    </div>
+
     <div class="fixed bottom-4 right-4 z-50 group pointer-events-auto">
         <button
             class="w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center border border-white/20 hover:bg-black/80 transition-colors tooltip-trigger"

@@ -244,6 +244,11 @@ const links = [
     openBtn.addEventListener("click", openMenu);
     closeBtn.addEventListener("click", closeMenu);
     overlay.addEventListener("click", closeMenu);
+
+    const menuLinks = drawer.querySelectorAll("a");
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
   }
   // Astro keeps catching me out with this one because of clientRouter/view-transitions
   document.addEventListener("astro:page-load", setupMenu);

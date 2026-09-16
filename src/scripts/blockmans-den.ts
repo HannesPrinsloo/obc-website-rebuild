@@ -18,6 +18,60 @@ document.addEventListener("astro:page-load", () => {
     const masterData = JSON.parse(dataStore.textContent || "{}");
     let activeAnimal = "";
 
+    const clickTooltip = document.getElementById("click-tooltip");
+    if (clickTooltip && window.matchMedia("(pointer: fine)").matches) {
+        const xTo = gsap.quickTo(clickTooltip, "x", { duration: 0.2, ease: "power3" });
+        const yTo = gsap.quickTo(clickTooltip, "y", { duration: 0.2, ease: "power3" });
+
+        cards.forEach((card) => {
+            card.addEventListener("mouseenter", (e: Event) => {
+                const mouseEvent = e as MouseEvent;
+                if (document.querySelector(".animal-card.clicked")) return;
+
+                gsap.set(clickTooltip, {
+                    x: mouseEvent.clientX + 15,
+                    y: mouseEvent.clientY + 15,
+                });
+
+                gsap.to(clickTooltip, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "back.out(1.5)",
+                    overwrite: "auto",
+                });
+            });
+
+            card.addEventListener("mousemove", (e: Event) => {
+                if (document.querySelector(".animal-card.clicked")) return;
+                const mouseEvent = e as MouseEvent;
+                xTo(mouseEvent.clientX + 15);
+                yTo(mouseEvent.clientY + 15);
+            });
+
+            card.addEventListener("mouseleave", () => {
+                gsap.to(clickTooltip, {
+                    opacity: 0,
+                    scale: 0,
+                    duration: 0.2,
+                    ease: "power2.in",
+                    overwrite: "auto",
+                });
+            });
+
+            card.addEventListener("click", () => {
+                gsap.to(clickTooltip, {
+                    opacity: 0,
+                    scale: 0,
+                    duration: 0.2,
+                    ease: "power2.in",
+                    overwrite: "auto",
+                });
+            });
+        });
+    }
+
+
     cards.forEach((card) => {
         card.addEventListener("mouseenter", () => {
             if (window.innerWidth < 768) return;
