@@ -21,10 +21,10 @@ import blockmansDenImg from "../../assets/images/hero-test/blockmans_den_img.web
         FIND AN OBC NEAR YOU
       </h3>
       <p class="text-xl md:text-2xl lg:text-3xl font-light leading-tight">
-        <span class="font-bold">We are growing, fast.</span> We're opening stores<br
-          class="hidden lg:block"
-        />
-        every month - if you don't already have an OBC<br
+        <span class="font-bold">We are growing, fast.</span> We're opening stores
+        &nbsp;
+        <br class="hidden lg:block" />
+        every month - if you don't already have an OBC <br
           class="hidden lg:block"
         />
         near you, trust us we'll be there very soon.
@@ -82,13 +82,13 @@ import blockmansDenImg from "../../assets/images/hero-test/blockmans_den_img.web
         LEARN FROM OUR BLOCKMAN
       </h3>
       <p class="text-xl md:text-2xl lg:text-3xl font-light leading-tight">
-        Welcome to Blockman's Den, your go-to spot for<br
+        Welcome to Blockman's Den, your go-to spot for <br
           class="hidden lg:block"
         />
-        mastering meat cuts. Our page breaks it down simply,<br
+        mastering meat cuts. Our page breaks it down simply, <br
           class="hidden lg:block"
         />
-        from juicy steaks to tender roasts, let's learn with our<br
+        from juicy steaks to tender roasts, let's learn with our <br
           class="hidden lg:block"
         />
         master Blockman about the different cuts of meat!
@@ -111,8 +111,6 @@ import blockmansDenImg from "../../assets/images/hero-test/blockmans_den_img.web
   </div>
 </section>
 
-
-
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -128,33 +126,39 @@ import blockmansDenImg from "../../assets/images/hero-test/blockmans_den_img.web
 
       gsap.set(block, {
         scaleX: isDesktop ? 0 : 1,
-        scaleY: isDesktop ? 1 : 0
+        scaleY: isDesktop ? 1 : 0,
       });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: block,
           start: "top 75%",
-        }
+        },
       });
 
       tl.to(block, {
         scaleX: 1,
         scaleY: 1,
         duration: 1.2,
-        ease: "expo.out"
+        ease: "expo.out",
       });
 
-      tl.to(contents, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "back.out(1.5)"
-      }, "-=0.8");
+      tl.to(
+        contents,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "back.out(1.5)",
+        },
+        "-=0.8",
+      );
     });
 
-    const containers = document.querySelectorAll<HTMLElement>(".parallax-container");
+    const containers = document.querySelectorAll<HTMLElement>(
+      ".parallax-container",
+    );
 
     containers.forEach((container) => {
       const img = container.querySelector<HTMLElement>(".parallax-image");
