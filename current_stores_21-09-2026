@@ -1,4 +1,4 @@
-{
+const storesData = {
     "Eastern Cape": [
         {
             "Province": "Eastern Cape",
@@ -10,9 +10,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -32.9256869,
-            "longitude": 27.74761
+            "Liquor": "No"
         },
         {
             "Province": "Eastern Cape",
@@ -24,9 +22,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -33.313414,
-            "longitude": 26.532946
+            "Liquor": "No"
         },
         {
             "Province": "Eastern Cape",
@@ -38,9 +34,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -32.1037141,
-            "longitude": 28.2972425
+            "Liquor": "No"
         },
         {
             "Province": "Eastern Cape",
@@ -52,9 +46,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -32.874923,
-            "longitude": 27.3905504
+            "Liquor": "No"
         },
         {
             "Province": "Eastern Cape",
@@ -66,9 +58,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -30.902611,
-            "longitude": 29.00391
+            "Liquor": "No"
         },
         {
             "Province": "Eastern Cape",
@@ -80,9 +70,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "Yes",
-            "latitude": -31.5869728,
-            "longitude": 28.7944846
+            "Liquor": "Yes"
         },
         {
             "Province": "Eastern Cape",
@@ -94,9 +82,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -31.9028345,
-            "longitude": 26.8736767
+            "Liquor": "No"
         },
         {
             "Province": "Eastern Cape",
@@ -108,9 +94,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -30.5302234,
-            "longitude": 27.3743512
+            "Liquor": "No"
         }
     ],
     "Free State": [
@@ -124,9 +108,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -28.233066,
-            "longitude": 28.3103366
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -138,9 +120,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -29.1421255,
-            "longitude": 26.2544331
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -152,9 +132,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -27.3770371,
-            "longitude": 26.622842
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -166,9 +144,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -27.2404145,
-            "longitude": 27.5745991
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -180,9 +156,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -27.6614036,
-            "longitude": 27.2348823
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -194,9 +168,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -27.6693113,
-            "longitude": 27.1948453
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -208,9 +180,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.902093,
-            "longitude": 27.455997
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -222,9 +192,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -28.5309697,
-            "longitude": 28.8307922
+            "Liquor": "No"
         },
         {
             "Province": "Free State",
@@ -236,9 +204,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -28.5332598,
-            "longitude": 28.804712
+            "Liquor": "No"
         }
     ],
     "Gauteng": [
@@ -248,13 +214,11 @@
             "Store Name": "Benoni",
             "Phone Number": "076 677 5136",
             "Address": "Shop #3, Lakeside Square (Old Cash Build, next to Boxer), Benoni",
-            "Trading Hours": "<p>Mon to Fri: 07:30 – 18:00<br>Sat: 07:30 - 17:00<br>Sun: 08:30 - 13:00</p>",
+            "Trading Hours": "<p>Mon to Fri: 07:30 \u2013 18:00<br>Sat: 07:30 - 17:00<br>Sun: 08:30 - 13:00</p>",
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.1848434,
-            "longitude": 28.3289913
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -266,23 +230,19 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "Yes",
-            "latitude": -26.1528514,
-            "longitude": 28.417609
+            "Liquor": "Yes"
         },
         {
             "Province": "Gauteng",
             "Region": "Carletonville",
-            "Store Name": "Carletonville",
+            "Store Name": "OBC Carletonville",
             "Phone Number": "0861 622 622 (Head Office)",
             "Address": "96 Onyx Drive, Carletonville (in the MBT petrol port)",
             "Trading Hours": "<p>Mon to Sun: 05:00 - 21:00</p>",
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.3605769,
-            "longitude": 27.3813179
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -290,13 +250,11 @@
             "Store Name": "Mall@55",
             "Phone Number": "0861 622 622",
             "Address": "Mall@55, Cnr R55 & Marais Ave, Olievenhoutbosch, Centurion",
-            "Trading Hours": "<p>Mon to Sat: 08:00 – 18:00<br>Sun: 08:00 – 14:00</p>",
+            "Trading Hours": "<p>Mon to Sat: 08:00 \u2013 18:00<br>Sun: 08:00 \u2013 14:00</p>",
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -25.8858269,
-            "longitude": 28.1038444
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -308,9 +266,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.9317438,
-            "longitude": 27.9951743
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -322,9 +278,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.3617437,
-            "longitude": 28.14997
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -336,9 +290,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.103238,
-            "longitude": 28.44709
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -350,9 +302,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.4037174,
-            "longitude": 28.2815311
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -364,9 +314,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.1333676,
-            "longitude": 27.9859292
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -378,9 +326,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.188151,
-            "longitude": 28.0459444
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -392,9 +338,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.2467236,
-            "longitude": 28.0950102
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -406,9 +350,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.48702115966648,
-            "longitude": 28.00686661652085
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -420,9 +362,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -25.7102445,
-            "longitude": 28.4007862
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -434,9 +374,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "Yes",
-            "latitude": -25.6716187,
-            "longitude": 28.1107663
+            "Liquor": "Yes"
         },
         {
             "Province": "Gauteng",
@@ -448,9 +386,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.1893403,
-            "longitude": 28.1612691
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -462,9 +398,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.1407971,
-            "longitude": 27.86254
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -476,9 +410,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.4974869,
-            "longitude": 28.0935527
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -490,9 +422,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.5962717,
-            "longitude": 28.0849211
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -504,9 +434,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.2639753,
-            "longitude": 27.8911952
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -518,9 +446,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.2122959,
-            "longitude": 27.8696662
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -532,9 +458,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.2434355,
-            "longitude": 27.8829725
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -546,9 +470,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.2861904,
-            "longitude": 27.8485686
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -560,9 +482,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.2728453,
-            "longitude": 27.8648424
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -574,9 +494,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.0058292,
-            "longitude": 28.24857
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -588,9 +506,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.0237562,
-            "longitude": 28.202313
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -602,9 +518,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.3454623,
-            "longitude": 28.1816593
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -616,9 +530,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.2102469,
-            "longitude": 27.6948052
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -630,9 +542,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.3204999,
-            "longitude": 27.6469677
+            "Liquor": "No"
         },
         {
             "Province": "Gauteng",
@@ -644,9 +554,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.0637575,
-            "longitude": 27.904788
+            "Liquor": "No"
         }
     ],
     "KwaZulu-Natal": [
@@ -660,9 +568,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -29.7207544,
-            "longitude": 30.9755352
+            "Liquor": "No"
         },
         {
             "Province": "KwaZulu-Natal",
@@ -674,9 +580,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -28.7580256,
-            "longitude": 31.90150269999999
+            "Liquor": "No"
         },
         {
             "Province": "KwaZulu-Natal",
@@ -688,9 +592,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -29.7272021,
-            "longitude": 30.98701329999999
+            "Liquor": "No"
         },
         {
             "Province": "KwaZulu-Natal",
@@ -702,9 +604,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -30.7385393,
-            "longitude": 30.4496774
+            "Liquor": "No"
         }
     ],
     "Limpopo": [
@@ -718,9 +618,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -24.668015,
-            "longitude": 30.324732
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -732,9 +630,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -23.3127019,
-            "longitude": 30.703424
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -746,9 +642,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -24.3591203,
-            "longitude": 30.6662687
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -760,9 +654,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -23.0043328,
-            "longitude": 30.6847128
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -774,9 +666,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -22.3812506,
-            "longitude": 30.0318547
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -788,9 +678,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -23.211568,
-            "longitude": 30.309836
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -802,9 +690,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -23.9276949,
-            "longitude": 31.0262935
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -816,9 +702,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -23.9496567,
-            "longitude": 31.1306167
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -830,9 +714,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -22.9007514,
-            "longitude": 30.188693
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -844,9 +726,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -22.9753246,
-            "longitude": 30.4587605
+            "Liquor": "No"
         },
         {
             "Province": "Limpopo",
@@ -858,9 +738,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -23.8307164,
-            "longitude": 30.160747
+            "Liquor": "No"
         }
     ],
     "Mpumalanga": [
@@ -874,9 +752,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -24.60585,
-            "longitude": 31.03975999999999
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -888,9 +764,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -24.8046215,
-            "longitude": 31.0855128
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -902,9 +776,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -25.0435259,
-            "longitude": 31.130367
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -916,9 +788,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -25.4361201,
-            "longitude": 31.9568057
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -930,9 +800,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.4364269,
-            "longitude": 31.9571448
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -944,9 +812,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.3990171,
-            "longitude": 28.7217427
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -958,9 +824,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.766589,
-            "longitude": 29.45796959999999
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -972,9 +836,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -25.4752984,
-            "longitude": 30.9694163
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -986,9 +848,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -25.6727277,
-            "longitude": 31.8482357
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -1000,9 +860,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.87755,
-            "longitude": 29.2098223
+            "Liquor": "No"
         },
         {
             "Province": "Mpumalanga",
@@ -1014,81 +872,21 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.8679252,
-            "longitude": 29.2114456
+            "Liquor": "No"
         }
     ],
     "North West": [
         {
             "Province": "North West",
-            "Region": "Potchefstroom",
-            "Store Name": "Potchefstroom",
-            "Phone Number": "018 297 1919",
-            "Address": "13 Gluckman Street",
-            "Trading Hours": "<p>Mon to Fri: 08:00 - 18:00<br>Sat: 08:00 - 17:00<br>Only open the last Sunday of the month: 08:00 -13:00</p>",
-            "Bakery": "Yes",
-            "Hot Foods": "No",
-            "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -26.7119603,
-            "longitude": 27.1005296
-        },
-        {
-            "Province": "North West",
-            "Region": "Moruleng",
-            "Store Name": "Moruleng",
-            "Phone Number": "012 346 7696",
-            "Address": "Moruleng Mall, Saulspoort, Main Hospital Road",
-            "Trading Hours": "<p>Mon to Fri: 08:00 - 19:00<br>Sat: 08:00 - 18:00<br>Sun: 08:00 - 17:00</p>",
-            "Bakery": "Yes",
-            "Hot Foods": "Yes",
-            "Fruit & Veg": "Yes",
-            "Liquor": "Yes",
-            "latitude": -25.164422,
-            "longitude": 27.168117
-        },
-        {
-            "Province": "North West",
-            "Region": "Mahikeng",
-            "Store Name": "Mahikeng",
-            "Phone Number": "018 000 5528",
-            "Address": "Victoria Crossing Shopping Centre, Corner of Nelson Mandela & Victoria Street, Golf View",
-            "Trading Hours": "<p>Mon to Sat: 06:30 - 19:00<br>Sun: 07:00 - 15:00</p>",
-            "Bakery": "No",
-            "Hot Foods": "No",
-            "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.836468,
-            "longitude": 25.6369558
-        },
-        {
-            "Province": "North West",
-            "Region": "Potchefstroom",
-            "Store Name": "Ikageng",
-            "Phone Number": "018 295 1245",
-            "Address": "6535, Lekhele Street",
-            "Trading Hours": "<p>Mon to Sat: 08:00 - 18:00<br>Sun: 08:00 - 15:00</p>",
-            "Bakery": "Yes",
-            "Hot Foods": "No",
-            "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.7208026,
-            "longitude": 27.0514493
-        },
-        {
-            "Province": "North West",
             "Region": "Brits",
             "Store Name": "Brits",
             "Phone Number": "087 265 0582",
-            "Address": "Shop #50, Koöperasie Street",
+            "Address": "Shop #50, Ko\u00f6perasie Street",
             "Trading Hours": "<p>Mon to Sun: 07:00 - 18:30</p>",
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -25.63179,
-            "longitude": 27.7828682
+            "Liquor": "No"
         },
         {
             "Province": "North West",
@@ -1100,9 +898,55 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.8945548,
-            "longitude": 26.5976094
+            "Liquor": "No"
+        },
+        {
+            "Province": "North West",
+            "Region": "Mahikeng",
+            "Store Name": "Mahikeng",
+            "Phone Number": "018 000 5528",
+            "Address": "Victoria Crossing Shopping Centre, Corner of Nelson Mandela & Victoria Street, Golf View",
+            "Trading Hours": "<p>Mon to Sat: 06:30 - 19:00<br>Sun: 07:00 - 15:00</p>",
+            "Bakery": "No",
+            "Hot Foods": "No",
+            "Fruit & Veg": "No",
+            "Liquor": "No"
+        },
+        {
+            "Province": "North West",
+            "Region": "Moruleng",
+            "Store Name": "Moruleng",
+            "Phone Number": "012 346 7696",
+            "Address": "Moruleng Mall, Saulspoort, Main Hospital Road",
+            "Trading Hours": "<p>Mon to Fri: 08:00 - 19:00<br>Sat: 08:00 - 18:00<br>Sun: 08:00 - 17:00</p>",
+            "Bakery": "Yes",
+            "Hot Foods": "Yes",
+            "Fruit & Veg": "Yes",
+            "Liquor": "Yes"
+        },
+        {
+            "Province": "North West",
+            "Region": "Potchefstroom",
+            "Store Name": "Ikageng",
+            "Phone Number": "018 295 1245",
+            "Address": "6535, Lekhele Street",
+            "Trading Hours": "<p>Mon to Sat: 08:00 - 18:00<br>Sun: 08:00 - 15:00</p>",
+            "Bakery": "Yes",
+            "Hot Foods": "No",
+            "Fruit & Veg": "No",
+            "Liquor": "No"
+        },
+        {
+            "Province": "North West",
+            "Region": "Potchefstroom",
+            "Store Name": "Potchefstroom",
+            "Phone Number": "018 297 1919",
+            "Address": "13 Gluckman Street",
+            "Trading Hours": "<p>Mon to Fri: 08:00 - 18:00<br>Sat: 08:00 - 17:00<br>Only open the last Sunday of the month: 08:00 -13:00</p>",
+            "Bakery": "Yes",
+            "Hot Foods": "No",
+            "Fruit & Veg": "Yes",
+            "Liquor": "No"
         },
         {
             "Province": "North West",
@@ -1114,9 +958,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -26.8393505,
-            "longitude": 26.7742765
+            "Liquor": "No"
         }
     ],
     "Northern Cape": [
@@ -1130,9 +972,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -30.7266432,
-            "longitude": 25.0931045
+            "Liquor": "No"
         },
         {
             "Province": "Northern Cape",
@@ -1144,9 +984,7 @@
             "Bakery": "No",
             "Hot Foods": "No",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -28.740302,
-            "longitude": 24.7631405
+            "Liquor": "No"
         },
         {
             "Province": "Northern Cape",
@@ -1158,9 +996,7 @@
             "Bakery": "No",
             "Hot Foods": "Yes",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -27.4567503,
-            "longitude": 23.4345122
+            "Liquor": "No"
         }
     ],
     "Western Cape": [
@@ -1174,9 +1010,7 @@
             "Bakery": "Yes",
             "Hot Foods": "Yes",
             "Fruit & Veg": "Yes",
-            "Liquor": "No",
-            "latitude": -33.9020821,
-            "longitude": 18.6407224
+            "Liquor": "No"
         },
         {
             "Province": "Western Cape",
@@ -1188,9 +1022,7 @@
             "Bakery": "Yes",
             "Hot Foods": "No",
             "Fruit & Veg": "No",
-            "Liquor": "No",
-            "latitude": -34.004723,
-            "longitude": 18.6052015
+            "Liquor": "No"
         }
     ]
-}
+};

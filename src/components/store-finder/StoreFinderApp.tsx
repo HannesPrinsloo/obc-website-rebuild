@@ -143,3 +143,5 @@ export default function StoreFinderApp({ apiKey }: { apiKey: string }) {
     </APIProvider>
   );
 }
+
+

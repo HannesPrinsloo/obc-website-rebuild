@@ -7,6 +7,13 @@ import path from 'path';
  */
 
 const DATA_FILE_PATH = path.resolve('./src/data/stores-data.json');
+
+try {
+    process.loadEnvFile();
+} catch (e) {
+    console.warn("⚠️  Warning: No .env file found or failed to load.");
+}
+
 const API_KEY = process.env.PUBLIC_GOOGLE_MAPS_API_KEY;
 
 if (!API_KEY) {
@@ -68,6 +75,10 @@ async function run() {
         for (let i = 0; i < stores.length; i++) {
             const store = stores[i];
             
+            if (store.latitude && store.longitude) {
+                continue;
+            }
+
             console.log(`   Geocoding ${store['Store Name']}...`);
             const precisionQuery = `${store['Store Name']} ${store.Address}, ${store.Region}, ${store.Province}`;
             const coords = await geocodeAddress(precisionQuery);
